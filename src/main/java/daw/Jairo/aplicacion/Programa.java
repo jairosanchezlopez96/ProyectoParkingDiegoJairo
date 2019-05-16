@@ -26,16 +26,16 @@ public class Programa {
         
         PlazaDAO daoPlaza = new PlazaDAO();
         List<PlazaVO> listaPlaza = new ArrayList<>();
-        listaPlaza.add(new PlazaVO(42,42.5,false,1));
-        listaPlaza.add(new PlazaVO(43,30.2,true,3));
-        PlazaVO p1 = new PlazaVO(32,0.1,false, 2);
-         PlazaVO p10 = new PlazaVO (4,30,true,1);
+        listaPlaza.add(new PlazaVO(42,42.5,1,1));
+        listaPlaza.add(new PlazaVO(43,30.2,2,3));
+        PlazaVO p1 = new PlazaVO(32,0.1,2, 2);
+         PlazaVO p10 = new PlazaVO (4,30,2,1);
              
         
         try {
             
- //           System.out.println("Nº plazas insertadas " + daoPlaza.insertPlaza(listaPlaza));
- //           System.out.println("-----------------------------------------");
+           System.out.println("Nº plazas insertadas " + daoPlaza.insertPlaza(listaPlaza));
+         System.out.println("-----------------------------------------");
          System.out.println("Comprobamos en una nueva lista que se recogen los datos desde la tabla.");
             List<PlazaVO> nuevaLista = daoPlaza.getAll();
             System.out.println("-------- Lista con datos recogidos desde la B.D -------------");
