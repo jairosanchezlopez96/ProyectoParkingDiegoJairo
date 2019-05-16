@@ -8,13 +8,13 @@ import java.time.LocalDate;
 public class VehiculoVO {
     private int codvehiculo;
     private String matricula;
-    private String tipo_vehiculo;
+    private int tipo_Vehiculo;
     private String descripcion;
 
-    public VehiculoVO(int codvehiculo, String matricula, String tipo_vehiculo, String descripcion) {
+    public VehiculoVO(int codvehiculo, String matricula, int tipo_Vehiculo, String descripcion) {
         this.codvehiculo = codvehiculo;
         this.matricula = matricula;
-        this.tipo_vehiculo = tipo_vehiculo;
+        this.tipo_Vehiculo = tipo_Vehiculo;
         this.descripcion = descripcion;
     }
 
@@ -38,12 +38,12 @@ public class VehiculoVO {
         this.matricula = matricula;
     }
 
-    public String getTipo_vehiculo() {
-        return tipo_vehiculo;
+    public int getTipo_Vehiculo() {
+        return tipo_Vehiculo;
     }
 
-    public void setTipo_vehiculo(String tipo_vehiculo) {
-        this.tipo_vehiculo = tipo_vehiculo;
+    public void setTipo_Vehiculo(int tipo_Vehiculo) {
+        this.tipo_Vehiculo = tipo_Vehiculo;
     }
 
     public String getDescripcion() {
@@ -56,7 +56,7 @@ public class VehiculoVO {
 
     @Override
     public String toString() {
-        return "VehiculoVO{" + "codvehiculo=" + codvehiculo + ", matricula=" + matricula + ", tipo_vehiculo=" + tipo_vehiculo + ", descripcion=" + descripcion + '}';
+        return "VehiculoVO{" + "codvehiculo=" + codvehiculo + ", matricula=" + matricula + ", tipo_vehiculo=" + tipo_Vehiculo + ", descripcion=" + descripcion + '}';
     }
 
     

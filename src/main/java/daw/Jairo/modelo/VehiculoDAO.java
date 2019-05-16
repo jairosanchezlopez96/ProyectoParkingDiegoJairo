@@ -37,7 +37,7 @@ public class VehiculoDAO implements IVehiculo {
                 p.setCodvehiculo(res.getInt("codvechiculo"));
                 p.setDescripcion("descrp");
                 p.setMatricula("matricula");
-                p.setTipo_vehiculo("tipo_vehiculo");
+                p.setTipo_Vehiculo(res.getInt("tipo_Vehiculo"));
 
                 //Añadimos el objeto a la lista
                 lista.add(p);
@@ -68,7 +68,7 @@ public class VehiculoDAO implements IVehiculo {
                 // Recogemos los datos del vehiculo, guardamos en un objeto
                 vehiculo.setCodvehiculo(res.getInt("codvechiculo"));
                 vehiculo.setMatricula("matricula");
-                vehiculo.setTipo_vehiculo("tipo_vehiculo");
+                vehiculo.setTipo_Vehiculo(res.getInt("tipo_Vehiculo"));
                 vehiculo.setDescripcion("descrp");
                 return vehiculo;
             }
@@ -95,7 +95,7 @@ public class VehiculoDAO implements IVehiculo {
                 // Establecemos los parámetros de la sentencia
                 prest.setInt(1, vehiculo.getCodvehiculo());
                 prest.setString(2, vehiculo.getMatricula());
-                prest.setString(3, vehiculo.getTipo_vehiculo());
+                prest.setInt(3, vehiculo.getTipo_Vehiculo());
                 prest.setString(4, vehiculo.getDescripcion());
 
                 numFilas = prest.executeUpdate();
@@ -156,7 +156,7 @@ public class VehiculoDAO implements IVehiculo {
     public int updateVehiculo(int codcli, VehiculoVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update Vehiculos set  codvehiculo = ?, matricula = ?, tipo_vehiculo= ?, descripcion= ? where codcli=? ";
+        String sql = "update Vehiculos set  codvehiculo = ?, matricula = ?, tipo_Vehiculo= ?, descripcion= ? where codcli=? ";
         
 
         if (findByCodVehiculo(codcli) == null) {
@@ -170,7 +170,7 @@ public class VehiculoDAO implements IVehiculo {
                 // Establecemos los parámetros de la sentencia
                 prest.setInt(1, nuevosDatos.getCodvehiculo());
                 prest.setString(2, nuevosDatos.getMatricula());
-                prest.setString(3, nuevosDatos.getTipo_vehiculo());
+                prest.setInt(3, nuevosDatos.getTipo_Vehiculo());
                 prest.setString(4, nuevosDatos.getDescripcion());
 
                 numFilas = prest.executeUpdate();
