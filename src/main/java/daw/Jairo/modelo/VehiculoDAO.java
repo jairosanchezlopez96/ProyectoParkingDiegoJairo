@@ -156,7 +156,7 @@ public class VehiculoDAO implements IVehiculo {
     public int updateVehiculo(int codcli, VehiculoVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update Vehiculos set  codvehiculo = ?, matricula = ?, tipo_Vehiculo= ?, descripcion= ? where codcli=? ";
+        String sql = "update Vehiculos set matricula = ?, tipo_Vehiculo= ?, descripcion= ? where codcli=? ";
         
 
         if (findByCodVehiculo(codcli) == null) {
