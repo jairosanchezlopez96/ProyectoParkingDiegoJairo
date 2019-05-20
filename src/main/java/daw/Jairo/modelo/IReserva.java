@@ -9,6 +9,6 @@ package daw.Jairo.modelo;
  *
  * @author whizrxt
  */
-public class IReserva {
+public interface IReserva {
     
 }
