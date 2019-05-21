@@ -25,8 +25,9 @@ import java.util.regex.Pattern;
  * @author Usuario
  */
 public class Singleton {
+    
     // empezamos con metodos para  hacer la copia de seguridad
-    public void EscribirPlaza( ArrayList<PlazaVO> lista , String idFichero){
+    public static void EscribirPlaza( ArrayList<PlazaVO> lista , String idFichero){
     
             try (ObjectOutputStream flujo = new ObjectOutputStream(new FileOutputStream(idFichero))) {
                 for(int i = 0 ; i < lista.size() ; i++){
@@ -38,7 +39,7 @@ public class Singleton {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }}
-     public void EscribirVehiculo( ArrayList<VehiculoVO> lista , String idFichero){
+     public  static void EscribirVehiculo( ArrayList<VehiculoVO> lista , String idFichero){
     
             try (ObjectOutputStream flujo = new ObjectOutputStream(new FileOutputStream(idFichero))) {
                  for(int i = 0 ; i < lista.size() ; i++){
@@ -50,7 +51,7 @@ public class Singleton {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }}
-     public void EscribirPines (ArrayList<PinesVO> lista, String idFichero){
+     public static void EscribirPines (ArrayList<PinesVO> lista, String idFichero){
          try (ObjectOutputStream flujo = new ObjectOutputStream(new FileOutputStream(idFichero))) {
                  for(int i = 0 ; i < lista.size() ; i++){
                 flujo.writeObject(lista.get(i));
@@ -64,7 +65,21 @@ public class Singleton {
      
      
      }
-      public void EscribirClientes (ArrayList<ClienteVO> lista, String idFichero){
+      public static void EscribirClientes (ArrayList<ClienteVO> lista, String idFichero){
+         try (ObjectOutputStream flujo = new ObjectOutputStream(new FileOutputStream(idFichero))) {
+                 for(int i = 0 ; i < lista.size() ; i++){
+                flujo.writeObject(lista.get(i));
+                flujo.flush();
+                 }
+            } catch (FileNotFoundException e) {
+                System.out.println("El fichero no existe");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+     
+     
+     }
+       public static void EscribirReservas (ArrayList<ReservaVO> lista, String idFichero){
          try (ObjectOutputStream flujo = new ObjectOutputStream(new FileOutputStream(idFichero))) {
                  for(int i = 0 ; i < lista.size() ; i++){
                 flujo.writeObject(lista.get(i));
