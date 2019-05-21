@@ -114,16 +114,17 @@ private Connection con = null;
     public int updateCliente(int pk, ClienteVO cliente) throws SQLException {
          int numFilas= 0;
           String sql = "update Cliente set nombre = ?, email = ?, tarjeta = ?, tipo_Abono=?, "
-                  + " fec_Fin_Abono =?, fec_In_Abono=? where num_Plaza=?";
+                  + " fec_Fin_Abono =?, fec_In_Abono=? where cod_Cliente=?";
           try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-               prest.setInt(1, cliente.getCod_Cliente());
-                prest.setString(2, cliente.getNombre());
-                prest.setString(3, cliente.getEmail());
-                prest.setString(4,cliente.getTarjeta());
-                 prest.setInt(5, cliente.getTipo_Abono());
-                 prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_fin_abono()));
-                  prest.setTimestamp(7, Timestamp.valueOf(cliente.getFec_in_abono()));
+              
+                prest.setString(1, cliente.getNombre());
+                prest.setString(2, cliente.getEmail());
+                prest.setString(3,cliente.getTarjeta());
+                 prest.setInt(4, cliente.getTipo_Abono());
+                 prest.setTimestamp(5, Timestamp.valueOf(cliente.getFec_fin_abono()));
+                  prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_in_abono()));
+                   prest.setInt(7, pk);
 
                 numFilas = prest.executeUpdate();
             }
