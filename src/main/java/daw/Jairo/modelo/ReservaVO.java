@@ -10,21 +10,24 @@ package daw.Jairo.modelo;
  * @author whizrxt
  */
 public class ReservaVO {
+
     private int num_Plaza;
     private int cod_Vehiculo;
     private int cod_Cliente;
     private int pin_fijo;
+    private double coste;
 
     public ReservaVO() {
     }
-    
-    public ReservaVO(int num_Plaza, int cod_Vehiculo, int cod_Cliente, int pin_fijo) {
+
+    public ReservaVO(int num_Plaza, int cod_Vehiculo, int cod_Cliente, int pin_fijo, double coste) {
         this.num_Plaza = num_Plaza;
         this.cod_Vehiculo = cod_Vehiculo;
         this.cod_Cliente = cod_Cliente;
         this.pin_fijo = pin_fijo;
+        this.coste = coste;
     }
-    
+
     public int getNum_Plaza() {
         return num_Plaza;
     }
@@ -57,10 +60,17 @@ public class ReservaVO {
         this.pin_fijo = pin_fijo;
     }
 
+    public double getCoste() {
+        return coste;
+    }
+
+    public void setCoste(double coste) {
+        this.coste = coste;
+    }
+
     @Override
     public String toString() {
-        return "ReservaVO{" + "num_Plaza=" + num_Plaza + ", cod_Vehiculo=" + cod_Vehiculo + ", cod_cliente=" + cod_Cliente + ", pin_fijo=" + pin_fijo + '}';
+        return "ReservaVO{" + "num_Plaza=" + num_Plaza + ", cod_Vehiculo=" + cod_Vehiculo + ", cod_Cliente=" + cod_Cliente + ", pin_fijo=" + pin_fijo + ", coste=" + coste + '}';
     }
-    
-    
+
 }
