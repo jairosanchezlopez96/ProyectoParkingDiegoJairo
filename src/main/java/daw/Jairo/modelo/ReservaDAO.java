@@ -54,7 +54,7 @@ public class ReservaDAO implements IReserva {
     @Override
     public int insertReserva(ReservaVO reserva) throws SQLException {
         int numFilas= 0;
-        String sql = "insert into Reserva values (?,?,?,?)";
+        String sql = "insert into Reserva values (?,?,?,?,?)";
 
             // Instanciamos el objeto PreparedStatement para inserción
             // de datos. Sentencia parametrizada
@@ -65,6 +65,7 @@ public class ReservaDAO implements IReserva {
                 prest.setInt(2, reserva.getCod_Vehiculo());
                 prest.setInt(3, reserva.getCod_Cliente());
                 prest.setInt(4,reserva.getPin_fijo());
+                prest.setDouble(5, reserva.getCoste());
 
                 numFilas = prest.executeUpdate();
             }
@@ -92,7 +93,7 @@ public class ReservaDAO implements IReserva {
     @Override
     public int updateReserva(int num_Plaza, ReservaVO nuevaReserva) throws SQLException {
         int numFilas = 0;
-        String sql = "update Reserva set cod_Vehiculo = ?, cod_Cliente = ?, pin_fijo = ? where num_Plaza=?";
+        String sql = "update Reserva set cod_Vehiculo = ?, cod_Cliente = ?, pin_fijo = ?, coste=? where num_Plaza=?";
 
        
             // Instanciamos el objeto PreparedStatement para inserción
@@ -104,6 +105,7 @@ public class ReservaDAO implements IReserva {
                 prest.setInt(2, nuevaReserva.getPin_fijo());
                 prest.setDouble(3, nuevaReserva.getCod_Cliente());
                 prest.setInt(4, num_Plaza);
+                prest.setDouble(5, nuevaReserva.getCoste());
 
                 numFilas = prest.executeUpdate();
             }
