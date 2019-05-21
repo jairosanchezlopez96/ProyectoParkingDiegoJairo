@@ -102,10 +102,10 @@ public class ReservaDAO implements IReserva {
 
                 // Establecemos los parámetros de la sentencia
                 prest.setInt(1, nuevaReserva.getCod_Vehiculo());
-                prest.setInt(2, nuevaReserva.getPin_fijo());
-                prest.setDouble(3, nuevaReserva.getCod_Cliente());
-                prest.setInt(4, num_Plaza);
-                prest.setDouble(5, nuevaReserva.getCoste());
+                prest.setInt(2, nuevaReserva.getCod_Cliente());
+                prest.setInt(3, nuevaReserva.getPin_fijo());
+                prest.setDouble(4, nuevaReserva.getCoste());
+                prest.setInt(5, num_Plaza);
 
                 numFilas = prest.executeUpdate();
             }
