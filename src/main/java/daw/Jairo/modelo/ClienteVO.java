@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 public class ClienteVO {
     private int cod_Cliente;
-    private LocalDateTime fec_Ini_Abono;
+    private LocalDateTime fec_In_Abono;
      
     private LocalDateTime fec_Fin_Abono;
     private String nombre;
@@ -24,7 +24,7 @@ public class ClienteVO {
 
     public ClienteVO(int cod_Cliente, LocalDateTime fec_in_abono, LocalDateTime fec_fin_abono, String nombre, String tarjeta, int tipo_Abono, String email) {
         this.cod_Cliente = cod_Cliente;
-        this.fec_Ini_Abono = fec_in_abono;
+        this.fec_In_Abono = fec_in_abono;
         this.fec_Fin_Abono = fec_fin_abono;
         this.nombre = nombre;
         this.tarjeta = tarjeta;
@@ -44,11 +44,11 @@ public class ClienteVO {
     }
 
     public LocalDateTime getFec_in_abono() {
-        return fec_Ini_Abono;
+        return fec_In_Abono;
     }
 
     public void setFec_in_abono(LocalDateTime fec_in_abono) {
-        this.fec_Ini_Abono = fec_in_abono;
+        this.fec_In_Abono = fec_in_abono;
     }
 
     public LocalDateTime getFec_fin_abono() {
@@ -93,7 +93,7 @@ public class ClienteVO {
 
     @Override
     public String toString() {
-        return "ClienteVO{" + "cod_Cliente=" + cod_Cliente + ", fec_in_abono=" + fec_Ini_Abono + ", fec_fin_abono=" + fec_Fin_Abono + ", nombre=" + nombre + ", tarjeta=" + tarjeta + ", tipo_Abono=" + tipo_Abono + ", email=" + email + '}';
+        return "ClienteVO{" + "cod_Cliente=" + cod_Cliente + ", fec_in_abono=" + fec_In_Abono + ", fec_fin_abono=" + fec_Fin_Abono + ", nombre=" + nombre + ", tarjeta=" + tarjeta + ", tipo_Abono=" + tipo_Abono + ", email=" + email + '}';
     }
     
     

@@ -44,7 +44,7 @@ private Connection con = null;
                 c.setEmail(res.getString("email"));
                 c.setNombre(res.getString("nombre"));
                
-                c.setFec_in_abono(res.getTimestamp("fec_Ini_Abono").toLocalDateTime());
+                c.setFec_in_abono(res.getTimestamp("fec_In_Abono").toLocalDateTime());
                 c.setFec_fin_abono(res.getTimestamp("fec_Fin_Abono").toLocalDateTime());
                  c.setTarjeta(res.getString("tarjeta"));
                 c.setTipo_Abono(res.getInt("tipo_Abono"));                 
@@ -95,17 +95,52 @@ private Connection con = null;
 
     @Override
     public int deleteCliente(ClienteVO cliente) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          int numFilas = 0;
+
+        String sql = "delete from Cliente where cod_Cliente = ?";
+
+        // Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(1, cliente.getCod_Cliente());
+            // Ejecutamos la sentencia
+            numFilas = prest.executeUpdate();
+        }
+        return numFilas;
     }
 
     @Override
-    public int updateCliente(int pk, ClienteVO nuevoCliente) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int updateCliente(int pk, ClienteVO cliente) throws SQLException {
+         int numFilas= 0;
+          String sql = "update Cliente set nombre = ?, email = ?, tarjeta = ?, tipo_Abono=?, "
+                  + " fec_Fin_Abono =?, fec_In_Abono=? where num_Plaza=?";
+          try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+               prest.setInt(1, cliente.getCod_Cliente());
+                prest.setString(2, cliente.getNombre());
+                prest.setString(3, cliente.getEmail());
+                prest.setString(4,cliente.getTarjeta());
+                 prest.setInt(5, cliente.getTipo_Abono());
+                 prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_fin_abono()));
+                  prest.setTimestamp(7, Timestamp.valueOf(cliente.getFec_in_abono()));
+
+                numFilas = prest.executeUpdate();
+            }
+            return numFilas;
     }
 
     @Override
     public int deleteCliente() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         String sql = "delete from Cliente";
+        int nfilas = 0 ;
+        
+        
+        try(Statement st = con.createStatement()){
+        
+        nfilas = st.executeUpdate(sql);
+        }
+        return nfilas;
     }
     
 }

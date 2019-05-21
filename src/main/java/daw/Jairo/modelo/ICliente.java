@@ -21,6 +21,6 @@ public interface ICliente {
     
   public  int deleteCliente (ClienteVO cliente) throws SQLException;
    // la pk es el num_Plaza
-    public int updateCliente (int pk, ClienteVO nuevoCliente) throws SQLException;
+    public int updateCliente (int pk, ClienteVO cliente) throws SQLException;
     public int deleteCliente() throws SQLException;
 }
