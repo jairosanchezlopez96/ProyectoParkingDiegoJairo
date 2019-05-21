@@ -12,16 +12,16 @@ package daw.Jairo.modelo;
 public class ReservaVO {
     private int num_Plaza;
     private int cod_Vehiculo;
-    private int cod_cliente;
+    private int cod_Cliente;
     private int pin_fijo;
 
     public ReservaVO() {
     }
     
-    public ReservaVO(int num_Plaza, int cod_Vehiculo, int cod_cliente, int pin_fijo) {
+    public ReservaVO(int num_Plaza, int cod_Vehiculo, int cod_Cliente, int pin_fijo) {
         this.num_Plaza = num_Plaza;
         this.cod_Vehiculo = cod_Vehiculo;
-        this.cod_cliente = cod_cliente;
+        this.cod_Cliente = cod_Cliente;
         this.pin_fijo = pin_fijo;
     }
     
@@ -41,12 +41,12 @@ public class ReservaVO {
         this.cod_Vehiculo = cod_Vehiculo;
     }
 
-    public int getCod_cliente() {
-        return cod_cliente;
+    public int getCod_Cliente() {
+        return cod_Cliente;
     }
 
-    public void setCod_cliente(int cod_cliente) {
-        this.cod_cliente = cod_cliente;
+    public void setCod_Cliente(int cod_Cliente) {
+        this.cod_Cliente = cod_Cliente;
     }
 
     public int getPin_fijo() {
@@ -59,7 +59,7 @@ public class ReservaVO {
 
     @Override
     public String toString() {
-        return "ReservaVO{" + "num_Plaza=" + num_Plaza + ", cod_Vehiculo=" + cod_Vehiculo + ", cod_cliente=" + cod_cliente + ", pin_fijo=" + pin_fijo + '}';
+        return "ReservaVO{" + "num_Plaza=" + num_Plaza + ", cod_Vehiculo=" + cod_Vehiculo + ", cod_cliente=" + cod_Cliente + ", pin_fijo=" + pin_fijo + '}';
     }
     
     
