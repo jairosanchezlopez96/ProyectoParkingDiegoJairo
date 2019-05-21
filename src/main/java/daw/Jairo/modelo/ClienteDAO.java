@@ -6,9 +6,11 @@
 package daw.Jairo.modelo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ private Connection con = null;
                
                 c.setFec_in_abono(res.getTimestamp("fec_Ini_Abono").toLocalDateTime());
                 c.setFec_fin_abono(res.getTimestamp("fec_Fin_Abono").toLocalDateTime());
+                 c.setTarjeta(res.getString("tarjeta"));
+                c.setTipo_Abono(res.getInt("tipo_Abono"));                 
              
                 //Añadimos el objeto a la lista
                 lista.add(c);
@@ -55,7 +59,25 @@ private Connection con = null;
 
     @Override
     public int insertCliente(ClienteVO cliente) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         int numFilas= 0;
+        String sql = "insert into Cliente values (?,?,?,?,?,?,?)";
+
+            // Instanciamos el objeto PreparedStatement para inserción
+            // de datos. Sentencia parametrizada
+            try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+                // Establecemos los parámetros de la sentencia
+                prest.setInt(1, cliente.getCod_Cliente());
+                prest.setString(2, cliente.getNombre());
+                prest.setString(3, cliente.getEmail());
+                prest.setString(4,cliente.getTarjeta());
+                 prest.setInt(5, cliente.getTipo_Abono());
+                 prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_fin_abono()));
+                  prest.setTimestamp(7, Timestamp.valueOf(cliente.getFec_in_abono()));
+
+                numFilas = prest.executeUpdate();
+            }
+            return numFilas;
     }
 
     @Override
