@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,13 +119,43 @@ private Connection con = null;
     }
 
     @Override
-    public int updatePin(int pk, PinesVO pin) throws SQLException {
-        
+    public int updatePin(int pk1, int pk2, LocalDate pk3, LocalTime pk4, PinesVO pin) throws SQLException {
+            int numFilas = 0;
+        String sql = "update Pines set pen_Desechable = ?,  coste = ?,fec_Fin_Pin_Hora = ?, fec_Fin_Pin_Dia = ? "
+                + "where fec_In_Pin_Hora=? AND fec_In_Pin_Dia=? AND num_plaza=? AND cod_Vehiculo=?";
+
+        // Instanciamos el objeto PreparedStatement para inserción
+        // de datos. Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+            // Establecemos los parámetros de la sentencia
+            prest.setString(1, pin.getPen_Desechable());
+                prest.setDouble(2, pin.getCoste());
+                prest.setTime(3, Time.valueOf(pin.getFec_Fin_Pin_Hora()));
+                prest.setDate(4,Date.valueOf(pin.getFec_Fin_Pin_Dia()));
+                prest.setDate(5, Date.valueOf(pk3));
+                 prest.setTime(6, Time.valueOf(pk4));
+                prest.setInt(7, pk1);
+                 prest.setInt(8, pk2);
+               
+
+            numFilas = prest.executeUpdate();
+        }
+        return numFilas;
     }
+    
 
     @Override
     public int deletePines() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       String sql = "delete from Pines";
+        int nfilas = 0 ;
+        
+        
+        try(Statement st = con.createStatement()){
+        
+        nfilas = st.executeUpdate(sql);
+        }
+        return nfilas;
     }
     
 }

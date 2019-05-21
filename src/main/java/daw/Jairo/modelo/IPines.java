@@ -6,6 +6,8 @@
 package daw.Jairo.modelo;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public interface IPines {
    
   public  int deletePines (PinesVO pines) throws SQLException;
    // la pk es el num_Plaza
-    public int updatePin (int pk, PinesVO pin) throws SQLException;
+    public int updatePin (int pk1, int pk2, LocalDate pk3, LocalTime pk4, PinesVO pin) throws SQLException;
    
     public int deletePines() throws SQLException;
     
