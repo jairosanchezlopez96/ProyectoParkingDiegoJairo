@@ -6,9 +6,11 @@
 package daw.Jairo.modelo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,12 +56,36 @@ private Connection con = null;
 
     @Override
     public int insertPin(PinesVO pin) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int numFilas= 0;
+        String sql = "insert into Pines values (?,?,?,?,?,?)";
+
+            // Instanciamos el objeto PreparedStatement para inserción
+            // de datos. Sentencia parametrizada
+            try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+                // Establecemos los parámetros de la sentencia
+                prest.setInt(1, pin.getCod_Vehiculo());
+                prest.setInt(2, pin.getNum_Plaza());
+                prest.setString(3, pin.getPen_Desechable());
+                prest.setDouble(4,pin.getCoste());
+                 
+                 prest.setTimestamp(5, Timestamp.valueOf(pin.getFec_Fin_Pin()));
+                  prest.setTimestamp(6, Timestamp.valueOf(pin.getFec_In_Pin()));
+
+                numFilas = prest.executeUpdate();
+            }
+            return numFilas;
     }
 
     @Override
     public int insertPines(List<PinesVO> pines) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         int numFilas = 0;
+
+        for (PinesVO tmp : pines) {
+            numFilas += insertPin(tmp);
+        }
+
+        return numFilas;
     }
 
     @Override
