@@ -50,6 +50,34 @@ public class Singleton {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }}
+     public void EscribirPines (ArrayList<PinesVO> lista, String idFichero){
+         try (ObjectOutputStream flujo = new ObjectOutputStream(new FileOutputStream(idFichero))) {
+                 for(int i = 0 ; i < lista.size() ; i++){
+                flujo.writeObject(lista.get(i));
+                flujo.flush();
+                 }
+            } catch (FileNotFoundException e) {
+                System.out.println("El fichero no existe");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+     
+     
+     }
+      public void EscribirClientes (ArrayList<ClienteVO> lista, String idFichero){
+         try (ObjectOutputStream flujo = new ObjectOutputStream(new FileOutputStream(idFichero))) {
+                 for(int i = 0 ; i < lista.size() ; i++){
+                flujo.writeObject(lista.get(i));
+                flujo.flush();
+                 }
+            } catch (FileNotFoundException e) {
+                System.out.println("El fichero no existe");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+     
+     
+     }
      // Añadir las dependencias de maven en el proyecto
 
 //    public static ArrayList<PlazaVO> leerFicheroPlaza(String url) {
