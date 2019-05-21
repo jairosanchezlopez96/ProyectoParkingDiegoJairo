@@ -82,8 +82,16 @@ private Connection con = null;
 
     @Override
     public int insertCliente(List<ClienteVO> cliente) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         int numFilas = 0;
+
+        for (ClienteVO tmp : cliente) {
+            numFilas += insertCliente(tmp);
+        }
+
+        return numFilas;
     }
+
+    
 
     @Override
     public int deleteCliente(ClienteVO cliente) throws SQLException {
