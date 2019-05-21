@@ -41,8 +41,7 @@ private Connection con = null;
                 p.setPen_Desechable(res.getString("pen_Desechable"));
                  p.setNum_Plaza(res.getInt("num_Vehiculo"));
                
-                p.setFec_Fin_Pin(res.getTimestamp("fec_Fin_Pin").toLocalDateTime());
-                p.setFec_In_Pin(res.getTimestamp("fec_In_Pin").toLocalDateTime());
+              
                  p.setCoste(res.getDouble("coste"));
                         
              
@@ -57,7 +56,7 @@ private Connection con = null;
     @Override
     public int insertPin(PinesVO pin) throws SQLException {
         int numFilas= 0;
-        String sql = "insert into Pines values (?,?,?,?,?,?)";
+        String sql = "insert into Pines values (?,?,?,?,?,?,?,?)";
 
             // Instanciamos el objeto PreparedStatement para inserción
             // de datos. Sentencia parametrizada
@@ -69,9 +68,7 @@ private Connection con = null;
                 prest.setString(3, pin.getPen_Desechable());
                 prest.setDouble(4,pin.getCoste());
                  
-                 prest.setTimestamp(5, Timestamp.valueOf(pin.getFec_Fin_Pin()));
-                  prest.setTimestamp(6, Timestamp.valueOf(pin.getFec_In_Pin()));
-
+                
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
@@ -109,7 +106,7 @@ private Connection con = null;
 
     @Override
     public int updatePin(int pk, PinesVO pin) throws SQLException {
-        
+        return 2;
     }
 
     @Override
