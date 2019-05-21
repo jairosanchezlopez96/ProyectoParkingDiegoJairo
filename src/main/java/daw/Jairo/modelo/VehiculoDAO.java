@@ -35,7 +35,6 @@ public class VehiculoDAO implements IVehiculo {
                 VehiculoVO p = new VehiculoVO();
                 // Recogemos los datos del vehiculo, guardamos en un objeto
                 p.setCodvehiculo(res.getInt("codvechiculo"));
-                p.setDescripcion("descrp");
                 p.setMatricula("matricula");
                 p.setTipo_Vehiculo(res.getInt("tipo_Vehiculo"));
 
@@ -69,7 +68,6 @@ public class VehiculoDAO implements IVehiculo {
                 vehiculo.setCodvehiculo(res.getInt("codvechiculo"));
                 vehiculo.setMatricula("matricula");
                 vehiculo.setTipo_Vehiculo(res.getInt("tipo_Vehiculo"));
-                vehiculo.setDescripcion("descrp");
                 return vehiculo;
             }
 
@@ -96,7 +94,6 @@ public class VehiculoDAO implements IVehiculo {
                 prest.setInt(1, vehiculo.getCodvehiculo());
                 prest.setString(2, vehiculo.getMatricula());
                 prest.setInt(3, vehiculo.getTipo_Vehiculo());
-                prest.setString(4, vehiculo.getDescripcion());
 
                 numFilas = prest.executeUpdate();
             }
@@ -114,25 +111,6 @@ public class VehiculoDAO implements IVehiculo {
         }
 
         return numFilas;
-    }
-
-    @Override
-    public int deleteVehiculo() throws SQLException {
-
-        String sql = "delete from Vehiculos";
-
-        int nfilas = 0;
-
-        // Preparamos el borrado de datos  mediante un Statement
-        // No hay parámetros en la sentencia SQL
-        try (Statement st = con.createStatement()) {
-            // Ejecución de la sentencia
-            nfilas = st.executeUpdate(sql);
-        }
-
-        // El borrado se realizó con éxito, devolvemos filas afectadas
-        return nfilas;
-
     }
 
     @Override
@@ -156,7 +134,7 @@ public class VehiculoDAO implements IVehiculo {
     public int updateVehiculo(int codcli, VehiculoVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update Vehiculos set matricula = ?, tipo_Vehiculo= ?, descripcion= ? where codcli=? ";
+        String sql = "update Vehiculos set matricula = ?, tipo_Vehiculo= ? where codcli=? ";
         
 
         if (findByCodVehiculo(codcli) == null) {
@@ -171,7 +149,6 @@ public class VehiculoDAO implements IVehiculo {
                 prest.setInt(1, nuevosDatos.getCodvehiculo());
                 prest.setString(2, nuevosDatos.getMatricula());
                 prest.setInt(3, nuevosDatos.getTipo_Vehiculo());
-                prest.setString(4, nuevosDatos.getDescripcion());
 
                 numFilas = prest.executeUpdate();
             }
