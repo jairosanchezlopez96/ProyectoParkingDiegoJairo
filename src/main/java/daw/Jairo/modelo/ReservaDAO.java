@@ -42,6 +42,7 @@ public class ReservaDAO implements IReserva {
                 p.setCod_Vehiculo(res.getInt("cod_Vehiculo"));
                 p.setCod_Cliente(res.getInt("cod_Cliente"));
                 p.setPin_fijo(res.getInt("pin_Fijo"));
+                p.setCoste(res.getDouble("coste"));
 
                 //Añadimos el objeto a la lista
                 lista.add(p);
@@ -76,13 +77,15 @@ public class ReservaDAO implements IReserva {
     public int deleteReserva(ReservaVO reserva) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from Reserva where num_Plaza = ?";
+        String sql = "delete from Reserva where num_Plaza = ? and  cod_Vehiculo = ? and cod_Cliente = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
 
             // Establecemos los parámetros de la sentencia
             prest.setInt(1, reserva.getNum_Plaza());
+            prest.setInt(2, reserva.getCod_Vehiculo());
+            prest.setInt(3, reserva.getCod_Cliente());
             // Ejecutamos la sentencia
             numFilas = prest.executeUpdate();
         }
@@ -91,9 +94,9 @@ public class ReservaDAO implements IReserva {
     }
 
     @Override
-    public int updateReserva(int num_Plaza, ReservaVO nuevaReserva) throws SQLException {
+    public int updateReserva(int num_Plaza, int cod_Cliente , int cod_Vehiculo, ReservaVO nuevaReserva) throws SQLException {
         int numFilas = 0;
-        String sql = "update Reserva set cod_Vehiculo = ?, cod_Cliente = ?, pin_fijo = ?, coste=? where num_Plaza=?";
+        String sql = "update Reserva set  pin_fijo = ?, coste=? where num_Plaza=? and cod_Vehiculo = ? and cod_Cliente = ?";
 
        
             // Instanciamos el objeto PreparedStatement para inserción
@@ -101,11 +104,11 @@ public class ReservaDAO implements IReserva {
             try (PreparedStatement prest = con.prepareStatement(sql)) {
 
                 // Establecemos los parámetros de la sentencia
-                prest.setInt(1, nuevaReserva.getCod_Vehiculo());
-                prest.setInt(2, nuevaReserva.getCod_Cliente());
-                prest.setInt(3, nuevaReserva.getPin_fijo());
-                prest.setDouble(4, nuevaReserva.getCoste());
-                prest.setInt(5, num_Plaza);
+                prest.setInt(4, cod_Vehiculo);
+                prest.setInt(5, cod_Cliente);
+                prest.setInt(1, nuevaReserva.getPin_fijo());
+                prest.setDouble(2, nuevaReserva.getCoste());
+                prest.setInt(3, num_Plaza);
 
                 numFilas = prest.executeUpdate();
             }
