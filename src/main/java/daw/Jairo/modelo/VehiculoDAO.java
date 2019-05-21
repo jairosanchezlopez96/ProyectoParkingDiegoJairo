@@ -34,7 +34,7 @@ public class VehiculoDAO implements IVehiculo {
             while (res.next()) {
                 VehiculoVO p = new VehiculoVO();
                 // Recogemos los datos del vehiculo, guardamos en un objeto
-                p.setCodvehiculo(res.getInt("codvechiculo"));
+                p.setCod_Vehiculo(res.getInt("cod_Vechiculo"));
                 p.setMatricula("matricula");
                 p.setTipo_Vehiculo(res.getInt("tipo_Vehiculo"));
 
@@ -46,34 +46,8 @@ public class VehiculoDAO implements IVehiculo {
         return lista;
     }
 
-    @Override
-    public VehiculoVO findByCodVehiculo(int codcli) throws SQLException {
-
-        ResultSet res = null;
-        VehiculoVO vehiculo = new VehiculoVO();
-
-        String sql = "select * from Vehiculos where codcli=?";
-
-        try (PreparedStatement prest = con.prepareStatement(sql)) {
-            // Preparamos la sentencia parametrizada
-            prest.setInt(1, codcli);
-
-            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
-            res = prest.executeQuery();
-
-            // Nos posicionamos en el primer registro del Resultset. Sólo debe haber una fila
-            // si existe ese codcli
-            if (res.first()) {
-                // Recogemos los datos del vehiculo, guardamos en un objeto
-                vehiculo.setCodvehiculo(res.getInt("codvechiculo"));
-                vehiculo.setMatricula("matricula");
-                vehiculo.setTipo_Vehiculo(res.getInt("tipo_Vehiculo"));
-                return vehiculo;
-            }
-
-            return null;
-        }
-    }
+   
+    
 
     @Override
     public int insertVehiculo(VehiculoVO vehiculo) throws SQLException {
@@ -81,17 +55,13 @@ public class VehiculoDAO implements IVehiculo {
         int numFilas = 0;
         String sql = "insert into Vehiculos values (?,?,?,?,?)";
 
-        if (findByCodVehiculo(vehiculo.getCodvehiculo()) != null) {
-            // Existe un registro con ese codcli
-            // No se hace la inserción
-            return numFilas;
-        } else {
+        
             // Instanciamos el objeto PreparedStatement para inserción
             // de datos. Sentencia parametrizada
             try (PreparedStatement prest = con.prepareStatement(sql)) {
 
                 // Establecemos los parámetros de la sentencia
-                prest.setInt(1, vehiculo.getCodvehiculo());
+                prest.setInt(1, vehiculo.getCod_Vehiculo());
                 prest.setString(2, vehiculo.getMatricula());
                 prest.setInt(3, vehiculo.getTipo_Vehiculo());
 
@@ -100,7 +70,7 @@ public class VehiculoDAO implements IVehiculo {
             return numFilas;
         }
 
-    }
+    
 
     @Override
     public int insertVehiculo(List<VehiculoVO> lista) throws SQLException {
@@ -117,13 +87,13 @@ public class VehiculoDAO implements IVehiculo {
     public int deleteVehiculo(VehiculoVO vehiculo) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from Vehiculos where codcli = ?";
+        String sql = "delete from Vehiculos where cod_Vehiculo = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
 
             // Establecemos los parámetros de la sentencia
-            prest.setInt(1, vehiculo.getCodvehiculo());
+            prest.setInt(1, vehiculo.getCod_Vehiculo());
             // Ejecutamos la sentencia
             numFilas = prest.executeUpdate();
         }
@@ -134,19 +104,16 @@ public class VehiculoDAO implements IVehiculo {
     public int updateVehiculo(int codcli, VehiculoVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update Vehiculos set matricula = ?, tipo_Vehiculo= ? where codcli=? ";
+        String sql = "update Vehiculos set matricula = ?, tipo_Vehiculo= ? where cod_Vehiculo=? ";
         
 
-        if (findByCodVehiculo(codcli) == null) {
-            // El vehiculo a actualizar no existe
-            return numFilas;
-        } else {
+        
             // Instanciamos el objeto PreparedStatement para inserción
             // de datos. Sentencia parametrizada
             try (PreparedStatement prest = con.prepareStatement(sql)) {
 
                 // Establecemos los parámetros de la sentencia
-                prest.setInt(1, nuevosDatos.getCodvehiculo());
+                prest.setInt(1, nuevosDatos.getCod_Vehiculo());
                 prest.setString(2, nuevosDatos.getMatricula());
                 prest.setInt(3, nuevosDatos.getTipo_Vehiculo());
 
@@ -154,25 +121,8 @@ public class VehiculoDAO implements IVehiculo {
             }
             return numFilas;
         }
-    }
+    
 
-    public int cambiarMatricula(String newMatricula, String oldMatricula) throws SQLException {
-
-        int res = 0;
-        // Dos ?, uno para newName y otro para oldName
-
-        String sql = "{call cambiar_nombres (?,?,?)}";
-
-        // Preparamos la llamada al procedimiento almacenado
-        try (CallableStatement call = con.prepareCall(sql)) {
-            // Establecemos parámetros a pasar al procedimiento
-            call.setString(1, newMatricula);
-            call.setString(2, oldMatricula);
-            // Ejecutamos el procedimiento
-            res = call.executeUpdate();
-
-        }
-        return res;
-    }
+   
 
 }

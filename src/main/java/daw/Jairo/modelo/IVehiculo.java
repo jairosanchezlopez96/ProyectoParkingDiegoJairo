@@ -14,7 +14,7 @@ public interface IVehiculo{
     List<VehiculoVO> getAll() throws SQLException;
     
     // Méodo para obtener un registro a partir del codcli
-    VehiculoVO findByCodVehiculo(int codcli) throws SQLException;
+ 
     
     // Método para insertar un registro
     int insertVehiculo (VehiculoVO vehiculo) throws SQLException;

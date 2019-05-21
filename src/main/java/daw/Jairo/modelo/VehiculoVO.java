@@ -6,12 +6,12 @@ package daw.Jairo.modelo;
 import java.time.LocalDate;
 
 public class VehiculoVO {
-    private int codvehiculo;
+    private int cod_Vehiculo;
     private String matricula;
     private int tipo_Vehiculo;
 
     public VehiculoVO(int codvehiculo, String matricula, int tipo_Vehiculo) {
-        this.codvehiculo = codvehiculo;
+        this.cod_Vehiculo = codvehiculo;
         this.matricula = matricula;
         this.tipo_Vehiculo = tipo_Vehiculo;
     }
@@ -20,12 +20,12 @@ public class VehiculoVO {
 
     }
 
-    public int getCodvehiculo() {
-        return codvehiculo;
+    public int getCod_Vehiculo() {
+        return cod_Vehiculo;
     }
 
-    public void setCodvehiculo(int codvehiculo) {
-        this.codvehiculo = codvehiculo;
+    public void setCod_Vehiculo(int cod_Vehiculo) {
+        this.cod_Vehiculo = cod_Vehiculo;
     }
 
     public String getMatricula() {
@@ -46,7 +46,7 @@ public class VehiculoVO {
     
     @Override
     public String toString() {
-        return "VehiculoVO{" + "codvehiculo=" + codvehiculo + ", matricula=" + matricula + ", tipo_vehiculo=" + tipo_Vehiculo+ '}';
+        return "VehiculoVO{" + "codvehiculo=" + cod_Vehiculo + ", matricula=" + matricula + ", tipo_vehiculo=" + tipo_Vehiculo+ '}';
     }
 
     
