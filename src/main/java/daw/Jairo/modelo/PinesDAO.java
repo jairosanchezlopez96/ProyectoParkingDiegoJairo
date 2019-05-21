@@ -6,10 +6,12 @@
 package daw.Jairo.modelo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +69,13 @@ private Connection con = null;
                 prest.setInt(2, pin.getNum_Plaza());
                 prest.setString(3, pin.getPen_Desechable());
                 prest.setDouble(4,pin.getCoste());
+                prest.setDate(5, Date.valueOf(pin.getFec_Fin_Pin_Dia()));
+                 prest.setTime(6, Time.valueOf(pin.getFec_Fin_Pin_Hora()));
+                prest.setDate(7, Date.valueOf(pin.getFec_In_Pin_Dia()));
+                 prest.setTime(8, Time.valueOf(pin.getFec_In_Pin_Hora()));
+               
+                
+                
                  
                 
                 numFilas = prest.executeUpdate();
@@ -89,7 +98,7 @@ private Connection con = null;
     public int deletePines(PinesVO pines) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from Pines where cod_Cliente = ? and num_Plaza = ? and fec_In_Pin = ?";
+        String sql = "delete from Pines where cod_Cliente = ? and num_Plaza = ? and fec_In_Pin_Hora = ? and fec_In_Pin_Dia = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
@@ -97,7 +106,10 @@ private Connection con = null;
             // Establecemos los parámetros de la sentencia
             prest.setInt(1, pines.getCod_Vehiculo());
              prest.setInt(2, pines.getNum_Plaza());
-              prest.setTimestamp(3,Timestamp.valueOf(pines.getFec_In_Pin()));
+              // falta pasar de localDate a date de sql 
+              // diego preguntale a vico si esto esta bn 
+              prest.setTime(3,Time.valueOf(pines.getFec_In_Pin_Hora()));
+              prest.setDate(4, Date.valueOf(pines.getFec_In_Pin_Dia()));
             // Ejecutamos la sentencia
             numFilas = prest.executeUpdate();
         }
@@ -106,7 +118,7 @@ private Connection con = null;
 
     @Override
     public int updatePin(int pk, PinesVO pin) throws SQLException {
-        return 2;
+        
     }
 
     @Override
