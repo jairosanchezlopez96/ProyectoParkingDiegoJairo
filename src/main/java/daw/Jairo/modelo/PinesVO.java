@@ -5,10 +5,18 @@
  */
 package daw.Jairo.modelo;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author whizrxt
  */
 public class PinesVO {
+    private int cod_Vehiculo;
+    private int num_Plaza;
+    private String pen_Desechable;
+    private double coste;
+    private LocalDateTime fec_Fin_Pin;
+    private LocalDateTime fec_In_Pin;
     
 }
