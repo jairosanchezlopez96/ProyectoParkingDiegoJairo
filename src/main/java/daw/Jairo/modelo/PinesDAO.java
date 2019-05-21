@@ -90,7 +90,21 @@ private Connection con = null;
 
     @Override
     public int deletePines(PinesVO pines) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int numFilas = 0;
+
+        String sql = "delete from Pines where cod_Cliente = ? and num_Plaza = ? and fec_In_Pin = ?";
+
+        // Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(1, pines.getCod_Vehiculo());
+             prest.setInt(2, pines.getNum_Plaza());
+              prest.setTimestamp(3,Timestamp.valueOf(pines.getFec_In_Pin()));
+            // Ejecutamos la sentencia
+            numFilas = prest.executeUpdate();
+        }
+        return numFilas;
     }
 
     @Override
