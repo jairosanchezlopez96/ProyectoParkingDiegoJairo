@@ -22,33 +22,35 @@ import java.util.List;
  * @author jairo
  */
 public class ClienteDAO implements ICliente {
-private Connection con = null;
+
+    private Connection con = null;
 
     public ClienteDAO() {
         con = Conexion.getInstance();
     }
+
     @Override
     public List<ClienteVO> getAllClientes() throws SQLException {
-          List<ClienteVO> lista = new ArrayList<>();
+        List<ClienteVO> lista = new ArrayList<>();
 
         // Preparamos la consulta de datos mediante un objeto Statement
         // ya que no necesitamos parametrizar la sentencia SQL
         try (Statement st = con.createStatement()) {
             // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
-            ResultSet res = st.executeQuery("select * from Reserva");
+            ResultSet res = st.executeQuery("select * from Cliente");
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
             while (res.next()) {
                 ClienteVO c = new ClienteVO();
                 // Recogemos los datos de la persona, guardamos en un objeto
-              c.setCod_Cliente(res.getInt("cod_Cliente"));
+                c.setCod_Cliente(res.getInt("cod_Cliente"));
                 c.setEmail(res.getString("email"));
                 c.setNombre(res.getString("nombre"));
-               
+
                 c.setFec_in_abono(res.getTimestamp("fec_In_Abono").toLocalDateTime());
                 c.setFec_fin_abono(res.getTimestamp("fec_Fin_Abono").toLocalDateTime());
-                 c.setTarjeta(res.getString("tarjeta"));
-                c.setTipo_Abono(res.getInt("tipo_Abono"));                 
-             
+                c.setTarjeta(res.getString("tarjeta"));
+                c.setTipo_Abono(res.getInt("tipo_Abono"));
+
                 //Añadimos el objeto a la lista
                 lista.add(c);
             }
@@ -59,30 +61,30 @@ private Connection con = null;
 
     @Override
     public int insertCliente(ClienteVO cliente) throws SQLException {
-         int numFilas= 0;
+        int numFilas = 0;
         String sql = "insert into Cliente values (?,?,?,?,?,?,?)";
 
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
-            try (PreparedStatement prest = con.prepareStatement(sql)) {
+        // Instanciamos el objeto PreparedStatement para inserción
+        // de datos. Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setInt(1, cliente.getCod_Cliente());
-                prest.setString(2, cliente.getNombre());
-                prest.setString(3, cliente.getEmail());
-                prest.setString(4,cliente.getTarjeta());
-                 prest.setInt(5, cliente.getTipo_Abono());
-                 prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_fin_abono()));
-                  prest.setTimestamp(7, Timestamp.valueOf(cliente.getFec_in_abono()));
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(1, cliente.getCod_Cliente());
+            prest.setString(2, cliente.getNombre());
+            prest.setString(3, cliente.getEmail());
+            prest.setString(4, cliente.getTarjeta());
+            prest.setInt(5, cliente.getTipo_Abono());
+            prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_fin_abono()));
+            prest.setTimestamp(7, Timestamp.valueOf(cliente.getFec_in_abono()));
 
-                numFilas = prest.executeUpdate();
-            }
-            return numFilas;
+            numFilas = prest.executeUpdate();
+        }
+        return numFilas;
     }
 
     @Override
     public int insertCliente(List<ClienteVO> cliente) throws SQLException {
-         int numFilas = 0;
+        int numFilas = 0;
 
         for (ClienteVO tmp : cliente) {
             numFilas += insertCliente(tmp);
@@ -91,11 +93,9 @@ private Connection con = null;
         return numFilas;
     }
 
-    
-
     @Override
     public int deleteCliente(ClienteVO cliente) throws SQLException {
-          int numFilas = 0;
+        int numFilas = 0;
 
         String sql = "delete from Cliente where cod_Cliente = ?";
 
@@ -112,36 +112,34 @@ private Connection con = null;
 
     @Override
     public int updateCliente(int pk, ClienteVO cliente) throws SQLException {
-         int numFilas= 0;
-          String sql = "update Cliente set nombre = ?, email = ?, tarjeta = ?, tipo_Abono=?, "
-                  + " fec_Fin_Abono =?, fec_In_Abono=? where cod_Cliente=?";
-          try (PreparedStatement prest = con.prepareStatement(sql)) {
+        int numFilas = 0;
+        String sql = "update Cliente set nombre = ?, email = ?, tarjeta = ?, tipo_Abono=?, "
+                + " fec_Fin_Abono =?, fec_In_Abono=? where cod_Cliente=?";
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-              
-                prest.setString(1, cliente.getNombre());
-                prest.setString(2, cliente.getEmail());
-                prest.setString(3,cliente.getTarjeta());
-                 prest.setInt(4, cliente.getTipo_Abono());
-                 prest.setTimestamp(5, Timestamp.valueOf(cliente.getFec_fin_abono()));
-                  prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_in_abono()));
-                   prest.setInt(7, pk);
+            prest.setString(1, cliente.getNombre());
+            prest.setString(2, cliente.getEmail());
+            prest.setString(3, cliente.getTarjeta());
+            prest.setInt(4, cliente.getTipo_Abono());
+            prest.setTimestamp(5, Timestamp.valueOf(cliente.getFec_fin_abono()));
+            prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_in_abono()));
+            prest.setInt(7, pk);
 
-                numFilas = prest.executeUpdate();
-            }
-            return numFilas;
+            numFilas = prest.executeUpdate();
+        }
+        return numFilas;
     }
 
     @Override
     public int deleteCliente() throws SQLException {
-         String sql = "delete from Cliente";
-        int nfilas = 0 ;
-        
-        
-        try(Statement st = con.createStatement()){
-        
-        nfilas = st.executeUpdate(sql);
+        String sql = "delete from Cliente";
+        int nfilas = 0;
+
+        try (Statement st = con.createStatement()) {
+
+            nfilas = st.executeUpdate(sql);
         }
         return nfilas;
     }
-    
+
 }
