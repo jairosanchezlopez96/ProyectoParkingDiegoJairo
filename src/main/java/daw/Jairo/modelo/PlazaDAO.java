@@ -34,7 +34,7 @@ public class PlazaDAO implements IPlaza {
         // ya que no necesitamos parametrizar la sentencia SQL
         try (Statement st = con.createStatement()) {
             // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
-            ResultSet res = st.executeQuery("select * from Plaza");
+            ResultSet res = st.executeQuery("select * from Plazas");
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
             while (res.next()) {
                 PlazaVO p = new PlazaVO();
@@ -55,7 +55,7 @@ public class PlazaDAO implements IPlaza {
     @Override
     public int insertPlaza(PlazaVO plaza) throws SQLException {
         int numFilas = 0;
-        String sql = "insert into Plaza values (?,?,?,?)";
+        String sql = "insert into Plazas values (?,?,?,?)";
 
         // Instanciamos el objeto PreparedStatement para inserción
         // de datos. Sentencia parametrizada
@@ -76,7 +76,7 @@ public class PlazaDAO implements IPlaza {
     public int deletePlaza(PlazaVO plaza) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from Plaza where num_Plaza = ?";
+        String sql = "delete from Plazas where num_Plaza = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
@@ -93,7 +93,7 @@ public class PlazaDAO implements IPlaza {
     @Override
     public int updatePlaza(int num_Plaza, PlazaVO nuevaPlaza) throws SQLException {
         int numFilas = 0;
-        String sql = "update Plaza set tipo_Plazas = ?, estado_Plaza = ?, tarifa = ? where num_Plaza=?";
+        String sql = "update Plazas set tipo_Plazas = ?, estado_Plaza = ?, tarifa = ? where num_Plaza=?";
 
         // Instanciamos el objeto PreparedStatement para inserción
         // de datos. Sentencia parametrizada
@@ -123,7 +123,7 @@ public class PlazaDAO implements IPlaza {
 
     @Override
     public int deletePlaza() throws SQLException {
-        String sql = "delete from Plaza";
+        String sql = "delete from Plazas";
         int nfilas = 0;
 
         try (Statement st = con.createStatement()) {
