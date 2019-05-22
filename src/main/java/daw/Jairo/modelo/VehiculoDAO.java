@@ -46,31 +46,25 @@ public class VehiculoDAO implements IVehiculo {
         return lista;
     }
 
-   
-    
-
     @Override
     public int insertVehiculo(VehiculoVO vehiculo) throws SQLException {
 
         int numFilas = 0;
-        String sql = "insert into Vehiculos values (?,?,?,?,?)";
+        String sql = "insert into Vehiculos values (?,?,?)";
 
-        
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
-            try (PreparedStatement prest = con.prepareStatement(sql)) {
+        // Instanciamos el objeto PreparedStatement para inserción
+        // de datos. Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setInt(1, vehiculo.getCod_Vehiculo());
-                prest.setString(2, vehiculo.getMatricula());
-                prest.setInt(3, vehiculo.getTipo_Vehiculo());
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(1, vehiculo.getCod_Vehiculo());
+            prest.setString(2, vehiculo.getMatricula());
+            prest.setInt(3, vehiculo.getTipo_Vehiculo());
 
-                numFilas = prest.executeUpdate();
-            }
-            return numFilas;
+            numFilas = prest.executeUpdate();
         }
-
-    
+        return numFilas;
+    }
 
     @Override
     public int insertVehiculo(List<VehiculoVO> lista) throws SQLException {
@@ -105,24 +99,19 @@ public class VehiculoDAO implements IVehiculo {
 
         int numFilas = 0;
         String sql = "update Vehiculos set matricula = ?, tipo_Vehiculo= ? where cod_Vehiculo=? ";
-        
 
-        
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
-            try (PreparedStatement prest = con.prepareStatement(sql)) {
+        // Instanciamos el objeto PreparedStatement para inserción
+        // de datos. Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setInt(1, nuevosDatos.getCod_Vehiculo());
-                prest.setString(2, nuevosDatos.getMatricula());
-                prest.setInt(3, nuevosDatos.getTipo_Vehiculo());
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(3, nuevosDatos.getCod_Vehiculo());
+            prest.setString(1, nuevosDatos.getMatricula());
+            prest.setInt(2, nuevosDatos.getTipo_Vehiculo());
 
-                numFilas = prest.executeUpdate();
-            }
-            return numFilas;
+            numFilas = prest.executeUpdate();
         }
-    
-
-   
+        return numFilas;
+    }
 
 }

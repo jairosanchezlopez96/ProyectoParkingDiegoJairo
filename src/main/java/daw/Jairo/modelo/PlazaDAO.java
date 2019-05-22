@@ -19,7 +19,8 @@ import java.util.List;
  * @author jairo
  */
 public class PlazaDAO implements IPlaza {
-     private Connection con = null;
+
+    private Connection con = null;
 
     public PlazaDAO() {
         con = Conexion.getInstance();
@@ -27,7 +28,7 @@ public class PlazaDAO implements IPlaza {
 
     @Override
     public List<PlazaVO> getAll() throws SQLException {
-         List<PlazaVO> lista = new ArrayList<>();
+        List<PlazaVO> lista = new ArrayList<>();
 
         // Preparamos la consulta de datos mediante un objeto Statement
         // ya que no necesitamos parametrizar la sentencia SQL
@@ -53,23 +54,23 @@ public class PlazaDAO implements IPlaza {
 
     @Override
     public int insertPlaza(PlazaVO plaza) throws SQLException {
-        int numFilas= 0;
+        int numFilas = 0;
         String sql = "insert into Plaza values (?,?,?,?)";
 
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
-            try (PreparedStatement prest = con.prepareStatement(sql)) {
+        // Instanciamos el objeto PreparedStatement para inserción
+        // de datos. Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setInt(1, plaza.getTipo_Plazas());
-                prest.setInt(2, plaza.getNum_Plaza());
-                prest.setInt(3, plaza.getEstado_Plaza());
-                prest.setDouble(4,plaza.getTarifa());
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(1, plaza.getTipo_Plazas());
+            prest.setInt(2, plaza.getNum_Plaza());
+            prest.setInt(3, plaza.getEstado_Plaza());
+            prest.setDouble(4, plaza.getTarifa());
 
-                numFilas = prest.executeUpdate();
-            }
-            return numFilas;
+            numFilas = prest.executeUpdate();
         }
+        return numFilas;
+    }
 
     @Override
     public int deletePlaza(PlazaVO plaza) throws SQLException {
@@ -94,26 +95,24 @@ public class PlazaDAO implements IPlaza {
         int numFilas = 0;
         String sql = "update Plaza set tipo_Plazas = ?, estado_Plaza = ?, tarifa = ? where num_Plaza=?";
 
-       
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
-            try (PreparedStatement prest = con.prepareStatement(sql)) {
+        // Instanciamos el objeto PreparedStatement para inserción
+        // de datos. Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setInt(1, nuevaPlaza.getTipo_Plazas());
-                prest.setInt(2, nuevaPlaza.getEstado_Plaza());
-                prest.setDouble(3, nuevaPlaza.getTarifa());
-                prest.setInt(4, num_Plaza);
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(1, nuevaPlaza.getTipo_Plazas());
+            prest.setInt(2, nuevaPlaza.getEstado_Plaza());
+            prest.setDouble(3, nuevaPlaza.getTarifa());
+            prest.setInt(4, num_Plaza);
 
-                numFilas = prest.executeUpdate();
-            }
-            return numFilas;
+            numFilas = prest.executeUpdate();
         }
-    
+        return numFilas;
+    }
 
     @Override
     public int insertPlaza(List<PlazaVO> lista) throws SQLException {
-          int numFilas = 0;
+        int numFilas = 0;
 
         for (PlazaVO tmp : lista) {
             numFilas += insertPlaza(tmp);
@@ -124,24 +123,14 @@ public class PlazaDAO implements IPlaza {
 
     @Override
     public int deletePlaza() throws SQLException {
-         String sql = "delete from Plaza";
-        int nfilas = 0 ;
-        
-        
-        try(Statement st = con.createStatement()){
-        
-        nfilas = st.executeUpdate(sql);
+        String sql = "delete from Plaza";
+        int nfilas = 0;
+
+        try (Statement st = con.createStatement()) {
+
+            nfilas = st.executeUpdate(sql);
         }
         return nfilas;
     }
-    
-    }
 
-    
-
-   
-
-  
-
-   
-
+}
