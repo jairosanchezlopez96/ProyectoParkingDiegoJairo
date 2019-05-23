@@ -10,11 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -74,8 +71,8 @@ public class ClienteDAO implements ICliente {
             prest.setString(3, cliente.getEmail());
             prest.setString(4, cliente.getTarjeta());
             prest.setInt(5, cliente.getTipo_Abono());
-           prest.setDate(5, java.sql.Date.valueOf(cliente.getFec_fin_abono()));
-            prest.setDate(6, java.sql.Date.valueOf(cliente.getFec_in_abono()));
+            prest.setDate(5, Date.valueOf(cliente.getFec_fin_abono()));
+            prest.setDate(6, Date.valueOf(cliente.getFec_in_abono()));
 
             numFilas = prest.executeUpdate();
         }
