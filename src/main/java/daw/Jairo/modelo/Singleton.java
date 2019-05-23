@@ -27,17 +27,16 @@ import java.util.regex.Pattern;
  * @author Usuario
  */
 public class Singleton {
-    
+
     // empezamos con metodos para  hacer la copia de seguridad
-   public static void EscribirPlaza ( ArrayList<PlazaVO> lista , String idFichero){
-   
-       
+    public static void EscribirPlaza(ArrayList<PlazaVO> lista, String idFichero) {
+
         // escribimos un nuevo archivo y lo separamos con una \n
         try (BufferedWriter flujo = new BufferedWriter(new FileWriter(idFichero))) {
             // recoremos la lista y segun si es true or false evaluador y 
             // coordinador ponemos si o no
             for (int i = 0; i < lista.size(); i++) {
-               
+
                 flujo.write(
                         lista.get(i).toString()
                 );
@@ -50,19 +49,19 @@ public class Singleton {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            
+
         }
-   
-   }
-     public static void EscribirVehiculos ( ArrayList<VehiculoVO> lista , String idFichero){
-   
-       
+
+    }
+
+    public static void EscribirVehiculos(ArrayList<VehiculoVO> lista, String idFichero) {
+
         // escribimos un nuevo archivo y lo separamos con una \n
         try (BufferedWriter flujo = new BufferedWriter(new FileWriter(idFichero))) {
             // recoremos la lista y segun si es true or false evaluador y 
             // coordinador ponemos si o no
             for (int i = 0; i < lista.size(); i++) {
-               
+
                 flujo.write(
                         lista.get(i).toString()
                 );
@@ -75,19 +74,19 @@ public class Singleton {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            
+
         }
-   
-   }
-       public static void EscribirPines ( ArrayList<PinesVO> lista , String idFichero){
-   
-       
+
+    }
+
+    public static void EscribirPines(ArrayList<PinesVO> lista, String idFichero) {
+
         // escribimos un nuevo archivo y lo separamos con una \n
         try (BufferedWriter flujo = new BufferedWriter(new FileWriter(idFichero))) {
             // recoremos la lista y segun si es true or false evaluador y 
             // coordinador ponemos si o no
             for (int i = 0; i < lista.size(); i++) {
-               
+
                 flujo.write(
                         lista.get(i).toString()
                 );
@@ -100,19 +99,19 @@ public class Singleton {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            
+
         }
-   
-   }
-         public static void EscribirClientes ( ArrayList<ClienteVO> lista , String idFichero){
-   
-       
+
+    }
+
+    public static void EscribirClientes(ArrayList<ClienteVO> lista, String idFichero) {
+
         // escribimos un nuevo archivo y lo separamos con una \n
         try (BufferedWriter flujo = new BufferedWriter(new FileWriter(idFichero))) {
             // recoremos la lista y segun si es true or false evaluador y 
             // coordinador ponemos si o no
             for (int i = 0; i < lista.size(); i++) {
-               
+
                 flujo.write(
                         lista.get(i).toString()
                 );
@@ -125,19 +124,19 @@ public class Singleton {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            
+
         }
-   
-   }
-           public static void EscribirReservas( ArrayList<ReservaVO> lista , String idFichero){
-   
-       
+
+    }
+
+    public static void EscribirReservas(ArrayList<ReservaVO> lista, String idFichero) {
+
         // escribimos un nuevo archivo y lo separamos con una \n
         try (BufferedWriter flujo = new BufferedWriter(new FileWriter(idFichero))) {
             // recoremos la lista y segun si es true or false evaluador y 
             // coordinador ponemos si o no
             for (int i = 0; i < lista.size(); i++) {
-               
+
                 flujo.write(
                         lista.get(i).toString()
                 );
@@ -150,13 +149,9 @@ public class Singleton {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            
+
         }
-   
-   }
-   
-       
-   
-   
-             
+
+    }
+
 }
