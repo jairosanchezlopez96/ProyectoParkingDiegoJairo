@@ -105,7 +105,7 @@ public class PinesVO implements Serializable {
 
     @Override
     public String toString() {
-        return "PinesVO{" + "cod_Vehiculo=" + cod_Vehiculo + ", num_Plaza=" + num_Plaza + ", pen_Desechable=" + pen_Desechable + ", coste=" + coste + ", fec_Fin_Pin_Dia=" + fec_Fin_Pin_Dia + ", fec_Fin_Pin_Hora=" + fec_Fin_Pin_Hora + ", fec_In_Pin_Dia=" + fec_In_Pin_Dia + ", fec_In_Pin_Hora=" + fec_In_Pin_Hora + '}';
+        return   cod_Vehiculo + "," + num_Plaza + "," + pen_Desechable + "," + coste + "," + fec_Fin_Pin_Dia + "," + fec_Fin_Pin_Hora + "," + fec_In_Pin_Dia + "," + fec_In_Pin_Hora ;
     }
    
     
