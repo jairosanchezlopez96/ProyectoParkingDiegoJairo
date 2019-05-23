@@ -5,11 +5,14 @@
  */
 package daw.Jairo.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jairo
  */
-public class PlazaVO {
+public class PlazaVO implements Serializable {
+    private static final long serialVersionUID = 1L;
     // num plaza pl , estado_Plaza(1-4 
     // 1 -- libre , 2-- ocupada , 3-- abono libre , 4-- abono ocupada
     // tipo_Plazas 1- turismo 2- motocicletas 3- caravanas

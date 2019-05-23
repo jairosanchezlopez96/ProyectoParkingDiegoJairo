@@ -5,6 +5,7 @@
  */
 package daw.Jairo.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -12,7 +13,8 @@ import java.time.LocalDateTime;
  *
  * @author jairo
  */
-public class ClienteVO {
+public class ClienteVO  implements Serializable{
+    private static final long serialVersionUID = 1L;
     private int cod_Cliente;
     private LocalDateTime fec_In_Abono;
      

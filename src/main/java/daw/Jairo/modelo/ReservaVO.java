@@ -5,11 +5,14 @@
  */
 package daw.Jairo.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author whizrxt
  */
-public class ReservaVO {
+public class ReservaVO  implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     private int num_Plaza;
     private int cod_Vehiculo;

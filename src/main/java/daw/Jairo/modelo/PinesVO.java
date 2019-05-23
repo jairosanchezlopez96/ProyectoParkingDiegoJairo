@@ -5,6 +5,7 @@
  */
 package daw.Jairo.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -13,7 +14,8 @@ import java.time.LocalTime;
  *
  * @author whizrxt
  */
-public class PinesVO {
+public class PinesVO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int cod_Vehiculo;
     private int num_Plaza;
     private String pen_Desechable;

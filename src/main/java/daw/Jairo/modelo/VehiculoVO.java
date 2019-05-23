@@ -3,9 +3,11 @@
  */
 package daw.Jairo.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class VehiculoVO {
+public class VehiculoVO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int cod_Vehiculo;
     private String matricula;
     private int tipo_Vehiculo;
