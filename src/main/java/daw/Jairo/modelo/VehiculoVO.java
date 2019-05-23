@@ -6,8 +6,8 @@ package daw.Jairo.modelo;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class VehiculoVO implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class VehiculoVO  {
+    
     private int cod_Vehiculo;
     private String matricula;
     private int tipo_Vehiculo;

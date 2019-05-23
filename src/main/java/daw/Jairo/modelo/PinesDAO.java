@@ -46,7 +46,11 @@ public class PinesDAO implements IPines {
                 p.setCod_Vehiculo(res.getInt("cod_Vehiculo"));
                 p.setPen_Desechable(res.getString("pen_Desechable"));
                 p.setNum_Plaza(res.getInt("num_Vehiculo"));
-
+                p.setFec_Fin_Pin_Dia(res.getDate("fec_Fin_Pin_Dia").toLocalDate());
+                 p.setFec_In_Pin_Dia(res.getDate("fec_Fin_In_Dia").toLocalDate());
+                 p.setFec_Fin_Pin_Hora(res.getTime("fec_Fin_Pin_Hora").toLocalTime());
+                 p.setFec_In_Pin_Hora(res.getTime("fec_Fin_In_Hora").toLocalTime());
+                
                 p.setCoste(res.getDouble("coste"));
 
                 //Añadimos el objeto a la lista

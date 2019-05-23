@@ -46,8 +46,8 @@ public class ClienteDAO implements ICliente {
                 c.setEmail(res.getString("email"));
                 c.setNombre(res.getString("nombre"));
 
-                c.setFec_in_abono(res.getTimestamp("fec_In_Abono").toLocalDateTime());
-                c.setFec_fin_abono(res.getTimestamp("fec_Fin_Abono").toLocalDateTime());
+                c.setFec_in_abono(res.getDate("fec_In_Abono").toLocalDate());
+                c.setFec_fin_abono(res.getDate("fec_Fin_Abono").toLocalDate());
                 c.setTarjeta(res.getString("tarjeta"));
                 c.setTipo_Abono(res.getInt("tipo_Abono"));
 
@@ -74,8 +74,8 @@ public class ClienteDAO implements ICliente {
             prest.setString(3, cliente.getEmail());
             prest.setString(4, cliente.getTarjeta());
             prest.setInt(5, cliente.getTipo_Abono());
-            prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_fin_abono()));
-            prest.setTimestamp(7, Timestamp.valueOf(cliente.getFec_in_abono()));
+           prest.setDate(5, java.sql.Date.valueOf(cliente.getFec_fin_abono()));
+            prest.setDate(6, java.sql.Date.valueOf(cliente.getFec_in_abono()));
 
             numFilas = prest.executeUpdate();
         }
@@ -116,13 +116,13 @@ public class ClienteDAO implements ICliente {
         String sql = "update Cliente set nombre = ?, email = ?, tarjeta = ?, tipo_Abono=?, "
                 + " fec_Fin_Abono =?, fec_In_Abono=? where cod_Cliente=?";
         try (PreparedStatement prest = con.prepareStatement(sql)) {
-
+ // arreglar
             prest.setString(1, cliente.getNombre());
             prest.setString(2, cliente.getEmail());
             prest.setString(3, cliente.getTarjeta());
             prest.setInt(4, cliente.getTipo_Abono());
-            prest.setTimestamp(5, Timestamp.valueOf(cliente.getFec_fin_abono()));
-            prest.setTimestamp(6, Timestamp.valueOf(cliente.getFec_in_abono()));
+            prest.setDate(5, java.sql.Date.valueOf(cliente.getFec_fin_abono()));
+            prest.setDate(6, java.sql.Date.valueOf(cliente.getFec_in_abono()));
             prest.setInt(7, pk);
 
             numFilas = prest.executeUpdate();

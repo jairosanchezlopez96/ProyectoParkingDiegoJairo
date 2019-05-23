@@ -11,8 +11,8 @@ import java.io.Serializable;
  *
  * @author whizrxt
  */
-public class ReservaVO  implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class ReservaVO  {
+    
 
     private int num_Plaza;
     private int cod_Vehiculo;
@@ -73,7 +73,7 @@ public class ReservaVO  implements Serializable{
 
     @Override
     public String toString() {
-        return "ReservaVO{" + "num_Plaza=" + num_Plaza + ", cod_Vehiculo=" + cod_Vehiculo + ", cod_Cliente=" + cod_Cliente + ", pin_fijo=" + pin_fijo + ", coste=" + coste + '}';
+        return    num_Plaza + "," + cod_Vehiculo + "," + cod_Cliente + "," + pin_fijo + "," + coste ;
     }
 
 }

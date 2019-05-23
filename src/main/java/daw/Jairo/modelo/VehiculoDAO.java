@@ -34,7 +34,7 @@ public class VehiculoDAO implements IVehiculo {
             while (res.next()) {
                 VehiculoVO p = new VehiculoVO();
                 // Recogemos los datos del vehiculo, guardamos en un objeto
-                p.setCod_Vehiculo(res.getInt("cod_Vechiculo"));
+                p.setCod_Vehiculo(res.getInt("cod_Vehiculo"));
                 p.setMatricula("matricula");
                 p.setTipo_Vehiculo(res.getInt("tipo_Vehiculo"));
 
