@@ -67,12 +67,12 @@ public class ClienteDAO implements ICliente {
 
             // Establecemos los parámetros de la sentencia
             prest.setInt(1, cliente.getCod_Cliente());
-            prest.setString(2, cliente.getNombre());
-            prest.setString(3, cliente.getEmail());
-            prest.setString(4, cliente.getTarjeta());
-            prest.setInt(5, cliente.getTipo_Abono());
-            prest.setDate(5, Date.valueOf(cliente.getFec_fin_abono()));
-            prest.setDate(6, Date.valueOf(cliente.getFec_in_abono()));
+            prest.setString(4, cliente.getNombre());
+            prest.setString(7, cliente.getEmail());
+            prest.setString(5, cliente.getTarjeta());
+            prest.setInt(6, cliente.getTipo_Abono());
+            prest.setDate(3, Date.valueOf(cliente.getFec_fin_abono()));
+            prest.setDate(2, Date.valueOf(cliente.getFec_in_abono()));
 
             numFilas = prest.executeUpdate();
         }
