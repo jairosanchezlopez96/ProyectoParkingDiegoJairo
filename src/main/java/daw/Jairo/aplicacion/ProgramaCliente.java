@@ -11,6 +11,7 @@ import daw.Jairo.modelo.PlazaDAO;
 import daw.Jairo.modelo.PlazaVO;
 import daw.Jairo.modelo.Singleton;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,8 @@ public class ProgramaCliente {
         List<ClienteVO> listaCliente = new ArrayList<>();
         listaCliente.add(new ClienteVO());
         listaCliente.add(new ClienteVO());
-        ClienteVO p1 = new ClienteVO(10, LocalDateTime.now(), null, "Diego", "3244DSF", 1, "dosofskfokfss@fidjvd.com");
-        ClienteVO p10 = new ClienteVO(11, LocalDateTime.now(), null, "Jairo", "7543GDF", 0, "iqifkog@urugiog.es");
+        ClienteVO p1 = new ClienteVO(10, LocalDate.now(), null, "Diego", "3244DSF", 1, "dosofskfokfss@fidjvd.com");
+        ClienteVO p10 = new ClienteVO(11, LocalDate.now(), null, "Jairo", "7543GDF", 0, "iqifkog@urugiog.es");
 
         try {
             
