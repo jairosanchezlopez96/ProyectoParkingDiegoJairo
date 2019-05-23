@@ -11,8 +11,8 @@ import java.io.Serializable;
  *
  * @author jairo
  */
-public class PlazaVO implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class PlazaVO  {
+   
     // num plaza pl , estado_Plaza(1-4 
     // 1 -- libre , 2-- ocupada , 3-- abono libre , 4-- abono ocupada
     // tipo_Plazas 1- turismo 2- motocicletas 3- caravanas
@@ -26,7 +26,7 @@ public class PlazaVO implements Serializable {
 
     @Override
     public String toString() {
-        return "PlazaVO{" + "num_Plaza=" + num_Plaza + " tarifa=" + tarifa + " estado_Plaza=" + estado_Plaza + " tipo_Plaza=" + tipo_Plazas + '}';
+        return   num_Plaza + "," + tarifa + "," + estado_Plaza + "," + tipo_Plazas;
     }
 
     public PlazaVO(int num_Plaza, double tarifa, int estado_Plaza, int tipo_Plaza) {
