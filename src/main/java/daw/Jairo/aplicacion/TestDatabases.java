@@ -23,5 +23,11 @@ public class TestDatabases {
         
         
         Singleton.EscribirPlaza(lista,"ficheroPlaza");
+       ArrayList<PlazaVO> listaP = Singleton.leerPlazas("ficheroPlaza");
+       for(PlazaVO p : listaP){
+           System.out.println(p);
+       
+       }
+        
     }
 }

@@ -153,5 +153,51 @@ public class Singleton {
         }
 
     }
+    
+    // leer copias de seguridad
+    public static ArrayList<PlazaVO> leerPlazas( String idFichero){
+          ArrayList<PlazaVO> lemp = new ArrayList<>();
+        int contador = 1;
 
-}
+        // Instanciación de BufferedReader a partir de un objeto InputStreamReader
+        // InputStreamReader permite indicar el tipo de codificación del archivo
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(idFichero), "ISO-8859-1"))) {
+            String[] tokens;
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                // utilizamos un contador hasta la linea 9 ya que esta es la primera que contiene info 
+
+                
+                    // hacemos variables que utilizaremos 
+                   
+                    // spliteamos los tokens y le quitamos los espacios
+                    tokens = linea.split(",");
+                    tokens[0] = tokens[0].trim();
+                    tokens[1] = tokens[1].trim();
+                    tokens[2] = tokens[2].trim();
+                    tokens[3] = tokens[3].trim();
+                  
+                 
+                    //int num_Plaza, double tarifa, int estado_Plaza, int tipo_Plaza
+                    PlazaVO p = new PlazaVO(Integer.valueOf(tokens[0]),Double.valueOf(tokens[1]),
+                            Integer.valueOf(tokens[2]),Integer.valueOf(tokens[3]));
+                   lemp.add(p);
+
+                
+            }
+
+            // el catch para  las excepciones
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return lemp;
+        
+        
+        
+    }
+    }
+
+
