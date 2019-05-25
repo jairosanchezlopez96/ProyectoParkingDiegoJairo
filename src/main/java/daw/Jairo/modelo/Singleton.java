@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -285,7 +286,8 @@ public class Singleton {
         
         
     }
-     public static ArrayList<ClienteVO> leerClientes( String idFichero){
+    
+      public static ArrayList<ClienteVO> leerClientes( String idFichero){
           ArrayList<ClienteVO> lemp = new ArrayList<>();
        
         // Instanciación de BufferedReader a partir de un objeto InputStreamReader
@@ -315,6 +317,53 @@ public class Singleton {
                     //int cod_Cliente, LocalDate fec_in_abono, LocalDate fec_fin_abono, String nombre, String tarjeta, int tipo_Abono, String email
                     ClienteVO p = new ClienteVO(Integer.valueOf(tokens[0]),LocalDate.parse(tokens[1]),
                     LocalDate.parse(tokens[2]), tokens[3],tokens[4],Integer.valueOf(tokens[5]),tokens[6]);
+                   lemp.add(p);
+
+                
+            }
+
+            // el catch para  las excepciones
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return lemp;
+        
+        
+        
+    }
+        public static ArrayList<PinesVO> leerPines( String idFichero){
+          ArrayList<PinesVO> lemp = new ArrayList<>();
+       
+        // Instanciación de BufferedReader a partir de un objeto InputStreamReader
+        // InputStreamReader permite indicar el tipo de codificación del archivo
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(idFichero), "ISO-8859-1"))) {
+            String[] tokens;
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                // utilizamos un contador hasta la linea 9 ya que esta es la primera que contiene info 
+
+                
+                    // hacemos variables que utilizaremos 
+                   
+                    // spliteamos los tokens y le quitamos los espacios
+                    tokens = linea.split(",");
+                    tokens[0] = tokens[0].trim();
+                    tokens[1] = tokens[1].trim();
+                    tokens[2] = tokens[2].trim();
+                    tokens[3] = tokens[3].trim();
+                     tokens[4] = tokens[4].trim();
+                    tokens[5] = tokens[5].trim();
+                    tokens[6] = tokens[6].trim();
+                    tokens[7] = tokens[7].trim();
+               
+                  
+                 
+    //int cod_Vehiculo, int num_Plaza, String pen_Desechable, double coste, LocalDate fec_Fin_Pin_Dia, LocalTime fec_Fin_Pin_Hora, LocalDate fec_In_Pin_Dia, LocalTime fec_In_Pin_Hora
+                    PinesVO p = new PinesVO(Integer.valueOf(tokens[0]),Integer.valueOf(tokens[1]),
+                   tokens[2], Double.valueOf(tokens[3]),LocalDate.parse(tokens[4]),LocalTime.parse(tokens[5]),LocalDate.parse(tokens[6]),LocalTime.parse(tokens[7]));
                    lemp.add(p);
 
                 
