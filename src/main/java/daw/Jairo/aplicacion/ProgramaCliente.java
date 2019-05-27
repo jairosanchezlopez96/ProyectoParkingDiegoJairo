@@ -21,49 +21,54 @@ import java.util.List;
  * @author whizrxt
  */
 public class ProgramaCliente {
+
     public static void main(String[] args) {
-         ClienteDAO daoCliente = new ClienteDAO();
+        ClienteDAO daoCliente = new ClienteDAO();
         List<ClienteVO> listaCliente = new ArrayList<>();
-        listaCliente.add(new ClienteVO());
-        listaCliente.add(new ClienteVO());
-        ClienteVO p1 = new ClienteVO(10, LocalDate.now(), null, "Diego", "3244DSF", 1, "dosofskfokfss@fidjvd.com");
-        ClienteVO p10 = new ClienteVO(11, LocalDate.now(), null, "Jairo", "7543GDF", 0, "iqifkog@urugiog.es");
-
+        //listaCliente.add(new ClienteVO(12, LocalDate.now(), LocalDate.now(), "Diego", "3244DSF", 1, "dosss@fidjvd.com"));
+        //listaCliente.add(new ClienteVO(13, LocalDate.now(), LocalDate.now(), "Diego", "3244DSF", 1, "dosof@fidjvd.com"));
+        ClienteVO p1 = new ClienteVO(15, LocalDate.now(), LocalDate.now(), "Diego", "3244DSF", 1, "do@fidjvd.com");
+        ClienteVO p10 = new ClienteVO(6, LocalDate.now(), LocalDate.now(), "Jairo", "7543GDF", 0, "iqifkog@urugiog.es");
+        ClienteVO p11= new ClienteVO(8, LocalDate.now(), LocalDate.now(), "Jairo", "7543GDF", 0, "iqifkog@urugiog.es");
+       
+        //listaCliente.add(p10);
+        //listaCliente.add(p11);
+        //listaCliente.add(p1);
+        
         try {
-            
-           System.out.println("Nº plazas insertadas " + daoCliente.insertCliente(listaCliente));
-        System.out.println("-----------------------------------------");
-        System.out.println("Comprobamos en una nueva lista que se recogen los datos desde la tabla.");
-        List<ClienteVO> nuevaLista = daoCliente.getAllClientes();
-        System.out.println("-------- Lista con datos recogidos desde la B.D -------------");
-        nuevaLista.forEach(System.out::println);
-        System.out.println("Insertar una nueva Plaza");
-        daoCliente.insertCliente(p1);
-        nuevaLista.forEach(System.out::println);
-        nuevaLista = daoCliente.getAllClientes();
 
-        System.out.println("-------- Lista con datos recogidos desde la B.D -------------");
-        nuevaLista.forEach(System.out::println);
-        System.out.println("---Borramos una persona-----");
-        daoCliente.deleteCliente(p1);
-        nuevaLista = daoCliente.getAllClientes();
-        System.out.println("-------- Lista despues de Borrar-------------");
-        nuevaLista.forEach(System.out::println);
+            System.out.println("Nº plazas insertadas " + daoCliente.insertCliente(listaCliente));
+            System.out.println("-----------------------------------------");
+            System.out.println("Comprobamos en una nueva lista que se recogen los datos desde la tabla.");
+            List<ClienteVO> nuevaLista = daoCliente.getAllClientes();
+            System.out.println("-------- Lista con datos recogidos desde la B.D -------------");
+            nuevaLista.forEach(System.out::println);
+            System.out.println("Insertar una nueva Plaza");
+            daoCliente.insertCliente(p1);
+            nuevaLista.forEach(System.out::println);
+            nuevaLista = daoCliente.getAllClientes();
 
-        // FALTA EL UPDATE PLAZA
-        System.out.println("Actualizar una plaza");
+            System.out.println("-------- Lista con datos recogidos desde la B.D -------------");
+            nuevaLista.forEach(System.out::println);
+            System.out.println("---Borramos una persona-----");
+            daoCliente.deleteCliente(p1);
+            nuevaLista = daoCliente.getAllClientes();
+            System.out.println("-------- Lista despues de Borrar-------------");
+            nuevaLista.forEach(System.out::println);
 
-        daoCliente.updateCliente(4, p10);
+            // FALTA EL UPDATE PLAZA
+            System.out.println("Actualizar una plaza");
 
-        nuevaLista = daoCliente.getAllClientes();
-        System.out.println("-------- Lista despues actualizar -------------");
-        nuevaLista.forEach(System.out::println);
+            daoCliente.updateCliente(4, p10);
 
-    }
-    catch (SQLException sqle) {
+            nuevaLista = daoCliente.getAllClientes();
+            System.out.println("-------- Lista despues actualizar -------------");
+            nuevaLista.forEach(System.out::println);
+
+        } catch (SQLException sqle) {
             System.out.println("No se ha podido realizar la operación:");
-        System.out.println(sqle.getMessage());
+            System.out.println(sqle.getMessage());
+        }
     }
-    }
-    
-    }
+
+}

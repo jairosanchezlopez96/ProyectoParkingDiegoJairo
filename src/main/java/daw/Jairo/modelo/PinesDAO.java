@@ -46,10 +46,10 @@ public class PinesDAO implements IPines {
                 p.setPen_Desechable(res.getString("pen_Desechable"));
                 p.setNum_Plaza(res.getInt("num_Vehiculo"));
                 p.setFec_Fin_Pin_Dia(res.getDate("fec_Fin_Pin_Dia").toLocalDate());
-                 p.setFec_In_Pin_Dia(res.getDate("fec_Fin_In_Dia").toLocalDate());
-                 p.setFec_Fin_Pin_Hora(res.getTime("fec_Fin_Pin_Hora").toLocalTime());
-                 p.setFec_In_Pin_Hora(res.getTime("fec_Fin_In_Hora").toLocalTime());
-                
+                p.setFec_In_Pin_Dia(res.getDate("fec_Fin_In_Dia").toLocalDate());
+                p.setFec_Fin_Pin_Hora(res.getTime("fec_Fin_Pin_Hora").toLocalTime());
+                p.setFec_In_Pin_Hora(res.getTime("fec_Fin_In_Hora").toLocalTime());
+
                 p.setCoste(res.getDouble("coste"));
 
                 //Añadimos el objeto a la lista
@@ -70,15 +70,14 @@ public class PinesDAO implements IPines {
         try (PreparedStatement prest = con.prepareStatement(sql)) {
 
             // Establecemos los parámetros de la sentencia
+            prest.setTime(8, Time.valueOf(pin.getFec_In_Pin_Hora()));
+            prest.setDate(7, Date.valueOf(pin.getFec_In_Pin_Dia()));
             prest.setInt(1, pin.getCod_Vehiculo());
             prest.setInt(2, pin.getNum_Plaza());
+            prest.setTime(6, Time.valueOf(pin.getFec_Fin_Pin_Hora()));
+            prest.setDate(5, Date.valueOf(pin.getFec_Fin_Pin_Dia()));
             prest.setString(3, pin.getPen_Desechable());
             prest.setDouble(4, pin.getCoste());
-            prest.setDate(5, Date.valueOf(pin.getFec_Fin_Pin_Dia()));
-            prest.setTime(6, Time.valueOf(pin.getFec_Fin_Pin_Hora()));
-            prest.setDate(7, Date.valueOf(pin.getFec_In_Pin_Dia()));
-            prest.setTime(8, Time.valueOf(pin.getFec_In_Pin_Hora()));
-
             numFilas = prest.executeUpdate();
         }
         return numFilas;

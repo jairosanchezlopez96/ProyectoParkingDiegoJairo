@@ -20,10 +20,10 @@ public class ProgramaVehiculo {
     public static void main(String[] args) {
         VehiculoDAO daoPlaza = new VehiculoDAO();
         List<VehiculoVO> listaVehiculo = new ArrayList<>();
-        listaVehiculo.add(new VehiculoVO(14, "FRH653", 0));
-        listaVehiculo.add(new VehiculoVO(15, "WHSG518", 2));
-        VehiculoVO p1 = new VehiculoVO(16, "GEHS264", 1);
-        VehiculoVO p10 = new VehiculoVO(17, "SFWF125", 1);
+        listaVehiculo.add(new VehiculoVO(20, "FRH653", 0));
+        listaVehiculo.add(new VehiculoVO(21, "WHSG518", 2));
+        VehiculoVO p1 = new VehiculoVO(22, "GEHS264", 1);
+        VehiculoVO p10 = new VehiculoVO(23, "SFWF125", 1);
 
         try {
 

@@ -20,10 +20,16 @@ public class ProgramaReserva {
     public static void main(String[] args) {
         ReservaDAO daoReserva = new ReservaDAO();
         List<ReservaVO> listaReserva = new ArrayList<>();
-        listaReserva.add(new ReservaVO());
-        listaReserva.add(new ReservaVO());
-        ReservaVO p1 = new ReservaVO();
-        ReservaVO p10 = new ReservaVO();
+//        listaReserva.add(new ReservaVO(1, 10, 5, 1, 1.1));
+//        listaReserva.add(new ReservaVO(2, 11, 6, 2, 2.2));
+        ReservaVO p1 = new ReservaVO(3, 14, 8, 3, 3.3);
+        ReservaVO p10 = new ReservaVO(5, 15, 12, 5, 5.5);
+        ReservaVO p11 = new ReservaVO(6, 20, 13, 6, 6.6);
+        ReservaVO p12 = new ReservaVO(8, 21, 8, 8, 8.8);
+//        listaReserva.add(p1);
+//        listaReserva.add(p12);
+//        listaReserva.add(p11);
+//        listaReserva.add(p10);
 
         try {
 
@@ -34,7 +40,7 @@ public class ProgramaReserva {
             System.out.println("-------- Lista con datos recogidos desde la B.D -------------");
             nuevaLista.forEach(System.out::println);
             System.out.println("Insertar una nueva Reserva");
-            daoReserva.insertReserva(p1);
+            daoReserva.insertReserva(p12);
             nuevaLista.forEach(System.out::println);
             nuevaLista = daoReserva.getAll();
 
