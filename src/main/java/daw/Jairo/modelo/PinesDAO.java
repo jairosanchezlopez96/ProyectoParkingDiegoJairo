@@ -44,11 +44,11 @@ public class PinesDAO implements IPines {
                 // Recogemos los datos de la persona, guardamos en un objeto
                 p.setCod_Vehiculo(res.getInt("cod_Vehiculo"));
                 p.setPen_Desechable(res.getString("pen_Desechable"));
-                p.setNum_Plaza(res.getInt("num_Vehiculo"));
+                p.setNum_Plaza(res.getInt("num_Plaza"));
                 p.setFec_Fin_Pin_Dia(res.getDate("fec_Fin_Pin_Dia").toLocalDate());
-                p.setFec_In_Pin_Dia(res.getDate("fec_Fin_In_Dia").toLocalDate());
+                p.setFec_In_Pin_Dia(res.getDate("fec_Fin_Pin_Dia").toLocalDate());
                 p.setFec_Fin_Pin_Hora(res.getTime("fec_Fin_Pin_Hora").toLocalTime());
-                p.setFec_In_Pin_Hora(res.getTime("fec_Fin_In_Hora").toLocalTime());
+                p.setFec_In_Pin_Hora(res.getTime("fec_Fin_Pin_Hora").toLocalTime());
 
                 p.setCoste(res.getDouble("coste"));
 
@@ -70,14 +70,14 @@ public class PinesDAO implements IPines {
         try (PreparedStatement prest = con.prepareStatement(sql)) {
 
             // Establecemos los parámetros de la sentencia
-            prest.setTime(8, Time.valueOf(pin.getFec_In_Pin_Hora()));
-            prest.setDate(7, Date.valueOf(pin.getFec_In_Pin_Dia()));
-            prest.setInt(1, pin.getCod_Vehiculo());
-            prest.setInt(2, pin.getNum_Plaza());
-            prest.setTime(6, Time.valueOf(pin.getFec_Fin_Pin_Hora()));
-            prest.setDate(5, Date.valueOf(pin.getFec_Fin_Pin_Dia()));
-            prest.setString(3, pin.getPen_Desechable());
-            prest.setDouble(4, pin.getCoste());
+            prest.setTime(1, Time.valueOf(pin.getFec_In_Pin_Hora()));
+            prest.setDate(2, Date.valueOf(pin.getFec_In_Pin_Dia()));
+            prest.setInt(3, pin.getCod_Vehiculo());
+            prest.setInt(4, pin.getNum_Plaza());
+            prest.setTime(5, Time.valueOf(pin.getFec_Fin_Pin_Hora()));
+            prest.setDate(6, Date.valueOf(pin.getFec_Fin_Pin_Dia()));
+            prest.setString(7, pin.getPen_Desechable());
+            prest.setDouble(8, pin.getCoste());
             numFilas = prest.executeUpdate();
         }
         return numFilas;
@@ -120,7 +120,7 @@ public class PinesDAO implements IPines {
     public int updatePin(int pk1, int pk2, LocalDate pk3, LocalTime pk4, PinesVO pin) throws SQLException {
         int numFilas = 0;
         String sql = "update Pines set pen_Desechable = ?,  coste = ?,fec_Fin_Pin_Hora = ?, fec_Fin_Pin_Dia = ? "
-                + "where fec_In_Pin_Hora=? AND fec_In_Pin_Dia=? AND num_plaza=? AND cod_Vehiculo=?";
+                + "where fec_In_Pin_Dia=? AND fec_In_Pin_Hora=? AND num_plaza=? AND cod_Vehiculo=?";
 
         // Instanciamos el objeto PreparedStatement para inserción
         // de datos. Sentencia parametrizada
