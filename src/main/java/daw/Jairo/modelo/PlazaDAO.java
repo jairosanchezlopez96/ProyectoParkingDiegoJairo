@@ -132,5 +132,17 @@ public class PlazaDAO implements IPlaza {
         }
         return nfilas;
     }
+    
+//    @Override
+//    public int numeroPlazas() throws SQLException {
+//        String sql = "select num_Plaza from Plazas where estado_Plaza";
+//        int nfilas = 0;
+//
+//        try (Statement st = con.createStatement()) {
+//
+//            nfilas = st.executeUpdate(sql);
+//        }
+//        return nfilas;
+//    }
 
 }

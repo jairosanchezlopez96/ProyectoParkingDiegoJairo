@@ -24,4 +24,6 @@ public interface IPlaza {
    // la pk es el num_Plaza
     public int updatePlaza (int pk, PlazaVO nuevaPlaza) throws SQLException;
     public int deletePlaza() throws SQLException;
+    
+//    public int numeroPlazas() throws SQLException;
 }
