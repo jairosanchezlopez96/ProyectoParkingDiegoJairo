@@ -24,6 +24,7 @@ public interface IVehiculo{
     
     // Método para borrar un vehiculo
     int deleteVehiculo (VehiculoVO p) throws SQLException;
+    int deleteVehiculo() throws SQLException;
     
     // Método para modificar una vehiculo. Se modifica a la vehiculo que tenga ese 'codcli'
     // con los nuevos datos que traiga la vehiculo 'nuevosDatos'

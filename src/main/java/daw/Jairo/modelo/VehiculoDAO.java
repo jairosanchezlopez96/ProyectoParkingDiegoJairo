@@ -114,4 +114,19 @@ public class VehiculoDAO implements IVehiculo {
         return numFilas;
     }
 
-}
+    @Override
+    public int deleteVehiculo() throws SQLException {
+           
+   
+        String sql = "delete from Vehiculos";
+        int nfilas = 0;
+
+        try (Statement st = con.createStatement()) {
+
+            nfilas = st.executeUpdate(sql);
+        }
+        return nfilas;
+    }
+    }
+
+

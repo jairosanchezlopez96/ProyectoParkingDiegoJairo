@@ -19,6 +19,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.time.LocalDate;
@@ -26,8 +29,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -357,48 +363,90 @@ public class Singleton {
 
     }
 
-    public void crearBackup() throws SQLException {
-        LocalDate hoy = LocalDate.now();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(hoy);
-        File directorio = new File(strDate);
+    public static void crearBackup() throws SQLException {
+      LocalDate localDate = LocalDate.now();//For reference
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+    String strDate = localDate.format(formatter);
+      Path path = Paths.get("backups");
+
+if (Files.exists(path)) {
+    // ...
+}
+else{
+File directorio2 = new File("backups");
+        directorio2.mkdir();
+}
+       
+        File directorio = new File("backups"+"/"+strDate);
+        directorio.mkdir();
         PinesDAO p = new PinesDAO();
         List<PinesVO> listapines = p.getAllPines();
-        EscribirPines((ArrayList<PinesVO>) listapines, strDate + "/" + "pines");
+        EscribirPines((ArrayList<PinesVO>) listapines,"backups"+"/"+ strDate + "/" + "pines");
         VehiculoDAO v = new VehiculoDAO();
         List<VehiculoVO> listavehiculos = v.getAll();
-        EscribirVehiculos((ArrayList<VehiculoVO>) listavehiculos, strDate + "/" + "vehiculos");
+        EscribirVehiculos((ArrayList<VehiculoVO>) listavehiculos,"backups"+"/"+ strDate + "/" + "vehiculos");
         PlazaDAO pl = new PlazaDAO();
         List<PlazaVO> listaplaza = pl.getAll();
-        EscribirPlaza((ArrayList<PlazaVO>) listaplaza, strDate + "/" + "plazas");
+        EscribirPlaza((ArrayList<PlazaVO>) listaplaza, "backups"+"/"+strDate + "/" + "plazas");
         ReservaDAO reser = new ReservaDAO();
         List<ReservaVO> reservas = reser.getAll();
-        EscribirReservas((ArrayList<ReservaVO>) reservas, strDate + "/" + "reservas");
+        EscribirReservas((ArrayList<ReservaVO>) reservas,"backups"+"/"+ strDate + "/" + "reservas");
         ClienteDAO c = new ClienteDAO();
         List<ClienteVO> listacliente = c.getAllClientes();
-        EscribirClientes((ArrayList<ClienteVO>) listacliente, strDate + "/" + "clientes");
+        EscribirClientes((ArrayList<ClienteVO>) listacliente, "backups"+"/"+strDate + "/" + "clientes");
 
     }
 
-    public void Restaurar(String fechaBackup) throws SQLException {
-        PinesDAO p = new PinesDAO();
-        ArrayList<PinesVO> listapines = leerPines(fechaBackup +"/"+"pines");
-        p.insertPines(listapines);
-        // para los pines
+    public static void Restaurar() throws SQLException {
+        // borramos  primero
+         ClienteDAO c = new ClienteDAO();
         VehiculoDAO v = new VehiculoDAO();
-        ArrayList<VehiculoVO> listavehiculo = leerVehiculos(fechaBackup +"/"+"vehiculos");
+        PlazaDAO pl = new PlazaDAO();
+        ReservaDAO reser = new ReservaDAO();
+         PinesDAO p = new PinesDAO();
+          reser.deleteReserva();
+         p.deletePines();
+         c.deleteCliente();
+         v.deleteVehiculo();
+         pl.deletePlaza();
+        // Mostrar todas las backups
+        try (Stream<Path> walk = Files.walk(Paths.get("backups"))) {
+
+		List<String> result = walk.filter(Files::isDirectory)
+				.map(x -> x.toString()).collect(Collectors.toList());
+
+		result.forEach(System.out::println);
+
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Elegir backup a utilizar");
+        String usar = teclado.nextLine();
+        
+        
+        
+        ArrayList<ClienteVO> listacliente = leerClientes("backups"+"/"+usar +"/"+"clientes");
+        c.insertCliente(listacliente);
+        // para los clientes
+        
+        ArrayList<VehiculoVO> listavehiculo = leerVehiculos("backups"+"/"+usar +"/"+"vehiculos");
         v.insertVehiculo(listavehiculo);
         // para los vehiculos 
-        PlazaDAO pl = new PlazaDAO();
-        ArrayList<PlazaVO> listaplaza = leerPlazas(fechaBackup +"/"+"plazas");
+        
+        ArrayList<PlazaVO> listaplaza = leerPlazas("backups"+"/"+usar +"/"+"plazas");
         pl.insertPlaza(listaplaza);
         // para las plazas
-        ReservaDAO reser = new ReservaDAO();
-         ArrayList<ReservaVO> listareserva = leerReservas(fechaBackup +"/"+"reservas");
+        
+        
+        
+         ArrayList<ReservaVO> listareserva = leerReservas("backups"+"/"+usar +"/"+"reservas");
         reser.insertReserva(listareserva);
         // para las reservas
-        ClienteDAO c = new ClienteDAO();
-        ArrayList<ClienteVO> listacliente = leerClientes(fechaBackup +"/"+"clientes");
-        c.insertCliente(listacliente);
+        
+       
+        ArrayList<PinesVO> listapines = leerPines("backups"+"/"+usar +"/"+"pines");
+        p.insertPines(listapines); 
+        // para los pines
     }
 }

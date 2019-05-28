@@ -7,6 +7,7 @@ package daw.Jairo.aplicacion;
 
 import daw.Jairo.modelo.PlazaVO;
 import daw.Jairo.modelo.Singleton;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -14,20 +15,10 @@ import java.util.ArrayList;
  * @author jairo
  */
 public class TestDatabases {
-    public static void main(String[] args) {
-        ArrayList<PlazaVO> lista = new ArrayList<>();
-        lista.add(new PlazaVO(2,41.2, 3, 1));
-        lista.add(new PlazaVO(3,41.2, 2, 2));
-        lista.add(new PlazaVO(4,41.2, 2, 3));
-        lista.add(new PlazaVO(5,41.2, 1, 1));
-        
-        
-        Singleton.EscribirPlaza(lista,"ficheroPlaza");
-       ArrayList<PlazaVO> listaP = Singleton.leerPlazas("ficheroPlaza");
-       for(PlazaVO p : listaP){
-           System.out.println(p);
-       
-       }
+    public static void main(String[] args) throws SQLException {
+    
+        Singleton.crearBackup();
+           Singleton.Restaurar("28 5 2019");
         
     }
 }
