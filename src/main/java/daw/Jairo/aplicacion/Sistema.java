@@ -16,14 +16,14 @@ import java.util.ArrayList;
  *
  * @author whizrxt
  */
-public class Programas {
+public class Sistema {
     //LISTA DE CLIENTES
 
     private ArrayList<ClienteVO> listaCliente;
 
     //LISTA DE PINES
     private ArrayList<PinesVO> listaPines;
-    
+
     //LISTA DE PLAZAS
     private ArrayList<PlazaVO> listaPlaza;
 
@@ -33,7 +33,7 @@ public class Programas {
     //LISTA DE VEHICULOS
     private ArrayList<VehiculoVO> listaVehiculo;
 
-    public Programas(ArrayList<ClienteVO> listaCliente, ArrayList<PinesVO> listaPines, ArrayList<PlazaVO> listaPlaza, ArrayList<ReservaVO> listaReserva, ArrayList<VehiculoVO> listaVehiculo) {
+    public Sistema(ArrayList<ClienteVO> listaCliente, ArrayList<PinesVO> listaPines, ArrayList<PlazaVO> listaPlaza, ArrayList<ReservaVO> listaReserva, ArrayList<VehiculoVO> listaVehiculo) {
         this.listaCliente = listaCliente;
         this.listaPines = listaPines;
         this.listaPlaza = listaPlaza;
@@ -83,6 +83,6 @@ public class Programas {
 
     @Override
     public String toString() {
-        return "Programas{" + "listaCliente=" + listaCliente + ", listaPines=" + listaPines + ", listaPlaza=" + listaPlaza + ", listaReserva=" + listaReserva + ", listaVehiculo=" + listaVehiculo + '}';
+        return "Sistema{" + "listaCliente=" + listaCliente + ", listaPines=" + listaPines + ", listaPlaza=" + listaPlaza + ", listaReserva=" + listaReserva + ", listaVehiculo=" + listaVehiculo + '}';
     }
 }
