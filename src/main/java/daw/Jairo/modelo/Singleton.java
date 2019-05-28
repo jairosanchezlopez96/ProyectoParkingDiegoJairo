@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package daw.Jairo.modelo;
-
+import java.text.DateFormat;  
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
+import java.util.Calendar;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,6 +18,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -380,6 +385,32 @@ public class Singleton {
         
         
     }
+        
+        public void crearBackup () throws SQLException{
+            LocalDate hoy = LocalDate.now();
+             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+                String strDate = dateFormat.format(hoy);  
+            File directorio = new File(strDate);
+            PinesDAO p = new PinesDAO();
+            List<PinesVO> listapines =  p.getAllPines();
+            EscribirPines((ArrayList<PinesVO>) listapines,strDate+"/"+"pines");
+             VehiculoDAO v = new VehiculoDAO();
+            List<VehiculoVO> listavehiculos =  v.getAll();
+            EscribirVehiculos((ArrayList<VehiculoVO>) listavehiculos,strDate+"/"+"vehiculos");
+             PlazaDAO pl = new PlazaDAO();
+            List<PlazaVO> listaplaza =  pl.getAll();
+            EscribirPlaza((ArrayList<PlazaVO>) listaplaza,strDate+"/"+"plazas");
+             ReservaDAO reser = new ReservaDAO();
+            List<ReservaVO> reservas =  reser.getAll();
+            EscribirReservas((ArrayList<ReservaVO>) reservas,strDate+"/"+"reservas");
+             ClienteDAO c = new ClienteDAO();
+            List<ClienteVO> listacliente =  c.getAllClientes();
+            EscribirClientes((ArrayList<ClienteVO>) listacliente,strDate+"/"+"pines");
+            
+            
+        
+        
+        }
      
     }
 
