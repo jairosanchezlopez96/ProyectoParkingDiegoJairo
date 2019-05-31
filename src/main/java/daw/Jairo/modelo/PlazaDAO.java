@@ -132,17 +132,28 @@ public class PlazaDAO implements IPlaza {
         }
         return nfilas;
     }
-    
-//    @Override
-//    public int numeroPlazas() throws SQLException {
-//        String sql = "select num_Plaza from Plazas where estado_Plaza";
-//        int nfilas = 0;
-//
-//        try (Statement st = con.createStatement()) {
-//
-//            nfilas = st.executeUpdate(sql);
-//        }
-//        return nfilas;
-//    }
 
+    @Override
+    public ArrayList<PlazaVO> numeroPlazas() throws SQLException {
+        ArrayList<PlazaVO> lista = new ArrayList<>();
+
+        // Preparamos la consulta de datos mediante un objeto Statement
+        // ya que no necesitamos parametrizar la sentencia SQL
+        try (Statement st = con.createStatement()) {
+            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
+            ResultSet res = st.executeQuery("select num_Plaza, estado_Plaza from Plazas");
+            // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
+            while (res.next()) {
+                PlazaVO p = new PlazaVO();
+                // Recogemos los datos de la persona, guardamos en un objeto
+                p.setNum_Plaza(res.getInt("num_Plaza"));
+                p.setEstado_Plaza(res.getInt("estado_Plaza"));
+
+                //Añadimos el objeto a la lista
+                lista.add(p);
+            }
+        }
+
+        return lista;
+    }
 }

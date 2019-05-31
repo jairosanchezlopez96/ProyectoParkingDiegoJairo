@@ -6,6 +6,7 @@
 package daw.Jairo.modelo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,5 +26,5 @@ public interface IPlaza {
     public int updatePlaza (int pk, PlazaVO nuevaPlaza) throws SQLException;
     public int deletePlaza() throws SQLException;
     
-//    public int numeroPlazas() throws SQLException;
+    public ArrayList<PlazaVO> numeroPlazas() throws SQLException;
 }

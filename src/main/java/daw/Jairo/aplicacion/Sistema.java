@@ -10,9 +10,13 @@ import daw.Jairo.modelo.PinesVO;
 import daw.Jairo.modelo.PlazaDAO;
 import daw.Jairo.modelo.PlazaVO;
 import daw.Jairo.modelo.ReservaVO;
+import daw.Jairo.modelo.Singleton;
 import daw.Jairo.modelo.VehiculoVO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -90,7 +94,7 @@ public class Sistema {
     }
 
     //Metodo para elegir la zona
-    public static void elegirZona() {
+    public static void elegirZona() throws SQLException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
@@ -129,7 +133,7 @@ public class Sistema {
         System.out.println("");
         System.out.println("Bienvenido a la Zona de Cliente. Escoja la accion que desea realizar"
                 + "\n1. Depositar vehiculo \n2. Retirar vehiculo \n3. Depositar abonados \n4. Retirar abonados");
-        
+
         try {
             eleccion = tec.nextInt();
 
@@ -153,20 +157,20 @@ public class Sistema {
                     retirarAbonado();
                     break;
             }
-            
+
         } catch (InputMismatchException e) {
             System.out.println("Solo se permiten numeros, reinicia el sistema e intentelo de nuevo");
         }
     }
 
-    public static void zonaAdmin() {
-         Scanner tec = new Scanner(System.in);
+    public static void zonaAdmin() throws SQLException {
+        Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
         System.out.println("");
         System.out.println("Bienvenido a la Zona de Administrador. Escoja la accion que desea realizar"
                 + "\n1. Controlar estado del parking \n2. Facturacion"
-                + " \n3. Abonos \n4. Caducidad de abonos \n5. Restaurar");
+                + " \n3. Abonos \n4. Caducidad de abonos \n5. Copia de Seguridad");
 
         try {
             eleccion = tec.nextInt();
@@ -191,10 +195,10 @@ public class Sistema {
                     caducidadAbonos();
                     break;
                 case 5:
-                    restaurar();
+                    copiaSeguridad();
                     break;
             }
-            
+
         } catch (InputMismatchException e) {
             System.out.println("Solo se permiten numeros, reinicia el sistema e intentelo de nuevo");
         }
@@ -202,7 +206,7 @@ public class Sistema {
 
     public static void depositarVehiculo() {
         PlazaDAO plazas = new PlazaDAO();
-        System.out.println("Numero de plazas disponible: " );
+        System.out.println("Numero de plazas disponible: ");
     }
 
     public static void retirarVehiculo() {
@@ -217,27 +221,92 @@ public class Sistema {
 
     }
 
-    public static void controlarParking(){
+    //Metodo completo
+    public static void controlarParking() {
+        try {
+            PlazaDAO control = new PlazaDAO();
+            ArrayList lista = control.numeroPlazas();
+            enseñarPlazas(lista);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void facturacion() {
+
+    }
+
+    public static void abonos() {
+
+    }
+
+    public static void caducidadAbonos() {
+
+    }
+
+    public static void copiaSeguridad() throws SQLException {
+        Scanner tec = new Scanner(System.in);
+        int eleccion = 0;
+
+        System.out.println("");
+        System.out.println("Elige la opcion que desea ejecutar"
+                + " \n1. Crear copia de seguridad \n2. Restaurar copia de seguridad");
+
+        try {
+            eleccion = tec.nextInt();
+
+            while (eleccion != 1 && eleccion != 2) {
+                System.out.println("Porfavor eleccione una opcion correcta");
+                eleccion = tec.nextInt();
+                tec.nextLine();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Solo se permiten numeros, reinicia el sistema e intentelo de nuevo");
+        }
         
+        switch (eleccion){
+            case 1:
+                System.out.println("Has elegido crear una copia de seguridad. En breves se completará la accion");
+                crearCopiaSeguridad();
+                break;
+            case 2:
+                System.out.println("Has elegido restaurar. En breves se restaurará por completo");
+                restaurarCopiaSeguridad();
+                break;
+        }
     }
     
-    public static void facturacion(){
-        
+    public static void crearCopiaSeguridad() throws SQLException{
+        Singleton.crearBackup();
     }
-    
-    public static void abonos(){
-        
+
+    public static void restaurarCopiaSeguridad() throws SQLException{
+        Singleton.Restaurar();
     }
-    
-    public static void caducidadAbonos(){
-        
+    public static void enseñarPlazas(ArrayList<PlazaVO> x) {
+        System.out.println("Estado de plazas \n1. Libre \n2. Ocupada \n3. Abono Libre \n4. Abono Ocupada");
+        for (int i = 0; i < x.size(); i++) {
+            
+            switch(x.get(i).getEstado_Plaza()){
+                case 1:
+                    System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Libre");
+                    break;
+                case 2:
+                    System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Ocupada");
+                    break;
+                case 3:
+                    System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Abono Libre");
+                        break;
+                case 4:
+                    System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Abono Ocupada");
+                    break;
+                        
+            }
+        }
     }
-    
-    public static void restaurar(){
-        
-    }
-    
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws SQLException {
         elegirZona();
     }
 }
