@@ -15,8 +15,6 @@ import daw.Jairo.modelo.VehiculoVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -98,32 +96,50 @@ public class Sistema {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
-        System.out.println("Bienvenido al parking, seleccion segun la zona a la que quieras acceder"
+        System.out.println("Bienvenido al parking, selecciona segun la zona a la que quieras acceder"
                 + "\n1. Zona Cliente \n2. Zona Administrador");
 
         try {
 
             eleccion = tec.nextInt();
 
-            while (eleccion != 1 && eleccion != 2) {
+            while (eleccion != 1 && eleccion != 2 && eleccion != 3) {
 
-                System.out.println("Porfavor eleccione una opcion correcta");
+                System.out.println("Por favor seleccione una opcion correcta");
                 eleccion = tec.nextInt();
                 tec.nextLine();
 
             }
         } catch (InputMismatchException e) {
-            System.out.println("Solo se permiten numeros, reinicia el sistema e intentelo de nuevo");
+            System.out.println("Solo se permiten numeros"); 
+            tec.nextLine();
         }
+        
+        do {
+            
 
-        switch (eleccion) {
-            case 1:
-                zonaCliente();
-                break;
-            case 2:
-                zonaAdmin();
-                break;
-        }
+            switch (eleccion) {
+                case 1:
+                    zonaCliente();
+                    break;
+                case 2:
+                    zonaAdmin();
+                    break;
+            }
+            
+            System.out.println("");
+            System.out.println("Bienvenido de nuevo al parking, selecciona segun la zona a la que quieras acceder"
+                + "\n1. Zona Cliente \n2. Zona Administrador \n3. Salir ");
+            try{
+            eleccion = tec.nextInt();
+            tec.nextLine();
+            }catch(InputMismatchException e){
+                System.out.println("Solo se permiten numeros");
+                tec.nextLine();
+                
+                
+            }
+        } while (eleccion != 3);
     }
 
     public static void zonaCliente() {
@@ -264,8 +280,8 @@ public class Sistema {
         } catch (InputMismatchException e) {
             System.out.println("Solo se permiten numeros, reinicia el sistema e intentelo de nuevo");
         }
-        
-        switch (eleccion){
+
+        switch (eleccion) {
             case 1:
                 System.out.println("Has elegido crear una copia de seguridad. En breves se completará la accion");
                 crearCopiaSeguridad();
@@ -276,19 +292,20 @@ public class Sistema {
                 break;
         }
     }
-    
-    public static void crearCopiaSeguridad() throws SQLException{
+
+    public static void crearCopiaSeguridad() throws SQLException {
         Singleton.crearBackup();
     }
 
-    public static void restaurarCopiaSeguridad() throws SQLException{
+    public static void restaurarCopiaSeguridad() throws SQLException {
         Singleton.Restaurar();
     }
+
     public static void enseñarPlazas(ArrayList<PlazaVO> x) {
         System.out.println("Estado de plazas \n1. Libre \n2. Ocupada \n3. Abono Libre \n4. Abono Ocupada");
         for (int i = 0; i < x.size(); i++) {
-            
-            switch(x.get(i).getEstado_Plaza()){
+
+            switch (x.get(i).getEstado_Plaza()) {
                 case 1:
                     System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Libre");
                     break;
@@ -297,11 +314,11 @@ public class Sistema {
                     break;
                 case 3:
                     System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Abono Libre");
-                        break;
+                    break;
                 case 4:
                     System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Abono Ocupada");
                     break;
-                        
+
             }
         }
     }
