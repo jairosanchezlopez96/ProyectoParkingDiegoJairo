@@ -10,10 +10,10 @@ package daw.Jairo.modelo;
  * @author jairo
  */
 public enum tipo_Plaza {
-    TURISMO(1,"Turismo"),
-    CARAVANA(3,"Caravana"),
-    MOTOCICLETA(2,"Motocicleta");
-   
+    TURISMO(1, "Turismo"),
+    CARAVANA(3, "Caravana"),
+    MOTOCICLETA(2, "Motocicleta");
+
     private int valor;
     private String tipo;
 
@@ -38,7 +38,4 @@ public enum tipo_Plaza {
         this.tipo = tipo;
     }
 
-    
-
-
- }
+}

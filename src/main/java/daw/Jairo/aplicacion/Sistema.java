@@ -111,12 +111,11 @@ public class Sistema {
 
             }
         } catch (InputMismatchException e) {
-            System.out.println("Solo se permiten numeros"); 
+            System.out.println("Solo se permiten numeros");
             tec.nextLine();
         }
-        
+
         do {
-            
 
             switch (eleccion) {
                 case 1:
@@ -126,18 +125,18 @@ public class Sistema {
                     zonaAdmin();
                     break;
             }
-            
+
             System.out.println("");
             System.out.println("Bienvenido de nuevo al parking, selecciona segun la zona a la que quieras acceder"
-                + "\n1. Zona Cliente \n2. Zona Administrador \n3. Salir ");
-            try{
-            eleccion = tec.nextInt();
-            tec.nextLine();
-            }catch(InputMismatchException e){
+                    + "\n1. Zona Cliente \n2. Zona Administrador \n3. Salir ");
+            try {
+                eleccion = tec.nextInt();
+                tec.nextLine();
+            } catch (InputMismatchException e) {
                 System.out.println("Solo se permiten numeros");
                 tec.nextLine();
-                
-                
+                break;
+
             }
         } while (eleccion != 3);
     }
@@ -221,8 +220,10 @@ public class Sistema {
     }
 
     public static void depositarVehiculo() {
-        PlazaDAO plazas = new PlazaDAO();
-        System.out.println("Numero de plazas disponible: ");
+        String matricula;
+        Scanner teclado= new Scanner(System.in);
+        System.out.println("Introduzca la matricula de su vehiculo");
+        matricula=teclado.nextLine();
     }
 
     public static void retirarVehiculo() {
@@ -299,6 +300,7 @@ public class Sistema {
 
     public static void restaurarCopiaSeguridad() throws SQLException {
         Singleton.Restaurar();
+        System.out.println("La restauración se completó satisfactoriamente.");
     }
 
     public static void enseñarPlazas(ArrayList<PlazaVO> x) {

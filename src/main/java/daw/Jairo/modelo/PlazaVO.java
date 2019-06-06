@@ -5,14 +5,12 @@
  */
 package daw.Jairo.modelo;
 
-import java.io.Serializable;
-
 /**
  *
  * @author jairo
  */
-public class PlazaVO  {
-   
+public class PlazaVO {
+
     // num plaza pl , estado_Plaza(1-4 
     // 1 -- libre , 2-- ocupada , 3-- abono libre , 4-- abono ocupada
     // tipo_Plazas 1- turismo 2- motocicletas 3- caravanas
@@ -26,7 +24,7 @@ public class PlazaVO  {
 
     @Override
     public String toString() {
-        return   num_Plaza + "," + tarifa + "," + estado_Plaza + "," + tipo_Plazas;
+        return num_Plaza + "," + tarifa + "," + estado_Plaza + "," + tipo_Plazas;
     }
 
     public PlazaVO(int num_Plaza, double tarifa, int estado_Plaza, int tipo_Plaza) {
@@ -67,7 +65,5 @@ public class PlazaVO  {
     public void setTipo_Plazas(int tipo_Plaza) {
         this.tipo_Plazas = tipo_Plaza;
     }
-   
-    
-    
+
 }

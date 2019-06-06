@@ -113,7 +113,7 @@ public class ClienteDAO implements ICliente {
         String sql = "update Cliente set nombre = ?, email = ?, tarjeta = ?, tipo_Abono=?, "
                 + " fec_Fin_Abono =?, fec_In_Abono=? where cod_Cliente=?";
         try (PreparedStatement prest = con.prepareStatement(sql)) {
- // arreglar
+            // arreglar
             prest.setString(1, cliente.getNombre());
             prest.setString(2, cliente.getEmail());
             prest.setString(3, cliente.getTarjeta());

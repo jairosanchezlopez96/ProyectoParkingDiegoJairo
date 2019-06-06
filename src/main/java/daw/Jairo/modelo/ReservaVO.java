@@ -5,14 +5,11 @@
  */
 package daw.Jairo.modelo;
 
-import java.io.Serializable;
-
 /**
  *
  * @author whizrxt
  */
-public class ReservaVO  {
-    
+public class ReservaVO {
 
     private int num_Plaza;
     private int cod_Vehiculo;
@@ -73,7 +70,7 @@ public class ReservaVO  {
 
     @Override
     public String toString() {
-        return    num_Plaza + "," + cod_Vehiculo + "," + cod_Cliente + "," + pin_fijo + "," + coste ;
+        return num_Plaza + "," + cod_Vehiculo + "," + cod_Cliente + "," + pin_fijo + "," + coste;
     }
 
 }

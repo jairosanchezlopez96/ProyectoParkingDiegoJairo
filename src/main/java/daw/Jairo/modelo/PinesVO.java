@@ -7,7 +7,6 @@ package daw.Jairo.modelo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -15,6 +14,7 @@ import java.time.LocalTime;
  * @author whizrxt
  */
 public class PinesVO implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private int cod_Vehiculo;
     private int num_Plaza;
@@ -22,7 +22,7 @@ public class PinesVO implements Serializable {
     private double coste;
     private LocalDate fec_Fin_Pin_Dia;
     private LocalTime fec_Fin_Pin_Hora;
-     private LocalDate fec_In_Pin_Dia;
+    private LocalDate fec_In_Pin_Dia;
     private LocalTime fec_In_Pin_Hora;
 
     public PinesVO(int cod_Vehiculo, int num_Plaza, String pen_Desechable, double coste, LocalDate fec_Fin_Pin_Dia, LocalTime fec_Fin_Pin_Hora, LocalDate fec_In_Pin_Dia, LocalTime fec_In_Pin_Hora) {
@@ -105,11 +105,7 @@ public class PinesVO implements Serializable {
 
     @Override
     public String toString() {
-        return   cod_Vehiculo + "," + num_Plaza + "," + pen_Desechable + "," + coste + "," + fec_Fin_Pin_Dia + "," + fec_Fin_Pin_Hora + "," + fec_In_Pin_Dia + "," + fec_In_Pin_Hora ;
+        return cod_Vehiculo + "," + num_Plaza + "," + pen_Desechable + "," + coste + "," + fec_Fin_Pin_Dia + "," + fec_Fin_Pin_Hora + "," + fec_In_Pin_Dia + "," + fec_In_Pin_Hora;
     }
-   
-    
-    
-    
+
 }
- 

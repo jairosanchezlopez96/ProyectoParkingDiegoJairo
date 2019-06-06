@@ -7,17 +7,17 @@ package daw.Jairo.modelo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  *
  * @author jairo
  */
-public class ClienteVO  implements Serializable{
+public class ClienteVO implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private int cod_Cliente;
     private LocalDate fec_In_Abono;
-     
+
     private LocalDate fec_Fin_Abono;
     private String nombre;
     private String tarjeta;
@@ -95,8 +95,7 @@ public class ClienteVO  implements Serializable{
 
     @Override
     public String toString() {
-        return   cod_Cliente + "," + fec_In_Abono + "," + fec_Fin_Abono + "," + nombre + "," + tarjeta + "," + tipo_Abono + "," + email ;
+        return cod_Cliente + "," + fec_In_Abono + "," + fec_Fin_Abono + "," + nombre + "," + tarjeta + "," + tipo_Abono + "," + email;
     }
-    
-    
+
 }

@@ -3,9 +3,7 @@
  */
 package daw.Jairo.modelo;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -116,8 +114,7 @@ public class VehiculoDAO implements IVehiculo {
 
     @Override
     public int deleteVehiculo() throws SQLException {
-           
-   
+
         String sql = "delete from Vehiculos";
         int nfilas = 0;
 
@@ -127,6 +124,4 @@ public class VehiculoDAO implements IVehiculo {
         }
         return nfilas;
     }
-    }
-
-
+}

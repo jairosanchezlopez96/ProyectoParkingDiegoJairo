@@ -3,11 +3,8 @@
  */
 package daw.Jairo.modelo;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+public class VehiculoVO {
 
-public class VehiculoVO  {
-    
     private int cod_Vehiculo;
     private String matricula;
     private int tipo_Vehiculo;
@@ -45,12 +42,10 @@ public class VehiculoVO  {
     public void setTipo_Vehiculo(int tipo_Vehiculo) {
         this.tipo_Vehiculo = tipo_Vehiculo;
     }
-    
+
     @Override
     public String toString() {
-        return  cod_Vehiculo + "," + matricula + "," + tipo_Vehiculo;
+        return cod_Vehiculo + "," + matricula + "," + tipo_Vehiculo;
     }
-
-    
 
 }

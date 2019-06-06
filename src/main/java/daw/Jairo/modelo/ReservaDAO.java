@@ -6,7 +6,6 @@
 package daw.Jairo.modelo;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +18,8 @@ import java.util.List;
  * @author jairo
  */
 public class ReservaDAO implements IReserva {
-     private Connection con = null;
+
+    private Connection con = null;
 
     public ReservaDAO() {
         con = Conexion.getInstance();
@@ -27,7 +27,7 @@ public class ReservaDAO implements IReserva {
 
     @Override
     public List<ReservaVO> getAll() throws SQLException {
-         List<ReservaVO> lista = new ArrayList<>();
+        List<ReservaVO> lista = new ArrayList<>();
 
         // Preparamos la consulta de datos mediante un objeto Statement
         // ya que no necesitamos parametrizar la sentencia SQL
@@ -54,24 +54,24 @@ public class ReservaDAO implements IReserva {
 
     @Override
     public int insertReserva(ReservaVO reserva) throws SQLException {
-        int numFilas= 0;
+        int numFilas = 0;
         String sql = "insert into Reserva values (?,?,?,?,?)";
 
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
-            try (PreparedStatement prest = con.prepareStatement(sql)) {
+        // Instanciamos el objeto PreparedStatement para inserción
+        // de datos. Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setInt(1, reserva.getNum_Plaza());
-                prest.setInt(2, reserva.getCod_Vehiculo());
-                prest.setInt(3, reserva.getCod_Cliente());
-                prest.setInt(4,reserva.getPin_fijo());
-                prest.setDouble(5, reserva.getCoste());
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(1, reserva.getNum_Plaza());
+            prest.setInt(2, reserva.getCod_Vehiculo());
+            prest.setInt(3, reserva.getCod_Cliente());
+            prest.setInt(4, reserva.getPin_fijo());
+            prest.setDouble(5, reserva.getCoste());
 
-                numFilas = prest.executeUpdate();
-            }
-            return numFilas;
+            numFilas = prest.executeUpdate();
         }
+        return numFilas;
+    }
 
     @Override
     public int deleteReserva(ReservaVO reserva) throws SQLException {
@@ -94,31 +94,29 @@ public class ReservaDAO implements IReserva {
     }
 
     @Override
-    public int updateReserva(int num_Plaza, int cod_Cliente , int cod_Vehiculo, ReservaVO nuevaReserva) throws SQLException {
+    public int updateReserva(int num_Plaza, int cod_Cliente, int cod_Vehiculo, ReservaVO nuevaReserva) throws SQLException {
         int numFilas = 0;
         String sql = "update Reserva set  pin_fijo = ?, coste=? where num_Plaza=? and cod_Vehiculo = ? and cod_Cliente = ?";
 
-       
-            // Instanciamos el objeto PreparedStatement para inserción
-            // de datos. Sentencia parametrizada
-            try (PreparedStatement prest = con.prepareStatement(sql)) {
+        // Instanciamos el objeto PreparedStatement para inserción
+        // de datos. Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
 
-                // Establecemos los parámetros de la sentencia
-                prest.setInt(4, cod_Vehiculo);
-                prest.setInt(5, cod_Cliente);
-                prest.setInt(1, nuevaReserva.getPin_fijo());
-                prest.setDouble(2, nuevaReserva.getCoste());
-                prest.setInt(3, num_Plaza);
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(4, cod_Vehiculo);
+            prest.setInt(5, cod_Cliente);
+            prest.setInt(1, nuevaReserva.getPin_fijo());
+            prest.setDouble(2, nuevaReserva.getCoste());
+            prest.setInt(3, num_Plaza);
 
-                numFilas = prest.executeUpdate();
-            }
-            return numFilas;
+            numFilas = prest.executeUpdate();
         }
-    
+        return numFilas;
+    }
 
     @Override
     public int insertReserva(List<ReservaVO> lista) throws SQLException {
-          int numFilas = 0;
+        int numFilas = 0;
 
         for (ReservaVO tmp : lista) {
             numFilas += insertReserva(tmp);
@@ -129,15 +127,14 @@ public class ReservaDAO implements IReserva {
 
     @Override
     public int deleteReserva() throws SQLException {
-         String sql = "delete from Reserva";
-        int nfilas = 0 ;
-        
-        
-        try(Statement st = con.createStatement()){
-        
-        nfilas = st.executeUpdate(sql);
+        String sql = "delete from Reserva";
+        int nfilas = 0;
+
+        try (Statement st = con.createStatement()) {
+
+            nfilas = st.executeUpdate(sql);
         }
         return nfilas;
     }
-    
-    }
+
+}

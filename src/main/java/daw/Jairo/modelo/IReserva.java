@@ -24,7 +24,7 @@ public interface IReserva {
     public int deleteReserva(ReservaVO reserva) throws SQLException;
     // la pk es el num_Plaza
 
-    public int updateReserva(int num_Plaza, int cod_Cliente , int cod_Vehiculo, ReservaVO nuevaReserva) throws SQLException;
+    public int updateReserva(int num_Plaza, int cod_Cliente, int cod_Vehiculo, ReservaVO nuevaReserva) throws SQLException;
 
     public int deleteReserva() throws SQLException;
 }
