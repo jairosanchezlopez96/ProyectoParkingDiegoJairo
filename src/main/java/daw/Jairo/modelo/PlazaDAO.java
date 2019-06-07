@@ -37,7 +37,7 @@ public class PlazaDAO implements IPlaza {
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
             while (res.next()) {
                 PlazaVO p = new PlazaVO();
-                // Recogemos los datos de la persona, guardamos en un objeto
+                // Recogemos los datos de la plaza, guardamos en un objeto
                 p.setNum_Plaza(res.getInt("num_Plaza"));
                 p.setTarifa(res.getDouble("tarifa"));
                 p.setTipo_Plazas(res.getInt("tipo_Plazas"));
@@ -146,6 +146,32 @@ public class PlazaDAO implements IPlaza {
                 PlazaVO p = new PlazaVO();
                 // Recogemos los datos de la persona, guardamos en un objeto
                 p.setNum_Plaza(res.getInt("num_Plaza"));
+                p.setEstado_Plaza(res.getInt("estado_Plaza"));
+
+                //Añadimos el objeto a la lista
+                lista.add(p);
+            }
+        }
+
+        return lista;
+    }
+    
+    //Metodo para consultar el numero de plazas libres
+    public ArrayList<PlazaVO> plazasLibres() throws SQLException {
+        ArrayList<PlazaVO> lista = new ArrayList<>();
+
+        // Preparamos la consulta de datos mediante un objeto Statement
+        // ya que no necesitamos parametrizar la sentencia SQL
+        try (Statement st = con.createStatement()) {
+            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
+            ResultSet res = st.executeQuery("select * from Plazas where estado_Plaza=1");
+            // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
+            while (res.next()) {
+                PlazaVO p = new PlazaVO();
+                // Recogemos los datos de la plaza, guardamos en un objeto
+                p.setNum_Plaza(res.getInt("num_Plaza"));
+                p.setTarifa(res.getDouble("tarifa"));
+                p.setTipo_Plazas(res.getInt("tipo_Plazas"));
                 p.setEstado_Plaza(res.getInt("estado_Plaza"));
 
                 //Añadimos el objeto a la lista
