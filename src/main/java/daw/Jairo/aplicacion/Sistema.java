@@ -102,6 +102,7 @@ public class Sistema {
         try {
 
             eleccion = tec.nextInt();
+            System.out.println("");
 
             while (eleccion != 1 && eleccion != 2 && eleccion != 3) {
 
@@ -141,7 +142,7 @@ public class Sistema {
         } while (eleccion != 3);
     }
 
-    public static void zonaCliente() {
+    public static void zonaCliente() throws SQLException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
@@ -151,10 +152,12 @@ public class Sistema {
 
         try {
             eleccion = tec.nextInt();
+            System.out.println("");
 
             while (eleccion != 1 && eleccion != 2 && eleccion != 3 && eleccion != 4) {
                 System.out.println("Porfavor eleccione una opcion correcta");
                 eleccion = tec.nextInt();
+                System.out.println("");
                 tec.nextLine();
             }
 
@@ -189,10 +192,12 @@ public class Sistema {
 
         try {
             eleccion = tec.nextInt();
+            System.out.println("");
 
             while (eleccion != 1 && eleccion != 2 && eleccion != 3 && eleccion != 4 && eleccion != 5) {
                 System.out.println("Porfavor eleccione una opcion correcta");
                 eleccion = tec.nextInt();
+                System.out.println("");
                 tec.nextLine();
             }
 
@@ -219,11 +224,12 @@ public class Sistema {
         }
     }
 
-    public static void depositarVehiculo() {
-        String matricula;
-        Scanner teclado= new Scanner(System.in);
-        System.out.println("Introduzca la matricula de su vehiculo");
-        matricula=teclado.nextLine();
+    public static void depositarVehiculo() throws SQLException {
+        // EL SISTEMA INFORMA EN TODO MOMENTO DEL NUMERO DE PLAZAS LIBRES
+        PlazaDAO objeto=new PlazaDAO();
+        ArrayList lista=objeto.plazasLibres();
+        System.out.println("Lista de plazas libres");
+        enseñarPlazas(lista);
     }
 
     public static void retirarVehiculo() {
@@ -272,10 +278,12 @@ public class Sistema {
 
         try {
             eleccion = tec.nextInt();
+            System.out.println("");
 
             while (eleccion != 1 && eleccion != 2) {
                 System.out.println("Porfavor eleccione una opcion correcta");
                 eleccion = tec.nextInt();
+                System.out.println("");
                 tec.nextLine();
             }
         } catch (InputMismatchException e) {
