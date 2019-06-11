@@ -73,4 +73,45 @@ public class ReservaVO {
         return num_Plaza + "," + cod_Vehiculo + "," + cod_Cliente + "," + pin_fijo + "," + coste;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.num_Plaza;
+        hash = 47 * hash + this.cod_Vehiculo;
+        hash = 47 * hash + this.cod_Cliente;
+        hash = 47 * hash + this.pin_fijo;
+        hash = 47 * hash + (int) (Double.doubleToLongBits(this.coste) ^ (Double.doubleToLongBits(this.coste) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ReservaVO other = (ReservaVO) obj;
+        if (this.num_Plaza != other.num_Plaza) {
+            return false;
+        }
+        if (this.cod_Vehiculo != other.cod_Vehiculo) {
+            return false;
+        }
+        if (this.cod_Cliente != other.cod_Cliente) {
+            return false;
+        }
+        if (this.pin_fijo != other.pin_fijo) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.coste) != Double.doubleToLongBits(other.coste)) {
+            return false;
+        }
+        return true;
+    }
+
 }

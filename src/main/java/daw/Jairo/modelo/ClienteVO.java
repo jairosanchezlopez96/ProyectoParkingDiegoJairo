@@ -7,6 +7,7 @@ package daw.Jairo.modelo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  *
@@ -97,5 +98,55 @@ public class ClienteVO implements Serializable {
     public String toString() {
         return cod_Cliente + "," + fec_In_Abono + "," + fec_Fin_Abono + "," + nombre + "," + tarjeta + "," + tipo_Abono + "," + email;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + this.cod_Cliente;
+        hash = 29 * hash + Objects.hashCode(this.fec_In_Abono);
+        hash = 29 * hash + Objects.hashCode(this.fec_Fin_Abono);
+        hash = 29 * hash + Objects.hashCode(this.nombre);
+        hash = 29 * hash + Objects.hashCode(this.tarjeta);
+        hash = 29 * hash + this.tipo_Abono;
+        hash = 29 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ClienteVO other = (ClienteVO) obj;
+        if (this.cod_Cliente != other.cod_Cliente) {
+            return false;
+        }
+        if (this.tipo_Abono != other.tipo_Abono) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.tarjeta, other.tarjeta)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.fec_In_Abono, other.fec_In_Abono)) {
+            return false;
+        }
+        if (!Objects.equals(this.fec_Fin_Abono, other.fec_Fin_Abono)) {
+            return false;
+        }
+        return true;
+    }
+    
 
 }

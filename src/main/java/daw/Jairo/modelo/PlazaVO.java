@@ -66,4 +66,41 @@ public class PlazaVO {
         this.tipo_Plazas = tipo_Plaza;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.num_Plaza;
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.tarifa) ^ (Double.doubleToLongBits(this.tarifa) >>> 32));
+        hash = 79 * hash + this.estado_Plaza;
+        hash = 79 * hash + this.tipo_Plazas;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PlazaVO other = (PlazaVO) obj;
+        if (this.num_Plaza != other.num_Plaza) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.tarifa) != Double.doubleToLongBits(other.tarifa)) {
+            return false;
+        }
+        if (this.estado_Plaza != other.estado_Plaza) {
+            return false;
+        }
+        if (this.tipo_Plazas != other.tipo_Plazas) {
+            return false;
+        }
+        return true;
+    }
+
 }

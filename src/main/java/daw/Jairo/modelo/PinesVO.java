@@ -8,6 +8,7 @@ package daw.Jairo.modelo;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 /**
  *
@@ -106,6 +107,59 @@ public class PinesVO implements Serializable {
     @Override
     public String toString() {
         return cod_Vehiculo + "," + num_Plaza + "," + pen_Desechable + "," + coste + "," + fec_Fin_Pin_Dia + "," + fec_Fin_Pin_Hora + "," + fec_In_Pin_Dia + "," + fec_In_Pin_Hora;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + this.cod_Vehiculo;
+        hash = 67 * hash + this.num_Plaza;
+        hash = 67 * hash + Objects.hashCode(this.pen_Desechable);
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.coste) ^ (Double.doubleToLongBits(this.coste) >>> 32));
+        hash = 67 * hash + Objects.hashCode(this.fec_Fin_Pin_Dia);
+        hash = 67 * hash + Objects.hashCode(this.fec_Fin_Pin_Hora);
+        hash = 67 * hash + Objects.hashCode(this.fec_In_Pin_Dia);
+        hash = 67 * hash + Objects.hashCode(this.fec_In_Pin_Hora);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PinesVO other = (PinesVO) obj;
+        if (this.cod_Vehiculo != other.cod_Vehiculo) {
+            return false;
+        }
+        if (this.num_Plaza != other.num_Plaza) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.coste) != Double.doubleToLongBits(other.coste)) {
+            return false;
+        }
+        if (!Objects.equals(this.pen_Desechable, other.pen_Desechable)) {
+            return false;
+        }
+        if (!Objects.equals(this.fec_Fin_Pin_Dia, other.fec_Fin_Pin_Dia)) {
+            return false;
+        }
+        if (!Objects.equals(this.fec_Fin_Pin_Hora, other.fec_Fin_Pin_Hora)) {
+            return false;
+        }
+        if (!Objects.equals(this.fec_In_Pin_Dia, other.fec_In_Pin_Dia)) {
+            return false;
+        }
+        if (!Objects.equals(this.fec_In_Pin_Hora, other.fec_In_Pin_Hora)) {
+            return false;
+        }
+        return true;
     }
 
 }
