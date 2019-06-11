@@ -5,12 +5,14 @@
  */
 package daw.Jairo.aplicacion;
 
+import daw.Jairo.modelo.ClienteDAO;
 import daw.Jairo.modelo.ClienteVO;
 import daw.Jairo.modelo.PinesVO;
 import daw.Jairo.modelo.PlazaDAO;
 import daw.Jairo.modelo.PlazaVO;
 import daw.Jairo.modelo.ReservaVO;
 import daw.Jairo.modelo.Singleton;
+import daw.Jairo.modelo.VehiculoDAO;
 import daw.Jairo.modelo.VehiculoVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,19 +26,19 @@ import java.util.Scanner;
 public class Sistema {
 
     //LISTA DE CLIENTES
-    private ArrayList<ClienteVO> listaCliente;
+    private  ArrayList<ClienteVO> listaCliente;
 
     //LISTA DE PINES
-    private ArrayList<PinesVO> listaPines;
+    private  ArrayList<PinesVO> listaPines;
 
     //LISTA DE PLAZAS
     private ArrayList<PlazaVO> listaPlaza;
 
     //LISTA DE RESERVAS
-    private ArrayList<ReservaVO> listaReserva;
+    private  ArrayList<ReservaVO> listaReserva;
 
     //LISTA DE VEHICULOS
-    private ArrayList<VehiculoVO> listaVehiculo;
+    private  ArrayList<VehiculoVO> listaVehiculo;
 
     public Sistema(ArrayList<ClienteVO> listaCliente, ArrayList<PinesVO> listaPines, ArrayList<PlazaVO> listaPlaza, ArrayList<ReservaVO> listaReserva, ArrayList<VehiculoVO> listaVehiculo) {
         this.listaCliente = listaCliente;
@@ -92,7 +94,7 @@ public class Sistema {
     }
 
     //Metodo para elegir la zona
-    public static void elegirZona() throws SQLException {
+    public  void elegirZona() throws SQLException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
@@ -142,7 +144,7 @@ public class Sistema {
         } while (eleccion != 3);
     }
 
-    public static void zonaCliente() throws SQLException {
+    public  void zonaCliente() throws SQLException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
@@ -181,7 +183,7 @@ public class Sistema {
         }
     }
 
-    public static void zonaAdmin() throws SQLException {
+    public  void zonaAdmin() throws SQLException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
@@ -224,7 +226,7 @@ public class Sistema {
         }
     }
 
-    public static void depositarVehiculo() throws SQLException {
+    public void depositarVehiculo() throws SQLException {
         // EL SISTEMA INFORMA EN TODO MOMENTO DEL NUMERO DE PLAZAS LIBRES
         PlazaDAO objeto=new PlazaDAO();
         ArrayList lista=objeto.plazasLibres();
@@ -232,7 +234,27 @@ public class Sistema {
         enseñarPlazas(lista);
     }
 
-    public static void retirarVehiculo() {
+    public  void retirarVehiculo( ) throws SQLException {
+        Scanner tec = new Scanner(System.in);
+        System.out.println("Dime el codigo de vehiculo que quieres retirar");
+        int numRetiro = tec.nextInt();
+        VehiculoDAO c = new VehiculoDAO();
+        
+       for(VehiculoVO v : this.listaVehiculo){
+       
+       if(v.getCod_Vehiculo() == numRetiro){
+        c.deleteVehiculo(v);
+       
+       }
+       else{
+           System.out.println("El coche ya ha sido borrado o no existe");
+       }
+       }
+        
+        
+        
+        
+        
 
     }
 
@@ -240,8 +262,29 @@ public class Sistema {
 
     }
 
-    public static void retirarAbonado() {
-
+    public  void retirarAbonado() throws SQLException {
+        Scanner tec = new Scanner(System.in);
+        System.out.println("Dime el codigo de cliente que desea retirar el abono");
+        int numRetiro = tec.nextInt();
+        ClienteDAO c = new ClienteDAO();
+        
+       for(ClienteVO v : this.listaCliente){
+       
+       if(v.getCod_Cliente() == numRetiro){
+           if(v.getFec_in_abono().toString().length()<2){
+               System.out.println("El cliente nunca estuvo abonado");
+           }else{
+           v.setFec_in_abono(null);
+           v.setFec_in_abono(null);
+           }
+           c.deleteCliente();
+           c.insertCliente(this.listaCliente);
+       
+       }
+       else{
+           System.out.println("El cliente ya ha sido borrado o no existe");
+       }
+       }
     }
 
     //Metodo completo
@@ -333,7 +376,7 @@ public class Sistema {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
+    public  void main(String[] args) throws SQLException {
         elegirZona();
     }
 }
