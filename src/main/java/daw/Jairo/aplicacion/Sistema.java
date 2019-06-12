@@ -15,6 +15,7 @@ import daw.Jairo.modelo.Singleton;
 import daw.Jairo.modelo.VehiculoDAO;
 import daw.Jairo.modelo.VehiculoVO;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -211,7 +212,7 @@ public class Sistema {
                     facturacion();
                     break;
                 case 3:
-                    abonos();
+                    Borrarabono();
                     break;
                 case 4:
                     caducidadAbonos();
@@ -232,6 +233,12 @@ public class Sistema {
         ArrayList lista=objeto.plazasLibres();
         System.out.println("Lista de plazas libres");
         enseñarPlazas(lista);
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Introduzca los datos del coche:");
+        
+        
+        
+        
     }
 
     public  void retirarVehiculo( ) throws SQLException {
@@ -263,29 +270,7 @@ public class Sistema {
     }
 
     public  void retirarAbonado() throws SQLException {
-        Scanner tec = new Scanner(System.in);
-        System.out.println("Dime el codigo de cliente que desea retirar el abono");
-        int numRetiro = tec.nextInt();
-        ClienteDAO c = new ClienteDAO();
-        
-       for(ClienteVO v : this.listaCliente){
-       
-       if(v.getCod_Cliente() == numRetiro){
-           if(v.getFec_in_abono().toString().length()<2){
-               System.out.println("El cliente nunca estuvo abonado");
-           }else{
-           v.setFec_in_abono(null);
-           v.setFec_in_abono(null);
            }
-           c.deleteCliente();
-           c.insertCliente(this.listaCliente);
-       
-       }
-       else{
-           System.out.println("El cliente ya ha sido borrado o no existe");
-       }
-       }
-    }
 
     //Metodo completo
     public static void controlarParking() {
@@ -303,7 +288,31 @@ public class Sistema {
 
     }
 
-    public static void abonos() {
+    public void  Borrarabono() throws SQLException {
+         Scanner tec = new Scanner(System.in);
+        System.out.println("Dime el codigo de cliente que desea retirar el abono");
+        int numRetiro = tec.nextInt();
+        ClienteDAO c = new ClienteDAO();
+        
+       for(ClienteVO v : this.listaCliente){
+       
+       if(v.getCod_Cliente() == numRetiro){
+           if(v.getFec_in_abono() == LocalDate.MIN){
+               System.out.println("El cliente nunca estuvo abonado");
+           }else{
+           v.setFec_in_abono(LocalDate.MIN);
+           v.setFec_fin_abono(LocalDate.MIN);
+           }
+           c.deleteCliente();
+           c.insertCliente(this.listaCliente);
+           System.out.println("Abono retirado correctamente");
+       
+       }
+       else{
+           System.out.println("El cliente ya ha sido borrado o no existe");
+       }
+       }
+
 
     }
 
