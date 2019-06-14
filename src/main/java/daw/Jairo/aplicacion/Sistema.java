@@ -31,66 +31,58 @@ import java.util.Scanner;
 public class Sistema {
 
     //LISTA DE CLIENTES
-    private  ArrayList<ClienteVO> listaCliente;
+    private static ArrayList<ClienteVO> listaCliente;
 
     //LISTA DE PINES
-    private  ArrayList<PinesVO> listaPines;
+    private static ArrayList<PinesVO> listaPines;
 
     //LISTA DE PLAZAS
-    private ArrayList<PlazaVO> listaPlaza;
+    private static ArrayList<PlazaVO> listaPlaza;
 
     //LISTA DE RESERVAS
-    private  ArrayList<ReservaVO> listaReserva;
+    private static ArrayList<ReservaVO> listaReserva;
 
     //LISTA DE VEHICULOS
-    private  ArrayList<VehiculoVO> listaVehiculo;
+    private static ArrayList<VehiculoVO> listaVehiculo;
 
-    public Sistema(ArrayList<ClienteVO> listaCliente, ArrayList<PinesVO> listaPines, ArrayList<PlazaVO> listaPlaza, ArrayList<ReservaVO> listaReserva, ArrayList<VehiculoVO> listaVehiculo) {
-        this.listaCliente = listaCliente;
-        this.listaPines = listaPines;
-        this.listaPlaza = listaPlaza;
-        this.listaReserva = listaReserva;
-        this.listaVehiculo = listaVehiculo;
-    }
-
-    public ArrayList<ClienteVO> getListaCliente() {
+    public static ArrayList<ClienteVO> getListaCliente() {
         return listaCliente;
     }
 
-    public void setListaCliente(ArrayList<ClienteVO> listaCliente) {
-        this.listaCliente = listaCliente;
+    public static void setListaCliente(ArrayList<ClienteVO> listaCliente) {
+        Sistema.listaCliente = listaCliente;
     }
 
-    public ArrayList<PinesVO> getListaPines() {
+    public static ArrayList<PinesVO> getListaPines() {
         return listaPines;
     }
 
-    public void setListaPines(ArrayList<PinesVO> listaPines) {
-        this.listaPines = listaPines;
+    public static void setListaPines(ArrayList<PinesVO> listaPines) {
+        Sistema.listaPines = listaPines;
     }
 
-    public ArrayList<PlazaVO> getListaPlaza() {
+    public static ArrayList<PlazaVO> getListaPlaza() {
         return listaPlaza;
     }
 
-    public void setListaPlaza(ArrayList<PlazaVO> listaPlaza) {
-        this.listaPlaza = listaPlaza;
+    public static void setListaPlaza(ArrayList<PlazaVO> listaPlaza) {
+        Sistema.listaPlaza = listaPlaza;
     }
 
-    public ArrayList<ReservaVO> getListaReserva() {
+    public static ArrayList<ReservaVO> getListaReserva() {
         return listaReserva;
     }
 
-    public void setListaReserva(ArrayList<ReservaVO> listaReserva) {
-        this.listaReserva = listaReserva;
+    public static void setListaReserva(ArrayList<ReservaVO> listaReserva) {
+        Sistema.listaReserva = listaReserva;
     }
 
-    public ArrayList<VehiculoVO> getListaVehiculo() {
+    public static ArrayList<VehiculoVO> getListaVehiculo() {
         return listaVehiculo;
     }
 
-    public void setListaVehiculo(ArrayList<VehiculoVO> listaVehiculo) {
-        this.listaVehiculo = listaVehiculo;
+    public static void setListaVehiculo(ArrayList<VehiculoVO> listaVehiculo) {
+        Sistema.listaVehiculo = listaVehiculo;
     }
 
     @Override
@@ -99,9 +91,21 @@ public class Sistema {
     }
 
     //Metodo para elegir la zona
-    public  void elegirZona() throws SQLException {
+    public static void elegirZona() throws SQLException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
+        PlazaDAO p = new PlazaDAO();
+        ClienteDAO c = new ClienteDAO();
+        PinesDAO pi = new PinesDAO();
+        VehiculoDAO v = new VehiculoDAO();
+        ArrayList<PlazaVO> listapla = (ArrayList<PlazaVO>) p.getAll();
+        Sistema.setListaPlaza(listapla);
+        ArrayList<PinesVO> listapin = (ArrayList<PinesVO>) pi.getAllPines();
+        Sistema.setListaPines(listapin);
+        ArrayList<ClienteVO> listacli = (ArrayList<ClienteVO>) c.getAllClientes();
+        Sistema.setListaCliente(listacli);
+        ArrayList<VehiculoVO> listavehiculo = (ArrayList<VehiculoVO>) v.getAll();
+        Sistema.setListaVehiculo(listavehiculo);
 
         System.out.println("Bienvenido al parking, selecciona segun la zona a la que quieras acceder"
                 + "\n1. Zona Cliente \n2. Zona Administrador");
@@ -149,7 +153,7 @@ public class Sistema {
         } while (eleccion != 3);
     }
 
-    public  void zonaCliente() throws SQLException {
+    public static void zonaCliente() throws SQLException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
@@ -188,7 +192,7 @@ public class Sistema {
         }
     }
 
-    public  void zonaAdmin() throws SQLException {
+    public static void zonaAdmin() throws SQLException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
@@ -216,7 +220,7 @@ public class Sistema {
                     facturacion();
                     break;
                 case 3:
-                   abonos();
+                    abonos();
                     break;
                 case 4:
                     caducidadAbonos();
@@ -231,61 +235,61 @@ public class Sistema {
         }
     }
 
-    public void depositarVehiculo() throws SQLException {
+    public static void depositarVehiculo() throws SQLException {
         // EL SISTEMA INFORMA EN TODO MOMENTO DEL NUMERO DE PLAZAS LIBRES
-        PlazaDAO objeto=new PlazaDAO();
-        ArrayList lista=objeto.plazasLibres();
+        PlazaDAO objeto = new PlazaDAO();
+        ArrayList lista = objeto.plazasLibres();
         VehiculoDAO daop = new VehiculoDAO();
         PinesDAO daov = new PinesDAO();
         System.out.println("Lista de plazas libres");
         enseñarPlazas(lista);
         Scanner teclado = new Scanner(System.in);
-       
+
         // limpiamos buffer
         teclado.nextLine();
         System.out.println("Introduzca los datos del vehiculo:");
         System.out.println("Codigo Vehiculo");
         int cod = teclado.nextInt();
+        teclado.nextLine();
         System.out.println("Matricula");
         String matri = teclado.nextLine();
         System.out.println(" Tipo vehiculo: 1- turismo 2- motocicletas 3- caravanas");
         int tipo = teclado.nextInt();
-         System.out.println("Elige numero de plaza");
+        System.out.println("Elige numero de plaza");
         int num_Plaza = teclado.nextInt();
-        for(PlazaVO p : this.listaPlaza){
-        if(p.getNum_Plaza() == num_Plaza){
-        p.setEstado_Plaza(2);
-            System.out.println("La plaza numero :"+ num_Plaza+ " sera ocupada");
-        
-        }
-        
+        for (int i = 0 ; i< Sistema.getListaPlaza().size();i++) {
+            if (Sistema.getListaPlaza().get(i).getNum_Plaza() == num_Plaza) {
+                Sistema.getListaPlaza().get(i).setEstado_Plaza(2);
+                System.out.println("La plaza numero :" + num_Plaza + " sera ocupada");
+              objeto.updatePlaza(num_Plaza, Sistema.getListaPlaza().get(i));
+                
+            }
+
         }
         // insertamos el vehiculo en la bbdd y en la lista del sistema
-        VehiculoVO v = new VehiculoVO(cod,matri,tipo);
-        this.listaVehiculo.add(v);
+        VehiculoVO v = new VehiculoVO(cod, matri, tipo);
+        Sistema.listaVehiculo.add(v);
         daop.insertVehiculo(v);
         // int cod_Vehiculo, int num_Plaza, String pen_Desech
         //able, double coste, LocalDate fec_Fin_Pin_Dia, LocalTime fec_Fin_Pin_Hora, LocalDate fec_In_Pin_Dia, LocalTime fec_In_Pin_Hora
-       String contraseña = generarContra();
+        String contraseña = generarContra();
         // los now son porque ahora pilla la plaza y el max lo cambiamos cuando saque el coche 
-        PinesVO pinCoche = new PinesVO(cod,num_Plaza,contraseña,0,LocalDate.MAX,LocalTime.MAX,LocalDate.now(),LocalTime.now());
+        PinesVO pinCoche = new PinesVO(cod, num_Plaza, contraseña, 0, LocalDate.now(), LocalTime.now(), LocalDate.now(), LocalTime.now());
         listaPines.add(pinCoche);
         daov.insertPin(pinCoche);
-        
-        System.out.println("Matricula: " + v.getMatricula()+" Identificador Plaza: " + num_Plaza + " Pin: " + contraseña);
-        
-        
-        
-        
-        
+
+        System.out.println("Matricula: " + v.getMatricula() + " Identificador Plaza: " + num_Plaza + " Pin: " + contraseña);
+
     }
-    public String generarContra(){
-    
-     Random rnd = new Random();
-       int number = rnd.nextInt(999999);
-       return String.format("06d", number);
-       }
-    public  void retirarVehiculo( ) throws SQLException {
+
+    public static String generarContra() {
+
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+        return String.format("06d", number);
+    }
+
+    public static void retirarVehiculo() throws SQLException {
         Scanner tec = new Scanner(System.in);
         System.out.println("Dime el codigo de vehiculo que quieres retirar");
         int numRetiro = tec.nextInt();
@@ -293,38 +297,33 @@ public class Sistema {
         int ident = tec.nextInt();
         System.out.println("Dime el pin");
         String contra = tec.nextLine();
-        
-        for(PinesVO p : listaPines){
-        if(p.getCod_Vehiculo( )== numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)){
-        p.setFec_Fin_Pin_Hora(LocalTime.now());
-        p.setFec_Fin_Pin_Dia(LocalDate.now());
-        
+
+        for (PinesVO p : listaPines) {
+            if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)) {
+                p.setFec_Fin_Pin_Hora(LocalTime.now());
+                p.setFec_Fin_Pin_Dia(LocalDate.now());
+
+            } else {
+                System.out.println("El coche ya ha sido retirado");
+            }
+            // falta caluclo del precio 
+            int dias = p.getFec_Fin_Pin_Dia().getDayOfYear() - p.getFec_In_Pin_Dia().getDayOfYear();
+
+            System.out.println("El precio de la reserva es: ");
+
         }
-        // falta caluclo del precio 
-        int dias = p.getFec_Fin_Pin_Dia().getDayOfYear()-p.getFec_In_Pin_Dia().getDayOfYear();
-        
-            System.out.println("El precio de la reserva es: " );
-        
-        }
-        
-        
+
         VehiculoDAO c = new VehiculoDAO();
-        
-       for(VehiculoVO v : this.listaVehiculo){
-       
-       if(v.getCod_Vehiculo() == numRetiro){
-        c.deleteVehiculo(v);
-       
-       }
-       else{
-           System.out.println("El coche ya ha sido retirado o no existe");
-       }
-       }
-        
-        
-        
-        
-        
+
+        for (VehiculoVO v : Sistema.listaVehiculo) {
+
+            if (v.getCod_Vehiculo() == numRetiro) {
+                c.deleteVehiculo(v);
+
+            } else {
+                System.out.println("El coche ya ha sido retirado o no existe");
+            }
+        }
 
     }
 
@@ -332,8 +331,8 @@ public class Sistema {
 
     }
 
-    public  void retirarAbonado() throws SQLException {
-           }
+    public static void retirarAbonado() throws SQLException {
+    }
 
     //Metodo completo
     public static void controlarParking() {
@@ -351,73 +350,69 @@ public class Sistema {
         System.out.println("Dime dia ");
     }
 
-    public void  abonos() throws SQLException {
-       
-         Scanner tec = new Scanner(System.in);
-         System.out.println("Que quieres hacer : 1-alta 2-modificar 3-borrar");
-         int resp = tec.nextInt();
-         tec.nextLine();
-         if(resp ==3){
-        System.out.println("Dime el codigo de cliente que desea retirar el abono");
-        int numRetiro = tec.nextInt();
-        ClienteDAO c = new ClienteDAO();
-        
-       for(ClienteVO v : this.listaCliente){
-       
-       if(v.getCod_Cliente() == numRetiro){
-           if(v.getFec_in_abono() == LocalDate.MIN){
-               System.out.println("El cliente nunca estuvo abonado");
-           }else{
-           v.setFec_in_abono(LocalDate.MIN);
-           v.setFec_fin_abono(LocalDate.MIN);
-           }
-           c.deleteCliente();
-           c.insertCliente(this.listaCliente);
-           System.out.println("Abono retirado correctamente");
-       
-       }
-       else{
-           System.out.println("El cliente ya ha sido borrado o no existe");
-       }
-       }}
-         if(resp== 1){
-             System.out.println("Dime los datos del cliente");
-             // int cod_Cliente, LocalDate fec_in_abono, LocalDate fec_fin_abono, String nombre, String tarjeta, int tipo_Abono, String email
-             System.out.println("Dni sin letra");
-             int dni = tec.nextInt();
-             LocalDate ini = LocalDate.now();
-             System.out.println("Tipo de abono : 1.");
-         
-         
-         }
+    public static void abonos() throws SQLException {
 
+        Scanner tec = new Scanner(System.in);
+        System.out.println("Que quieres hacer : 1-alta 2-modificar 3-borrar");
+        int resp = tec.nextInt();
+        tec.nextLine();
+        if (resp == 3) {
+            System.out.println("Dime el codigo de cliente que desea retirar el abono");
+            int numRetiro = tec.nextInt();
+            ClienteDAO c = new ClienteDAO();
+
+            for (ClienteVO v : Sistema.listaCliente) {
+
+                if (v.getCod_Cliente() == numRetiro) {
+                    if (v.getFec_in_abono() == LocalDate.MIN) {
+                        System.out.println("El cliente nunca estuvo abonado");
+                    } else {
+                        v.setFec_in_abono(LocalDate.MIN);
+                        v.setFec_fin_abono(LocalDate.MIN);
+                    }
+                    c.deleteCliente();
+
+                    System.out.println("Abono retirado correctamente");
+
+                } else {
+                    System.out.println("El cliente ya ha sido borrado o no existe");
+                }
+            }
+        }
+        if (resp == 1) {
+            System.out.println("Dime los datos del cliente");
+            // int cod_Cliente, LocalDate fec_in_abono, LocalDate fec_fin_abono, String nombre, String tarjeta, int tipo_Abono, String email
+            System.out.println("Dni sin letra");
+            int dni = tec.nextInt();
+            LocalDate ini = LocalDate.now();
+            System.out.println("Tipo de abono : 1.");
+
+        }
 
     }
 
-    public  void caducidadAbonos() {
+    public static void caducidadAbonos() {
         Scanner teclado = new Scanner(System.in);
         System.out.println(" 1.Consultar los abonos segun mes de caducidad 2.Consultar en la caducidad de los proximos 10 dias");
         int elegir = teclado.nextInt();
-        if(elegir == 1){
+        if (elegir == 1) {
             System.out.println("Dime mes");
             int mes = teclado.nextInt();
-            for(ClienteVO c : listaCliente){
-             if(c.getFec_fin_abono().getMonthValue()== mes){
-                 System.out.println("El cliente de dni:" + c.getCod_Cliente() + " tendra su abono caducado este mes");
-             }
+            for (ClienteVO c : Sistema.getListaCliente()) {
+                if (c.getFec_fin_abono().getMonthValue() == mes) {
+                    System.out.println("El cliente de dni:" + c.getCod_Cliente() + " tendra su abono caducado este mes");
+                }
             }
-        
-        }
-        else{
-             for(ClienteVO c : listaCliente){
-             if(c.getFec_fin_abono().getDayOfYear() <= LocalDate.now().getDayOfYear()+10){
-                 System.out.println("El cliente de dni:" + c.getCod_Cliente() + " tendra su abono caducado en 10 dias");
-             }
+
+        } else {
+            for (ClienteVO c : Sistema.getListaCliente()) {
+                if (c.getFec_fin_abono().getDayOfYear() <= LocalDate.now().getDayOfYear() + 10) {
+                    System.out.println("El cliente de dni:" + c.getCod_Cliente() + " tendra su abono caducado en 10 dias");
+                }
             }
-        
-        
+
         }
-        
+
     }
 
     public static void copiaSeguridad() throws SQLException {
@@ -470,46 +465,70 @@ public class Sistema {
             switch (x.get(i).getEstado_Plaza()) {
                 case 1:
                     System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Libre");
-                    if(x.get(i).getTipo_Plazas() == 1){
-                        System.out.println("Para turismos");}
-                    else  if(x.get(i).getTipo_Plazas() == 2){
-                        System.out.println("Para motocicletas");}
-                    else  if(x.get(i).getTipo_Plazas() == 3){
-                        System.out.println("Para caravanas");}
+                    switch (x.get(i).getTipo_Plazas()) {
+                        case 1:
+                            System.out.println("Para turismos");
+                            break;
+                        case 2:
+                            System.out.println("Para motocicletas");
+                            break;
+                        case 3:
+                            System.out.println("Para caravanas");
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 2:
                     System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Ocupada");
-                   if(x.get(i).getTipo_Plazas() == 1){
-                        System.out.println("Para turismos");}
-                    else  if(x.get(i).getTipo_Plazas() == 2){
-                        System.out.println("Para motocicletas");}
-                    else  if(x.get(i).getTipo_Plazas() == 3){
-                        System.out.println("Para caravanas");}
+                    switch (x.get(i).getTipo_Plazas()) {
+                        case 1:
+                            System.out.println("Para turismos");
+                            break;
+                        case 2:
+                            System.out.println("Para motocicletas");
+                            break;
+                        case 3:
+                            System.out.println("Para caravanas");
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 3:
                     System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Abono Libre");
-                    if(x.get(i).getTipo_Plazas() == 1){
-                        System.out.println("Para turismos");}
-                    else  if(x.get(i).getTipo_Plazas() == 2){
-                        System.out.println("Para motocicletas");}
-                    else  if(x.get(i).getTipo_Plazas() == 3){
-                        System.out.println("Para caravanas");}
+                    switch (x.get(i).getTipo_Plazas()) {
+                        case 1:
+                            System.out.println("Para turismos");
+                            break;
+                        case 2:
+                            System.out.println("Para motocicletas");
+                            break;
+                        case 3:
+                            System.out.println("Para caravanas");
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case 4:
                     System.out.println("Numero de Plaza: " + x.get(i).getNum_Plaza() + ". Estado de Plaza: Abono Ocupada");
-                    if(x.get(i).getTipo_Plazas() == 1){
-                        System.out.println("Para turismos");}
-                    else  if(x.get(i).getTipo_Plazas() == 2){
-                        System.out.println("Para motocicletas");}
-                    else  if(x.get(i).getTipo_Plazas() == 3){
-                        System.out.println("Para caravanas");}
+                    switch (x.get(i).getTipo_Plazas()) {
+                        case 1:
+                            System.out.println("Para turismos");
+                            break;
+                        case 2:
+                            System.out.println("Para motocicletas");
+                            break;
+                        case 3:
+                            System.out.println("Para caravanas");
+                            break;
+                        default:
+                            break;
+                    }
                     break;
 
             }
         }
-    }
-
-    public  void main(String[] args) throws SQLException {
-        elegirZona();
     }
 }
