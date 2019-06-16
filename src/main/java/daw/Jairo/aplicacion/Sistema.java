@@ -15,6 +15,12 @@ import daw.Jairo.modelo.ReservaVO;
 import daw.Jairo.modelo.Singleton;
 import daw.Jairo.modelo.VehiculoDAO;
 import daw.Jairo.modelo.VehiculoVO;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -91,7 +97,7 @@ public class Sistema {
     }
 
     //Metodo para elegir la zona
-    public static void elegirZona() throws SQLException {
+    public static void elegirZona() throws SQLException, FileNotFoundException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
         PlazaDAO p = new PlazaDAO();
@@ -153,7 +159,7 @@ public class Sistema {
         } while (eleccion != 3);
     }
 
-    public static void zonaCliente() throws SQLException {
+    public static void zonaCliente() throws SQLException, FileNotFoundException {
         Scanner tec = new Scanner(System.in);
         int eleccion = 0;
 
@@ -356,11 +362,97 @@ public class Sistema {
 
     }
 
-    public static void depositarAbonado() {
+    public static void depositarAbonado() throws SQLException, FileNotFoundException {
+         // EL SISTEMA INFORMA EN TODO MOMENTO DEL NUMERO DE PLAZAS LIBRES
+        PlazaDAO objeto = new PlazaDAO();
+        ArrayList lista = objeto.plazasLibres();
+        VehiculoDAO daop = new VehiculoDAO();
+        PinesDAO daov = new PinesDAO();
+      
+        Scanner teclado = new Scanner(System.in);
+
+        // limpiamos buffer
+        teclado.nextLine();
+        System.out.println("Introduzca los datos del cliente y :");
+        System.out.println("Matricula vehiculo (numeros)");
+        int cod = teclado.nextInt();
+        teclado.nextLine();
+        int num_Plaza = 0;
+        String matri = String.valueOf(cod);
+        System.out.println(" Tipo vehiculo: 1- turismo 2- motocicletas 3- caravanas");
+        int tipo = teclado.nextInt();
+        System.out.println("Dni ");
+        String dni = teclado.nextLine();
+       for(PlazaVO ps : Sistema.getListaPlaza()){
+       if(ps.getTipo_Plazas() == tipo &&( ps.getEstado_Plaza()==1 || ps.getEstado_Plaza()== 3  )){
+        num_Plaza = ps.getNum_Plaza();
+        ps.setEstado_Plaza( 4);
+          
+             objeto.updatePlaza(num_Plaza, ps);
+             VehiculoVO v = new VehiculoVO(cod, matri, tipo);
+             System.out.println("La plaza Reservada ha sido : "+ num_Plaza);
+        Sistema.listaVehiculo.add(v);
+        daop.insertVehiculo(v);
+        // int cod_Vehiculo, int num_Plaza, String pen_Desech
+        //able, double coste, LocalDate fec_Fin_Pin_Dia, LocalTime fec_Fin_Pin_Hora, LocalDate fec_In_Pin_Dia, LocalTime fec_In_Pin_Hora
+        String contraseña = generarContra();
+        // los now son porque ahora pilla la plaza y el max lo cambiamos cuando saque el coche 
+        
+        File tmpDir = new File("clientes/"+dni);
+       if(tmpDir.exists() == true){
+           String contra ="";
+      try {
+			Scanner scan = new Scanner(tmpDir);
+			while (scan.hasNextLine()) {
+				 contra = scan.nextLine();
+                                
+			}
+			scan.close();
+                        
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+       PinesVO pinCoche = new PinesVO(cod, num_Plaza, contra, 0, LocalDate.now(), LocalTime.now(), LocalDate.now(), LocalTime.now());
+        listaPines.add(pinCoche);
+        daov.insertPin(pinCoche);
+       }
+       else{
+           PinesVO pinCoche = new PinesVO(cod, num_Plaza, contraseña, 0, LocalDate.now(), LocalTime.now(), LocalDate.now(), LocalTime.now());
+        listaPines.add(pinCoche);
+        daov.insertPin(pinCoche);
+            try (BufferedWriter flujo = new BufferedWriter(new FileWriter("clientes/"+ dni))) {
+            // recoremos la lista y segun si es true or false evaluador y 
+            // coordinador ponemos si o no
+            for (int i = 0; i < lista.size(); i++) {
+
+                flujo.write(contraseña);
+                        
+                
+             
+
+            }
+            // cuando termine de recorer la lista lo guardamos con flush
+
+            flujo.flush();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+
+        }}
+           
+       }
+       else{
+       
+           System.out.println("No hay plazas libres");}
+       
+       }
+      
+        // insertamos el vehiculo en la bbdd y en la lista del sistema
 
     }
 
     public static void retirarAbonado() throws SQLException {
+      
     }
 
     //Metodo completo
