@@ -524,6 +524,7 @@ public class Sistema {
     }
 
     public static void facturacion() {
+        Scanner teclado 
         System.out.println("Dime dia ");
     }
 
