@@ -320,6 +320,7 @@ public class Sistema {
                       +(1440-(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute())));}
                  for(PlazaVO ps : Sistema.getListaPlaza()){
             if(ps.getNum_Plaza() == ident){
+                ps.setEstado_Plaza(1);
              if(ps.getTipo_Plazas() == 1){
                  System.out.println("El precio es : "+ minutos*0.12 +"euros");
              
@@ -452,7 +453,62 @@ public class Sistema {
     }
 
     public static void retirarAbonado() throws SQLException {
-      
+      Scanner tec = new Scanner(System.in);
+        System.out.println("Dime la matricula(sin letras) que quieres retirar");
+        int numRetiro = tec.nextInt();
+        System.out.println("Dime el identificador de plaza");
+        int ident = tec.nextInt();
+        System.out.println("Dime el pin");
+        String contra = tec.nextLine();
+        int minutos = 0;
+
+        for (PinesVO p : Sistema.getListaPines()) {
+            if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)) {
+                p.setFec_Fin_Pin_Hora(LocalTime.now());
+                p.setFec_Fin_Pin_Dia(LocalDate.now());
+                if(p.getFec_In_Pin_Dia() == p.getFec_Fin_Pin_Dia()){
+            minutos = (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
+                    -(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute());}
+            else{
+            
+              minutos = (int) ((1.440)*((p.getFec_Fin_Pin_Dia().getDayOfYear()-p.getFec_In_Pin_Dia().getDayOfYear())-1)    + (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
+                      +(1440-(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute())));}
+                 for(PlazaVO ps : Sistema.getListaPlaza()){
+            if(ps.getNum_Plaza() == ident){
+                ps.setEstado_Plaza(3);
+             if(ps.getTipo_Plazas() == 1){
+                 System.out.println("El precio es : "+ minutos*0.12 +"euros");
+             
+             }
+            else if(ps.getTipo_Plazas() == 2){
+                 System.out.println("El precio es : "+ minutos*0.08 +"euros");
+             
+             }
+            else if(ps.getTipo_Plazas() == 3){
+                 System.out.println("El precio es : "+ minutos*0.45 +"euros");
+             
+             }
+           
+            }
+            }
+
+            } 
+            
+            
+            
+            
+            else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && !(p.getPen_Desechable().equalsIgnoreCase(contra))) {
+                System.out.println(" Error al meter la contraseña");
+            }
+            else{
+                System.out.println("El vehiculo ya ha sido retirado");
+            
+            }
+           
+            
+           
+            
+            }
     }
 
     //Metodo completo
