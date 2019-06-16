@@ -241,33 +241,26 @@ public class Sistema {
         ArrayList lista = objeto.plazasLibres();
         VehiculoDAO daop = new VehiculoDAO();
         PinesDAO daov = new PinesDAO();
-        System.out.println("Lista de plazas libres");
-        enseñarPlazas(lista);
+      
         Scanner teclado = new Scanner(System.in);
 
         // limpiamos buffer
         teclado.nextLine();
         System.out.println("Introduzca los datos del vehiculo:");
-        System.out.println("Codigo Vehiculo");
+        System.out.println("Matricula vehiculo (numeros)");
         int cod = teclado.nextInt();
         teclado.nextLine();
-        System.out.println("Matricula");
-        String matri = teclado.nextLine();
+        int num_Plaza = 0;
+        String matri = String.valueOf(cod);
         System.out.println(" Tipo vehiculo: 1- turismo 2- motocicletas 3- caravanas");
         int tipo = teclado.nextInt();
-        System.out.println("Elige numero de plaza");
-        int num_Plaza = teclado.nextInt();
-        for (int i = 0 ; i< Sistema.getListaPlaza().size();i++) {
-            if (Sistema.getListaPlaza().get(i).getNum_Plaza() == num_Plaza) {
-                Sistema.getListaPlaza().get(i).setEstado_Plaza(2);
-                System.out.println("La plaza numero :" + num_Plaza + " sera ocupada");
-              objeto.updatePlaza(num_Plaza, Sistema.getListaPlaza().get(i));
-                
-            }
-
-        }
-        // insertamos el vehiculo en la bbdd y en la lista del sistema
-        VehiculoVO v = new VehiculoVO(cod, matri, tipo);
+       for(PlazaVO ps : Sistema.getListaPlaza()){
+       if(ps.getTipo_Plazas() == tipo && ps.getEstado_Plaza()==1){
+        num_Plaza = ps.getNum_Plaza();
+        ps.setEstado_Plaza( 2);
+            System.out.println("La plaza numero :" + num_Plaza + " sera ocupada");
+             objeto.updatePlaza(num_Plaza, ps);
+             VehiculoVO v = new VehiculoVO(cod, matri, tipo);
         Sistema.listaVehiculo.add(v);
         daop.insertVehiculo(v);
         // int cod_Vehiculo, int num_Plaza, String pen_Desech
@@ -278,7 +271,16 @@ public class Sistema {
         listaPines.add(pinCoche);
         daov.insertPin(pinCoche);
 
-        System.out.println("Matricula: " + v.getMatricula() + " Identificador Plaza: " + num_Plaza + " Pin: " + contraseña);
+        System.out.println("Matricula: " + v.getMatricula() + " Fecha: "+LocalDate.now()+" Identificador Plaza: " + num_Plaza + " Pin: " + contraseña);
+       }
+       else{
+       
+           System.out.println("No hay plazas libres");}
+       
+       }
+      
+        // insertamos el vehiculo en la bbdd y en la lista del sistema
+        
 
     }
 
@@ -286,44 +288,71 @@ public class Sistema {
 
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
-        return String.format("06d", number);
+        return String.format("%06d", number);
     }
 
     public static void retirarVehiculo() throws SQLException {
         Scanner tec = new Scanner(System.in);
-        System.out.println("Dime el codigo de vehiculo que quieres retirar");
+        System.out.println("Dime la matricula(sin letras) que quieres retirar");
         int numRetiro = tec.nextInt();
         System.out.println("Dime el identificador de plaza");
         int ident = tec.nextInt();
         System.out.println("Dime el pin");
         String contra = tec.nextLine();
+        int minutos = 0;
 
-        for (PinesVO p : listaPines) {
+        for (PinesVO p : Sistema.getListaPines()) {
             if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)) {
                 p.setFec_Fin_Pin_Hora(LocalTime.now());
                 p.setFec_Fin_Pin_Dia(LocalDate.now());
-
-            } else {
-                System.out.println("El coche ya ha sido retirado");
+                if(p.getFec_In_Pin_Dia() == p.getFec_Fin_Pin_Dia()){
+            minutos = (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
+                    -(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute());}
+            else{
+            
+              minutos = (int) ((1.440)*((p.getFec_Fin_Pin_Dia().getDayOfYear()-p.getFec_In_Pin_Dia().getDayOfYear())-1)    + (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
+                      +(1440-(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute())));}
+                 for(PlazaVO ps : Sistema.getListaPlaza()){
+            if(ps.getNum_Plaza() == ident){
+             if(ps.getTipo_Plazas() == 1){
+                 System.out.println("El precio es : "+ minutos*0.12 +"euros");
+             
+             }
+            else if(ps.getTipo_Plazas() == 2){
+                 System.out.println("El precio es : "+ minutos*0.08 +"euros");
+             
+             }
+            else if(ps.getTipo_Plazas() == 3){
+                 System.out.println("El precio es : "+ minutos*0.45 +"euros");
+             
+             }
+           
             }
-            // falta caluclo del precio 
-            int dias = p.getFec_Fin_Pin_Dia().getDayOfYear() - p.getFec_In_Pin_Dia().getDayOfYear();
-
-            System.out.println("El precio de la reserva es: ");
-
-        }
-
-        VehiculoDAO c = new VehiculoDAO();
-
-        for (VehiculoVO v : Sistema.listaVehiculo) {
-
-            if (v.getCod_Vehiculo() == numRetiro) {
-                c.deleteVehiculo(v);
-
-            } else {
-                System.out.println("El coche ya ha sido retirado o no existe");
             }
-        }
+
+            } 
+            
+            
+            
+            
+            else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && !(p.getPen_Desechable().equalsIgnoreCase(contra))) {
+                System.out.println(" Error al meter la contraseña");
+            }
+            else{
+                System.out.println("El vehiculo ya ha sido retirado");
+            
+            }
+           
+            
+           
+            
+            }
+            
+            
+          
+
+        
+
 
     }
 
@@ -357,7 +386,7 @@ public class Sistema {
         int resp = tec.nextInt();
         tec.nextLine();
         if (resp == 3) {
-            System.out.println("Dime el codigo de cliente que desea retirar el abono");
+            System.out.println("Dime el dni que desea retirar el abono");
             int numRetiro = tec.nextInt();
             ClienteDAO c = new ClienteDAO();
 
