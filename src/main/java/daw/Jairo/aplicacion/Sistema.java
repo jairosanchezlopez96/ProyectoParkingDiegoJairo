@@ -253,11 +253,12 @@ public class Sistema {
         // limpiamos buffer
         teclado.nextLine();
         System.out.println("Introduzca los datos del vehiculo:");
-        System.out.println("Matricula vehiculo (numeros)");
+        System.out.println("Codigo vehiculo");
         int cod = teclado.nextInt();
         teclado.nextLine();
         int num_Plaza = 0;
-        String matri = String.valueOf(cod);
+        System.out.println("Matricula vehiculo");
+        String matri = teclado.nextLine();
         System.out.println(" Tipo vehiculo: 1- turismo 2- motocicletas 3- caravanas");
         int tipo = teclado.nextInt();
        for(PlazaVO ps : Sistema.getListaPlaza()){
@@ -417,11 +418,13 @@ public class Sistema {
         // limpiamos buffer
         teclado.nextLine();
         System.out.println("Introduzca los datos del cliente y :");
-        System.out.println("Matricula vehiculo (numeros)");
+        System.out.println("Codigo vehiculo");
         int cod = teclado.nextInt();
         teclado.nextLine();
         int num_Plaza = 0;
-        String matri = String.valueOf(cod);
+         System.out.println("Matricula vehiculo");
+        String matri = teclado.nextLine();
+        
         System.out.println(" Tipo vehiculo: 1- turismo 2- motocicletas 3- caravanas");
         int tipo = teclado.nextInt();
         System.out.println("Dni ");
@@ -625,16 +628,16 @@ public class Sistema {
             int numRetiro = tec.nextInt();
             ClienteDAO c = new ClienteDAO();
 
-            for (ClienteVO v : Sistema.listaCliente) {
+            for (ClienteVO v : Sistema.getListaCliente()) {
 
                 if (v.getCod_Cliente() == numRetiro) {
-                    if (v.getFec_in_abono() == LocalDate.MIN) {
+                    if (v.getTipo_Abono()== 0) {
                         System.out.println("El cliente nunca estuvo abonado");
                     } else {
-                        v.setFec_in_abono(LocalDate.MIN);
-                        v.setFec_fin_abono(LocalDate.MIN);
+                        v.setFec_in_abono(LocalDate.now());
+                        v.setFec_fin_abono(LocalDate.now());
                     }
-                    c.deleteCliente();
+                    
 
                     System.out.println("Abono retirado correctamente");
 
