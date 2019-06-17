@@ -314,6 +314,14 @@ public class Sistema {
                 if(p.getFec_In_Pin_Dia() == p.getFec_Fin_Pin_Dia()){
             minutos = (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
                     -(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute());}
+                 else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && !(p.getPen_Desechable().equalsIgnoreCase(contra))) {
+                System.out.println(" Error al meter datos");
+            }
+                 else if(p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)
+                         && p.getCoste()!=0){
+                System.out.println("El vehiculo ya ha sido retirado");
+            
+            }
             else{
             
               minutos = (int) ((1.440)*((p.getFec_Fin_Pin_Dia().getDayOfYear()-p.getFec_In_Pin_Dia().getDayOfYear())-1)    + (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
@@ -342,13 +350,7 @@ public class Sistema {
             
             
             
-            else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && !(p.getPen_Desechable().equalsIgnoreCase(contra))) {
-                System.out.println(" Error al meter la contraseña");
-            }
-            else{
-                System.out.println("El vehiculo ya ha sido retirado");
-            
-            }
+           
            
             
            
@@ -398,7 +400,7 @@ public class Sistema {
         //able, double coste, LocalDate fec_Fin_Pin_Dia, LocalTime fec_Fin_Pin_Hora, LocalDate fec_In_Pin_Dia, LocalTime fec_In_Pin_Hora
         String contraseña = generarContra();
         // los now son porque ahora pilla la plaza y el max lo cambiamos cuando saque el coche 
-        
+    
         File tmpDir = new File("clientes/"+dni);
        if(tmpDir.exists() == true){
            String contra ="";
@@ -460,7 +462,7 @@ public class Sistema {
         int ident = tec.nextInt();
         System.out.println("Dime el pin");
         String contra = tec.nextLine();
-        int minutos = 0;
+        double minutos = 0;
 
         for (PinesVO p : Sistema.getListaPines()) {
             if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)) {
@@ -469,41 +471,65 @@ public class Sistema {
                 if(p.getFec_In_Pin_Dia() == p.getFec_Fin_Pin_Dia()){
             minutos = (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
                     -(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute());}
-            else{
-            
-              minutos = (int) ((1.440)*((p.getFec_Fin_Pin_Dia().getDayOfYear()-p.getFec_In_Pin_Dia().getDayOfYear())-1)    + (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
-                      +(1440-(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute())));}
-                 for(PlazaVO ps : Sistema.getListaPlaza()){
+                    for(PlazaVO ps : Sistema.getListaPlaza()){
             if(ps.getNum_Plaza() == ident){
                 ps.setEstado_Plaza(3);
              if(ps.getTipo_Plazas() == 1){
                  System.out.println("El precio es : "+ minutos*0.12 +"euros");
-             
+             p.setCoste(minutos*0.12);
              }
             else if(ps.getTipo_Plazas() == 2){
                  System.out.println("El precio es : "+ minutos*0.08 +"euros");
-             
+                 p.setCoste(minutos*0.08);
              }
             else if(ps.getTipo_Plazas() == 3){
                  System.out.println("El precio es : "+ minutos*0.45 +"euros");
-             
+             p.setCoste(minutos*0.45);
              }
            
             }
             }
-
-            } 
-            
-            
-            
-            
+               }
             else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && !(p.getPen_Desechable().equalsIgnoreCase(contra))) {
                 System.out.println(" Error al meter la contraseña");
             }
-            else{
+            else if(p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && (p.getPen_Desechable().equalsIgnoreCase(contra))&& p.getCoste() !=0){
                 System.out.println("El vehiculo ya ha sido retirado");
             
             }
+            else{ 
+            
+              minutos =  ((1.440)*((p.getFec_Fin_Pin_Dia().getDayOfYear()-p.getFec_In_Pin_Dia().getDayOfYear())-1)    + (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
+                      +(1440-(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute())));
+                  for(PlazaVO ps : Sistema.getListaPlaza()){
+            if(ps.getNum_Plaza() == ident){
+                ps.setEstado_Plaza(3);
+             if(ps.getTipo_Plazas() == 1){
+                 System.out.println("El precio es : "+ minutos*0.12 +"euros");
+             p.setCoste(minutos*0.12);
+             }
+            else if(ps.getTipo_Plazas() == 2){
+                 System.out.println("El precio es : "+ minutos*0.08 +"euros");
+                 p.setCoste(minutos*0.08);
+             }
+            else if(ps.getTipo_Plazas() == 3){
+                 System.out.println("El precio es : "+ minutos*0.45 +"euros");
+             p.setCoste(minutos*0.45);
+             }
+           
+            }
+            }
+              
+            
+            }
+             
+
+            
+            
+            
+            
+            
+            
            
             
            
@@ -524,7 +550,7 @@ public class Sistema {
     }
 
     public static void facturacion() {
-        Scanner teclado 
+       
         System.out.println("Dime dia ");
     }
 
