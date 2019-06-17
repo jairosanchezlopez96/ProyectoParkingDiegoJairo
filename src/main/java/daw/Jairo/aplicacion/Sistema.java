@@ -306,6 +306,7 @@ public class Sistema {
         System.out.println("Dime el pin");
         String contra = tec.nextLine();
         int minutos = 0;
+        PinesDAO pdao = new PinesDAO();
 
         for (PinesVO p : Sistema.getListaPines()) {
             if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)
@@ -314,7 +315,36 @@ public class Sistema {
                 p.setFec_Fin_Pin_Dia(LocalDate.now());
                 if(p.getFec_In_Pin_Dia() == p.getFec_Fin_Pin_Dia()){
             minutos = (p.getFec_Fin_Pin_Hora().getHour()*60+p.getFec_Fin_Pin_Hora().getMinute())
-                    -(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute());}
+                    -(p.getFec_In_Pin_Hora().getHour()*60+p.getFec_In_Pin_Hora().getMinute());
+                
+                  for(PlazaVO ps : Sistema.getListaPlaza()){
+            if(ps.getNum_Plaza() == ident){
+                ps.setEstado_Plaza(1);
+                             if(ps.getTipo_Plazas() == 1){
+                 System.out.println("El precio es : "+ minutos*0.12 +"euros");
+                 double precio = minutos*0.12;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
+
+             }
+            else if(ps.getTipo_Plazas() == 2){
+                 System.out.println("El precio es : "+ minutos*0.08 +"euros");
+                 double precio = minutos*0.08;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
+             
+             }
+            else if(ps.getTipo_Plazas() == 3){
+                 System.out.println("El precio es : "+ minutos*0.45 +"euros");
+                 double precio = minutos*0.45;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
+             
+             }
+           
+            }
+            }
+                }}
                  else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && !(p.getPen_Desechable().equalsIgnoreCase(contra))) {
                 System.out.println(" Error al meter datos");
             }
@@ -330,16 +360,25 @@ public class Sistema {
                  for(PlazaVO ps : Sistema.getListaPlaza()){
             if(ps.getNum_Plaza() == ident){
                 ps.setEstado_Plaza(1);
-             if(ps.getTipo_Plazas() == 1){
+                             if(ps.getTipo_Plazas() == 1){
                  System.out.println("El precio es : "+ minutos*0.12 +"euros");
-             
+                 double precio = minutos*0.12;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
+
              }
             else if(ps.getTipo_Plazas() == 2){
                  System.out.println("El precio es : "+ minutos*0.08 +"euros");
+                 double precio = minutos*0.08;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
              
              }
             else if(ps.getTipo_Plazas() == 3){
                  System.out.println("El precio es : "+ minutos*0.45 +"euros");
+                 double precio = minutos*0.45;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
              
              }
            
@@ -364,7 +403,7 @@ public class Sistema {
         
 
 
-    }
+    
 
     public static void depositarAbonado() throws SQLException, FileNotFoundException {
          // EL SISTEMA INFORMA EN TODO MOMENTO DEL NUMERO DE PLAZAS LIBRES
@@ -464,6 +503,7 @@ public class Sistema {
         System.out.println("Dime el pin");
         String contra = tec.nextLine();
         double minutos = 0;
+        PinesDAO pdao = new PinesDAO();
 
         for (PinesVO p : Sistema.getListaPines()) {
             if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)
@@ -479,14 +519,23 @@ public class Sistema {
              if(ps.getTipo_Plazas() == 1){
                  System.out.println("El precio es : "+ minutos*0.12 +"euros");
              p.setCoste(minutos*0.12);
+             double precio = minutos*0.12;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
              }
             else if(ps.getTipo_Plazas() == 2){
                  System.out.println("El precio es : "+ minutos*0.08 +"euros");
                  p.setCoste(minutos*0.08);
+                 double precio = minutos*0.08;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
              }
             else if(ps.getTipo_Plazas() == 3){
                  System.out.println("El precio es : "+ minutos*0.45 +"euros");
              p.setCoste(minutos*0.45);
+             double precio = minutos*0.12;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
              }
            
             }
@@ -509,14 +558,23 @@ public class Sistema {
              if(ps.getTipo_Plazas() == 1){
                  System.out.println("El precio es : "+ minutos*0.12 +"euros");
              p.setCoste(minutos*0.12);
+             double precio = minutos*0.12;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
              }
             else if(ps.getTipo_Plazas() == 2){
                  System.out.println("El precio es : "+ minutos*0.08 +"euros");
                  p.setCoste(minutos*0.08);
+                double precio = minutos*0.08;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
              }
             else if(ps.getTipo_Plazas() == 3){
                  System.out.println("El precio es : "+ minutos*0.45 +"euros");
              p.setCoste(minutos*0.45);
+             double precio = minutos*0.45;
+                 int pre = (int) precio;
+                 pdao.updatePin(Integer.parseInt(p.getPen_Desechable()),pre , LocalDate.now(), LocalTime.now(), p);
              }
            
             }
