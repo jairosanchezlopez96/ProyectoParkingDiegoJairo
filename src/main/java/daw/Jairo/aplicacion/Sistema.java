@@ -308,7 +308,8 @@ public class Sistema {
         int minutos = 0;
 
         for (PinesVO p : Sistema.getListaPines()) {
-            if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)) {
+            if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)
+                    && p.getCoste()==0) {
                 p.setFec_Fin_Pin_Hora(LocalTime.now());
                 p.setFec_Fin_Pin_Dia(LocalDate.now());
                 if(p.getFec_In_Pin_Dia() == p.getFec_Fin_Pin_Dia()){
@@ -465,7 +466,8 @@ public class Sistema {
         double minutos = 0;
 
         for (PinesVO p : Sistema.getListaPines()) {
-            if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)) {
+            if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)
+                    && p.getCoste()==0) {
                 p.setFec_Fin_Pin_Hora(LocalTime.now());
                 p.setFec_Fin_Pin_Dia(LocalDate.now());
                 if(p.getFec_In_Pin_Dia() == p.getFec_Fin_Pin_Dia()){
