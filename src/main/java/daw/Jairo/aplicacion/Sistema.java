@@ -648,10 +648,11 @@ public class Sistema {
         System.out.println("Que quieres hacer : 1-alta 2-modificar 3-borrar");
         int resp = tec.nextInt();
         tec.nextLine();
+          ClienteDAO c = new ClienteDAO();
         if (resp == 3) {
-            System.out.println("Dime el dni que desea retirar el abono");
+            System.out.println("Dime el codigo de cliente  que desea retirar el abono");
             int numRetiro = tec.nextInt();
-            ClienteDAO c = new ClienteDAO();
+          
 
             for (ClienteVO v : Sistema.getListaCliente()) {
 
@@ -661,23 +662,88 @@ public class Sistema {
                     } else {
                         v.setFec_in_abono(LocalDate.now());
                         v.setFec_fin_abono(LocalDate.now());
+                        v.setNombre("No abonado");
+                        c.updateCliente(v.getCod_Cliente(), v);
+                        System.out.println("Abono retirado correctamente");
                     }
 
-                    System.out.println("Abono retirado correctamente");
+                    
 
                 } else {
                     System.out.println("El cliente ya ha sido borrado o no existe");
                 }
             }
         }
-        if (resp == 1) {
+        else   if (resp == 1) {
             System.out.println("Dime los datos del cliente");
-            // int cod_Cliente, LocalDate fec_in_abono, LocalDate fec_fin_abono, String nombre, String tarjeta, int tipo_Abono, String email
-            System.out.println("Dni sin letra");
-            int dni = tec.nextInt();
+            
+            System.out.println("Dni cliente sin letra");
+            int cod = tec.nextInt();
+            tec.nextLine();
             LocalDate ini = LocalDate.now();
-            System.out.println("Tipo de abono : 1.");
+            System.out.println("Nombre");
+            String nombre = tec.nextLine();
+            System.out.println("Tarjeta");
+            String tarjeta = tec.nextLine();
+            System.out.println("Email");
+            String email = tec.nextLine();
+            
+            System.out.println("Tipo de abono : 1.Mensual 2.trimestral 3.semestral 4.anual");
+            int abono = tec.nextInt();
+            if(abono == 1){
+                // int cod_Cliente, LocalDate fec_in_abono, LocalDate fec_fin_abono, String nombre, String tarjeta, int tipo_Abono, String email
+                LocalDate fechafin = ini.plusMonths(3);
+            ClienteVO cli = new ClienteVO(cod,ini,fechafin,nombre,tarjeta,1,email); 
+            Sistema.getListaCliente().add(cli);
+            c.insertCliente(cli);
+                System.out.println("Se ha insertado correctamente el cliente");
+            
+            }
+            else if(abono == 2){
+                  LocalDate fechafin = ini.plusMonths(6);
+            ClienteVO cli = new ClienteVO(cod,ini,fechafin,nombre,tarjeta,2,email); 
+            Sistema.getListaCliente().add(cli);
+            c.insertCliente(cli);
+                System.out.println("Se ha insertado correctamente el cliente");
+            
+            
+            }
+            else if (abono == 3){      LocalDate fechafin = ini.plusMonths(9);
+            ClienteVO cli = new ClienteVO(cod,ini,fechafin,nombre,tarjeta,3,email); 
+            Sistema.getListaCliente().add(cli);
+            c.insertCliente(cli);
+                System.out.println("Se ha insertado correctamente el cliente");
+            }
+            else if(abono == 4) {
+                  LocalDate fechafin = ini.plusYears(1);
+            ClienteVO cli = new ClienteVO(cod,ini,fechafin,nombre,tarjeta,1,email); 
+            Sistema.getListaCliente().add(cli);
+            c.insertCliente(cli);
+                System.out.println("Se ha insertado correctamente el cliente");
+            }
+            
 
+        }
+        else if(resp == 2){
+            System.out.println("Dime dni del cliente que quieres cambiar");
+            int codigocl = tec.nextInt();
+            for(ClienteVO clientes : Sistema.getListaCliente()){
+                    if(clientes.getCod_Cliente() == codigocl) {
+                    
+                        System.out.println("El cliente tiene tipo de abono :" + clientes.getTipo_Abono());
+                        
+                        System.out.println("A cual lo quieres cambiar :" );
+                        int abononuevo = tec.nextInt();
+                        clientes.setTipo_Abono(abononuevo);
+                        c.updateCliente(clientes.getCod_Cliente(), clientes);
+                        System.out.println("Cliente actualizado");
+                    
+                    }
+        
+        
+        }
+            
+        
         }
 
     }
