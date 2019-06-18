@@ -246,6 +246,7 @@ public class Sistema {
         // EL SISTEMA INFORMA EN TODO MOMENTO DEL NUMERO DE PLAZAS LIBRES
         PlazaDAO objeto = new PlazaDAO();
         ArrayList lista = objeto.plazasLibres();
+        boolean repetido = false;
         VehiculoDAO daop = new VehiculoDAO();
         PinesDAO daov = new PinesDAO();
 
@@ -256,6 +257,10 @@ public class Sistema {
         System.out.println("Introduzca los datos del vehiculo:");
         System.out.println("Codigo vehiculo");
         int cod = teclado.nextInt();
+        for(PinesVO pin : Sistema.getListaPines()){
+        if(pin.getCod_Vehiculo() == cod && pin.getCoste() == 0){repetido = true;}
+        
+        }
         teclado.nextLine();
         int num_Plaza = 0;
         System.out.println("Matricula vehiculo");
@@ -263,7 +268,7 @@ public class Sistema {
         System.out.println(" Tipo vehiculo: 1- turismo 2- motocicletas 3- caravanas");
         int tipo = teclado.nextInt();
         for (PlazaVO ps : Sistema.getListaPlaza()) {
-            if (ps.getTipo_Plazas() == tipo && ps.getEstado_Plaza() == 1) {
+            if (ps.getTipo_Plazas() == tipo && ps.getEstado_Plaza() == 1 && repetido == false ) {
                 num_Plaza = ps.getNum_Plaza();
                 ps.setEstado_Plaza(2);
                 System.out.println("La plaza numero :" + num_Plaza + " sera ocupada");
@@ -282,6 +287,7 @@ public class Sistema {
                 System.out.println("Matricula: " + v.getMatricula() + " Fecha: " + LocalDate.now() + " Identificador Plaza: " + num_Plaza + " Pin: " + contraseña);
                 break;
             }
+            else{System.out.println("El coche ya ha sido depositado");}
 
         }
 
@@ -396,6 +402,7 @@ public class Sistema {
     public static void depositarAbonado() throws SQLException, FileNotFoundException {
         // EL SISTEMA INFORMA EN TODO MOMENTO DEL NUMERO DE PLAZAS LIBRES
         PlazaDAO objeto = new PlazaDAO();
+        boolean repetido = false;
         ArrayList lista = objeto.plazasLibres();
         VehiculoDAO daop = new VehiculoDAO();
         PinesDAO daov = new PinesDAO();
@@ -406,6 +413,10 @@ public class Sistema {
         System.out.println("Introduzca los datos del cliente y :");
         System.out.println("Codigo vehiculo");
         int cod = teclado.nextInt();
+        for(PinesVO pin : Sistema.getListaPines()){
+        if(pin.getCod_Vehiculo() == cod && pin.getCoste() == 0){repetido = true;}
+        
+        }
         teclado.nextLine();
         int num_Plaza = 0;
         System.out.println("Matricula vehiculo");
@@ -417,7 +428,7 @@ public class Sistema {
         System.out.println("Dni ");
         String dni = teclado.nextLine();
         for (PlazaVO ps : Sistema.getListaPlaza()) {
-            if (ps.getTipo_Plazas() == tipo && (ps.getEstado_Plaza() == 1 || ps.getEstado_Plaza() == 3)) {
+            if (ps.getTipo_Plazas() == tipo && (ps.getEstado_Plaza() == 1 || ps.getEstado_Plaza() == 3 && repetido == false)) {
                 num_Plaza = ps.getNum_Plaza();
                 ps.setEstado_Plaza(4);
 
@@ -471,6 +482,7 @@ public class Sistema {
             }
 
         }
+        if(repetido == true){System.out.println("El coche ya ha sido depositado");}
 
         // insertamos el vehiculo en la bbdd y en la lista del sistema
     }
