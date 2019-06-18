@@ -25,6 +25,7 @@ import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -323,73 +324,73 @@ public class Sistema {
                                 System.out.println("El precio es : " + minutos * 0.12 + "euros");
                                 double precio = minutos * 0.12;
                                 int pre = (int) precio;
-                                  p.setCoste(pre);
-                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
-                              
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+
                                 pldao.updatePlaza(ident, ps);
                             } else if (ps.getTipo_Plazas() == 2) {
                                 System.out.println("El precio es : " + minutos * 0.08 + "euros");
                                 double precio = minutos * 0.08;
                                 int pre = (int) precio;
                                 p.setCoste(pre);
-                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
-   pldao.updatePlaza(ident, ps);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+                                pldao.updatePlaza(ident, ps);
                             } else if (ps.getTipo_Plazas() == 3) {
                                 System.out.println("El precio es : " + minutos * 0.45 + "euros");
                                 double precio = minutos * 0.45;
                                 int pre = (int) precio;
                                 p.setCoste(pre);
-                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
-  pldao.updatePlaza(ident, ps);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+                                pldao.updatePlaza(ident, ps);
                             }
 
                         }
                     }
-                }
-                else {
+                } else {
 
-                minutos = (int) ((1.440) * ((p.getFec_Fin_Pin_Dia().getDayOfYear() - p.getFec_In_Pin_Dia().getDayOfYear()) - 1) + (p.getFec_Fin_Pin_Hora().getHour() * 60 + p.getFec_Fin_Pin_Hora().getMinute())
-                        + (1440 - (p.getFec_In_Pin_Hora().getHour() * 60 + p.getFec_In_Pin_Hora().getMinute())));
-            
-            for (PlazaVO ps : Sistema.getListaPlaza()) {
-                if (ps.getNum_Plaza() == ident) {
-                    ps.setEstado_Plaza(1);
-                    
-                    if (ps.getTipo_Plazas() == 1) {
-                        System.out.println("El precio es : " + minutos * 0.12 + "euros");
-                        double precio = minutos * 0.12;
-                        int pre = (int) precio;
-                        p.setCoste(pre);
-                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
-  pldao.updatePlaza(ident, ps);
-                    } else if (ps.getTipo_Plazas() == 2) {
-                        System.out.println("El precio es : " + minutos * 0.08 + "euros");
-                        double precio = minutos * 0.08;
-                        int pre = (int) precio;
-                        p.setCoste(pre);
-                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
-  pldao.updatePlaza(ident, ps);
-                    } else if (ps.getTipo_Plazas() == 3) {
-                        System.out.println("El precio es : " + minutos * 0.45 + "euros");
-                        double precio = minutos * 0.45;
-                        int pre = (int) precio;
-                        p.setCoste(pre);
-                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
-  pldao.updatePlaza(ident, ps);
+                    minutos = (int) ((1.440) * ((p.getFec_Fin_Pin_Dia().getDayOfYear() - p.getFec_In_Pin_Dia().getDayOfYear()) - 1) + (p.getFec_Fin_Pin_Hora().getHour() * 60 + p.getFec_Fin_Pin_Hora().getMinute())
+                            + (1440 - (p.getFec_In_Pin_Hora().getHour() * 60 + p.getFec_In_Pin_Hora().getMinute())));
+
+                    for (PlazaVO ps : Sistema.getListaPlaza()) {
+                        if (ps.getNum_Plaza() == ident) {
+                            ps.setEstado_Plaza(1);
+
+                            if (ps.getTipo_Plazas() == 1) {
+                                System.out.println("El precio es : " + minutos * 0.12 + "euros");
+                                double precio = minutos * 0.12;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+                                pldao.updatePlaza(ident, ps);
+                            } else if (ps.getTipo_Plazas() == 2) {
+                                System.out.println("El precio es : " + minutos * 0.08 + "euros");
+                                double precio = minutos * 0.08;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+                                pldao.updatePlaza(ident, ps);
+                            } else if (ps.getTipo_Plazas() == 3) {
+                                System.out.println("El precio es : " + minutos * 0.45 + "euros");
+                                double precio = minutos * 0.45;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+                                pldao.updatePlaza(ident, ps);
+                            }
+
+                        }
                     }
 
                 }
-            }
-
-        }
             } else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && !(p.getPen_Desechable().equalsIgnoreCase(contra))) {
                 System.out.println(" Error al meter datos");
             } else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && p.getPen_Desechable().equalsIgnoreCase(contra)
                     && p.getCoste() != 0) {
                 System.out.println("El vehiculo ya ha sido retirado");
 
-            } }
-       
+            }
+        }
+
     }
 
     public static void depositarAbonado() throws SQLException, FileNotFoundException {
@@ -402,7 +403,6 @@ public class Sistema {
         Scanner teclado = new Scanner(System.in);
 
         // limpiamos buffer
-       
         System.out.println("Introduzca los datos del cliente y :");
         System.out.println("Codigo vehiculo");
         int cod = teclado.nextInt();
@@ -455,13 +455,10 @@ public class Sistema {
                     try (BufferedWriter flujo = new BufferedWriter(new FileWriter("clientes/" + dni))) {
                         // recoremos la lista y segun si es true or false evaluador y 
                         // coordinador ponemos si o no
-                      
 
-                            flujo.write(contraseña);
+                        flujo.write(contraseña);
 
-                        
                         // cuando termine de recorer la lista lo guardamos con flush
-
                         flujo.flush();
 
                     } catch (IOException e) {
@@ -470,7 +467,8 @@ public class Sistema {
                     }
                 }
 
-            break;} 
+                break;
+            }
 
         }
 
@@ -498,80 +496,81 @@ public class Sistema {
                 if (p.getFec_In_Pin_Dia() == p.getFec_Fin_Pin_Dia()) {
                     minutos = (p.getFec_Fin_Pin_Hora().getHour() * 60 + p.getFec_Fin_Pin_Hora().getMinute())
                             - (p.getFec_In_Pin_Hora().getHour() * 60 + p.getFec_In_Pin_Hora().getMinute());
-                
-                for (PlazaVO ps : Sistema.getListaPlaza()) {
-                    if (ps.getNum_Plaza() == ident) {
-                        ps.setEstado_Plaza(3);
-                        if (ps.getTipo_Plazas() == 1) {
-                            System.out.println("El precio es : " + minutos * 0.12 + "euros");
-                            p.setCoste(minutos * 0.12);
-                            double precio = minutos * 0.12;
-                            int pre = (int) precio;
-                            p.setCoste(pre);
-                            pdao.updatePin(p.getNum_Plaza(),p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(),p.getFec_In_Pin_Hora(),p);
-                            
+
+                    for (PlazaVO ps : Sistema.getListaPlaza()) {
+                        if (ps.getNum_Plaza() == ident) {
+                            ps.setEstado_Plaza(3);
+                            if (ps.getTipo_Plazas() == 1) {
+                                System.out.println("El precio es : " + minutos * 0.12 + "euros");
+                                p.setCoste(minutos * 0.12);
+                                double precio = minutos * 0.12;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+
                                 pldao.updatePlaza(ident, ps);
-                        } else if (ps.getTipo_Plazas() == 2) {
-                            System.out.println("El precio es : " + minutos * 0.08 + "euros");
-                            p.setCoste(minutos * 0.08);
-                            double precio = minutos * 0.08;
-                            int pre = (int) precio;
-                             p.setCoste(pre);
-                            pdao.updatePin(p.getNum_Plaza(),p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(),p.getFec_In_Pin_Hora(),p);
-                            
+                            } else if (ps.getTipo_Plazas() == 2) {
+                                System.out.println("El precio es : " + minutos * 0.08 + "euros");
+                                p.setCoste(minutos * 0.08);
+                                double precio = minutos * 0.08;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+
                                 pldao.updatePlaza(ident, ps);
-                        } else if (ps.getTipo_Plazas() == 3) {
-                            System.out.println("El precio es : " + minutos * 0.45 + "euros");
-                            p.setCoste(minutos * 0.45);
-                            double precio = minutos * 0.12;
-                            int pre = (int) precio;
-                            p.setCoste(pre);
-                            pdao.updatePin(p.getNum_Plaza(),p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(),p.getFec_In_Pin_Hora(),p);
-                            
+                            } else if (ps.getTipo_Plazas() == 3) {
+                                System.out.println("El precio es : " + minutos * 0.45 + "euros");
+                                p.setCoste(minutos * 0.45);
+                                double precio = minutos * 0.12;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+
                                 pldao.updatePlaza(ident, ps);
+                            }
+
                         }
-
                     }
-                }} else {
+                } else {
 
-                minutos = ((1.440) * ((p.getFec_Fin_Pin_Dia().getDayOfYear() - p.getFec_In_Pin_Dia().getDayOfYear()) - 1) + (p.getFec_Fin_Pin_Hora().getHour() * 60 + p.getFec_Fin_Pin_Hora().getMinute())
-                        + (1440 - (p.getFec_In_Pin_Hora().getHour() * 60 + p.getFec_In_Pin_Hora().getMinute())));
-                for (PlazaVO ps : Sistema.getListaPlaza()) {
-                    if (ps.getNum_Plaza() == ident) {
-                        ps.setEstado_Plaza(3);
-                        if (ps.getTipo_Plazas() == 1) {
-                            System.out.println("El precio es : " + minutos * 0.12 + "euros");
-                            p.setCoste(minutos * 0.12);
-                            double precio = minutos * 0.12;
-                            int pre = (int) precio;
-                             p.setCoste(pre);
-                            pdao.updatePin(p.getNum_Plaza(),p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(),p.getFec_In_Pin_Hora(),p);
-                            
+                    minutos = ((1.440) * ((p.getFec_Fin_Pin_Dia().getDayOfYear() - p.getFec_In_Pin_Dia().getDayOfYear()) - 1) + (p.getFec_Fin_Pin_Hora().getHour() * 60 + p.getFec_Fin_Pin_Hora().getMinute())
+                            + (1440 - (p.getFec_In_Pin_Hora().getHour() * 60 + p.getFec_In_Pin_Hora().getMinute())));
+                    for (PlazaVO ps : Sistema.getListaPlaza()) {
+                        if (ps.getNum_Plaza() == ident) {
+                            ps.setEstado_Plaza(3);
+                            if (ps.getTipo_Plazas() == 1) {
+                                System.out.println("El precio es : " + minutos * 0.12 + "euros");
+                                p.setCoste(minutos * 0.12);
+                                double precio = minutos * 0.12;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+
                                 pldao.updatePlaza(ident, ps);
-                        } else if (ps.getTipo_Plazas() == 2) {
-                            System.out.println("El precio es : " + minutos * 0.08 + "euros");
-                            p.setCoste(minutos * 0.08);
-                            double precio = minutos * 0.08;
-                            int pre = (int) precio;
-                             p.setCoste(pre);
-                            pdao.updatePin(p.getNum_Plaza(),p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(),p.getFec_In_Pin_Hora(),p);
-                            
+                            } else if (ps.getTipo_Plazas() == 2) {
+                                System.out.println("El precio es : " + minutos * 0.08 + "euros");
+                                p.setCoste(minutos * 0.08);
+                                double precio = minutos * 0.08;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+
                                 pldao.updatePlaza(ident, ps);
-                        } else if (ps.getTipo_Plazas() == 3) {
-                            System.out.println("El precio es : " + minutos * 0.45 + "euros");
-                            p.setCoste(minutos * 0.45);
-                            double precio = minutos * 0.45;
-                            int pre = (int) precio;
-                            p.setCoste(pre);
-                            pdao.updatePin(p.getNum_Plaza(),p.getCod_Vehiculo(),p.getFec_In_Pin_Dia(),p.getFec_In_Pin_Hora(),p);
-                            
+                            } else if (ps.getTipo_Plazas() == 3) {
+                                System.out.println("El precio es : " + minutos * 0.45 + "euros");
+                                p.setCoste(minutos * 0.45);
+                                double precio = minutos * 0.45;
+                                int pre = (int) precio;
+                                p.setCoste(pre);
+                                pdao.updatePin(p.getNum_Plaza(), p.getCod_Vehiculo(), p.getFec_In_Pin_Dia(), p.getFec_In_Pin_Hora(), p);
+
                                 pldao.updatePlaza(ident, ps);
+                            }
+
                         }
-
                     }
+
                 }
-
-            }
             } else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && !(p.getPen_Desechable().equalsIgnoreCase(contra))) {
                 System.out.println(" Error al meter la contraseña");
             } else if (p.getCod_Vehiculo() == numRetiro && p.getNum_Plaza() == ident && (p.getPen_Desechable().equalsIgnoreCase(contra)) && p.getCoste() != 0) {
@@ -595,8 +594,52 @@ public class Sistema {
     }
 
     public static void facturacion() {
+        Scanner tec = new Scanner(System.in);
+        System.out.println("1.Abonos 2.Segun fecha");
+        int dinero = 0;
+        if (tec.nextInt() == 1) {
+            for (ClienteVO c : Sistema.getListaCliente()) {
+                if (c.getTipo_Abono() == 1) {
+                    dinero += 25;
+                } else if (c.getTipo_Abono() == 2) {
+                    dinero += 70;
+                } else if (c.getTipo_Abono() == 3) {
+                    dinero += 130;
+                } else if (c.getTipo_Abono() == 4) {
+                    dinero += 200;
+                }
+            }
 
-        System.out.println("Dime dia ");
+            System.out.println("El dinero sacado por abonos es de :" + dinero);
+        } else {
+            System.out.println("Dime fecha de inicio (año mes dia) ");
+            String fecha = tec.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy dd mm");
+           LocalDate fechaini = LocalDate.parse(fecha, formatter);
+            System.out.println("Dime fecha de fin (año mes dia )");
+            String fechafinal= tec.nextLine();
+            
+           LocalDate fechafin = LocalDate.parse(fechafinal, formatter);
+            System.out.println("Hora de inicio ");
+            int horaini = tec.nextInt();
+            LocalTime horai = LocalTime.of(horaini, 0, 0);
+            tec.nextLine();
+            System.out.println("Hora de fin ");
+            int horafin = tec.nextInt();
+            LocalTime horaf = LocalTime.of(horafin, 0, 0);
+            for(PinesVO p: Sistema.getListaPines()){
+            if(p.getFec_Fin_Pin_Dia().isAfter(fechaini)&& p.getFec_Fin_Pin_Dia().isBefore(fechafin)){
+                if(p.getFec_Fin_Pin_Hora().isAfter(horai) && p.getFec_Fin_Pin_Hora().isBefore(horaf)){
+                
+                dinero += p.getCoste();
+                }
+            
+            }
+            
+            }
+            System.out.println("El precio sacado por las reservas entre las fechas indicadas es : "+ dinero);
+        }
+
     }
 
     public static void abonos() throws SQLException {
